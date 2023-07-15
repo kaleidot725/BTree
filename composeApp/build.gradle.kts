@@ -45,6 +45,7 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
                 implementation(libs.libres)
                 implementation(libs.voyager.navigator)
                 implementation(libs.composeImageLoader)

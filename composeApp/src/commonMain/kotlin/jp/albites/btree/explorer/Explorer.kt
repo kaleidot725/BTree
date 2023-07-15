@@ -11,6 +11,7 @@ import jp.albites.btree.explorer.filetree.File
 
 @Composable
 fun Explorer(
+    title: String,
     targetDirectory: File,
     onClickHome: () -> Unit,
     onClickFile: (File) -> Unit,
@@ -18,7 +19,7 @@ fun Explorer(
 ) {
     Column(modifier) {
         FileTitle(
-            title = "EXPLORER",
+            title = title,
             onOpen = onClickHome,
             modifier = Modifier.padding(8.dp)
         )

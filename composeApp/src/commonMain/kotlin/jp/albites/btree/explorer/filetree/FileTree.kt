@@ -33,7 +33,7 @@ fun FileTree(
                 .clickable { }
                 .padding(horizontal = 8.dp)
                 .padding(vertical = 4.dp)
-                .padding(start = level * 20.dp)
+                .padding(start = level * 24.dp)
         )
 
         if (expanded) {
@@ -52,7 +52,7 @@ fun FileTree(
                             .clickable { onClickFile.invoke(it) }
                             .padding(horizontal = 8.dp)
                             .padding(vertical = 4.dp)
-                            .padding(start = (level + 1) * 20.dp)
+                            .padding(start = (level + 1) * 24.dp)
                     )
                 }
             }

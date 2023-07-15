@@ -49,6 +49,7 @@ internal fun App() = AppTheme {
         }
     ) {
         Explorer(
+            title = "BTree",
             targetDirectory = File(
                 isDirectory = true,
                 listFiles = listOf(

@@ -8,12 +8,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,28 +28,29 @@ fun DirectoryItem(
     onExpand: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         val degrees = if (expanded) 90f else 0f
         Icon(
             imageVector = Icons.Default.KeyboardArrowRight,
             contentDescription = null,
             modifier = Modifier
-                .size(16.dp)
+                .size(24.dp)
                 .rotate(degrees)
                 .align(Alignment.CenterVertically)
                 .clickable { onExpand.invoke() }
         )
 
         Icon(
-            imageVector = Icons.Default.AccountBox,
+            imageVector = Icons.Default.Folder,
             contentDescription = null,
-            modifier = Modifier.size(16.dp)
+            modifier = Modifier.size(24.dp)
         )
 
         Text(
             text = file.name,
             maxLines = 1,
-            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleMedium,
             overflow = TextOverflow.Visible,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
