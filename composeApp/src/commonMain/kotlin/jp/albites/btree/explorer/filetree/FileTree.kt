@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +38,7 @@ fun FileTree(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onClickFile.invoke(file) }
-                .background(if (selectedFile == file) Color.Green  else Color.Transparent)
+                .background(if (selectedFile == file) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
                 .padding(horizontal = 8.dp)
                 .padding(vertical = 4.dp)
                 .padding(start = level * 24.dp)
@@ -59,7 +59,7 @@ fun FileTree(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { onClickFile.invoke(it) }
-                            .background(if (selectedFile == it) Color.Green else Color.Transparent)
+                            .background(if (selectedFile == it) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
                             .padding(horizontal = 8.dp)
                             .padding(vertical = 4.dp)
                             .padding(start = (level + 1) * 24.dp)

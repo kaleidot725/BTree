@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.EditNote
-import androidx.compose.material.icons.filled.Web
+import androidx.compose.material.icons.filled.ModeEdit
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,42 +27,7 @@ import view.components.explorer.Explorer
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun App(openUrl: (String) -> Unit) = AppTheme {
-    val targetFile: File by remember {
-        mutableStateOf(
-            File(
-                isDirectory = true,
-                listFiles = listOf(
-                    File(
-                        isDirectory = true,
-                        listFiles = listOf(
-                            File(
-                                isDirectory = false,
-                                listFiles = listOf(),
-                                name = "SUB DIR FILE A"
-                            ),
-                            File(
-                                isDirectory = false,
-                                listFiles = listOf(),
-                                name = "SUB DIR FILE B"
-                            )
-                        ),
-                        name = "SUB DIR"
-                    ),
-                    File(
-                        isDirectory = false,
-                        listFiles = listOf(),
-                        name = "FILE A"
-                    ),
-                    File(
-                        isDirectory = false,
-                        listFiles = listOf(),
-                        name = "FILE B"
-                    )
-                ),
-                name = "ROOT"
-            )
-        )
-    }
+    val targetFile: File by remember { mutableStateOf(fileTree) }
     var selectedFile: File by remember { mutableStateOf(targetFile) }
 
     Scaffold(
@@ -75,21 +39,17 @@ internal fun App(openUrl: (String) -> Unit) = AppTheme {
                     }
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            Icons.Default.EditNote,
+                            Icons.Default.ModeEdit,
                             contentDescription = "Localized description",
                         )
                     }
-                    IconButton(onClick = { openUrl(selectedFile.url) }) {
-                        Icon(
-                            painter = MainRes.image.incognito.painterResource(),
-                            contentDescription = "Localized description",
-                        )
-                    }
-                    IconButton(onClick = { openUrl(selectedFile.url) }) {
-                        Icon(
-                            painter = MainRes.image.browser.painterResource(),
-                            contentDescription = "Localized description",
-                        )
+                    if (!selectedFile.isDirectory) {
+                        IconButton(onClick = { openUrl(selectedFile.url) }) {
+                            Icon(
+                                painter = MainRes.image.browser.painterResource(),
+                                contentDescription = "Localized description",
+                            )
+                        }
                     }
                 },
                 floatingActionButton = {
@@ -116,3 +76,46 @@ internal fun App(openUrl: (String) -> Unit) = AppTheme {
 }
 
 internal expect fun openUrl(url: String?)
+
+private val fileTree = File(
+    isDirectory = true,
+    listFiles = listOf(
+        File(
+            isDirectory = true,
+            listFiles = listOf(
+                File(
+                    isDirectory = false,
+                    listFiles = listOf(),
+                    name = "Google Store",
+                    url = "https://store.google.com"
+                ),
+                File(
+                    isDirectory = false,
+                    listFiles = listOf(),
+                    name = "Google Search",
+                    url = "https://google.com"
+                )
+            ),
+            name = "GOOGLE"
+        ),
+        File(
+            isDirectory = true,
+            listFiles = listOf(
+                File(
+                    isDirectory = false,
+                    listFiles = listOf(),
+                    name = "Apple Store",
+                    url = "https://www.apple.com/jp/store"
+                ),
+                File(
+                    isDirectory = false,
+                    listFiles = listOf(),
+                    name = "SwiftUI",
+                    url = "https://developer.apple.com/jp/xcode/swiftui/"
+                )
+            ),
+            name = "APPLE"
+        )
+    ),
+    name = "ROOT"
+)
