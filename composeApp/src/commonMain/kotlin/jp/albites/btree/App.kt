@@ -27,7 +27,7 @@ import view.components.explorer.Explorer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun App() = AppTheme {
+internal fun App(openUrl: (String) -> Unit) = AppTheme {
     val targetFile: File by remember {
         mutableStateOf(
             File(
@@ -79,13 +79,13 @@ internal fun App() = AppTheme {
                             contentDescription = "Localized description",
                         )
                     }
-                    IconButton(onClick = { /* doSomething() */ }) {
+                    IconButton(onClick = { openUrl(selectedFile.url) }) {
                         Icon(
                             painter = MainRes.image.incognito.painterResource(),
                             contentDescription = "Localized description",
                         )
                     }
-                    IconButton(onClick = { /* doSomething() */ }) {
+                    IconButton(onClick = { openUrl(selectedFile.url) }) {
                         Icon(
                             painter = MainRes.image.browser.painterResource(),
                             contentDescription = "Localized description",
