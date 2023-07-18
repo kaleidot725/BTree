@@ -12,7 +12,8 @@ import jp.albites.btree.explorer.filetree.File
 @Composable
 fun Explorer(
     title: String,
-    targetDirectory: File,
+    targetFile: File,
+    selectedFile: File,
     onClickHome: () -> Unit,
     onClickFile: (File) -> Unit,
     modifier: Modifier = Modifier
@@ -25,9 +26,10 @@ fun Explorer(
         )
 
         FileTree(
-            file = targetDirectory,
+            file = targetFile,
+            selectedFile = selectedFile,
             level = 0,
-            onClickFile = { onClickFile.invoke(it) },
+            onClickFile = onClickFile,
             modifier = Modifier.verticalScroll(rememberScrollState())
         )
     }
