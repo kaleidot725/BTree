@@ -1,4 +1,4 @@
-package view.components.explorer
+package jp.albites.btree.component.explorer
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
@@ -22,10 +22,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import jp.albites.btree.explorer.filetree.File
 
 @Composable
-fun DirectoryItem(
+internal fun DirectoryItem(
     file: File,
     expanded: Boolean,
     onExpand: () -> Unit,

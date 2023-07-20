@@ -1,4 +1,4 @@
-package view.components.explorer
+package jp.albites.btree.component.explorer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,10 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
-import jp.albites.btree.explorer.filetree.File
 
 @Composable
-fun FileTree(
+internal fun FileTree(
     file: File,
     selectedFile: File,
     level: Int = 0,

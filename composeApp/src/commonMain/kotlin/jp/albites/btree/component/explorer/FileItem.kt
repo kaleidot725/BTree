@@ -1,4 +1,4 @@
-package view.components.explorer
+package jp.albites.btree.component.explorer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,11 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import jp.albites.btree.explorer.filetree.File
 
 @Composable
-fun FileItem(
+internal fun FileItem(
     file: File,
     modifier: Modifier = Modifier
 ) {

@@ -7,7 +7,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.albites.btree.explorer.filetree.File
+import jp.albites.btree.component.explorer.FileTitle
+import jp.albites.btree.component.explorer.FileTree
+import jp.albites.btree.component.explorer.File
 
 @Composable
 fun Explorer(

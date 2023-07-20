@@ -1,4 +1,4 @@
-package jp.albites.btree.theme
+package jp.albites.btree.resource.theme
 
 import androidx.compose.ui.graphics.Color
 

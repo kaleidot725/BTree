@@ -1,4 +1,4 @@
-package jp.albites.btree.explorer.filetree
+package jp.albites.btree.component.explorer
 
 data class File(
     val isDirectory: Boolean = false,

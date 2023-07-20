@@ -1,4 +1,4 @@
-package view.components.explorer
+package jp.albites.btree.component.explorer
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FileTitle(
+internal fun FileTitle(
     title: String,
     onOpen: () -> Unit,
     modifier: Modifier = Modifier
