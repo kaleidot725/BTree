@@ -12,7 +12,6 @@ composeImageLoader = "1.4.1"
 napier = "2.6.1"
 buildConfig = "3.1.0"
 kotlinx-coroutines = "1.6.4"
-insetsx = "0.1.0-alpha07"
 koin = "3.4.0"
 kstore = "0.6.0"
 
@@ -27,7 +26,6 @@ composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref =
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
 

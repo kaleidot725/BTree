@@ -72,8 +72,6 @@ internal fun AppTheme(
         colorScheme = colors,
         typography = AppTypography,
         shapes = AppShapes,
-        content = {
-            Surface(content = content)
-        }
+        content = content
     )
 }

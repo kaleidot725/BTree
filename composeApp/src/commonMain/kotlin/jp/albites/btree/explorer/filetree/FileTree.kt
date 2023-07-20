@@ -34,7 +34,7 @@ fun FileTree(
             onExpand = {
                 expanded = !expanded
                 onClickFile.invoke(file)
-           },
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onClickFile.invoke(file) }
