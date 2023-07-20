@@ -1,6 +1,14 @@
 package jp.albites.btree
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -19,12 +27,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
 import jp.albites.btree.explorer.filetree.File
 import jp.albites.btree.theme.AppTheme
 import view.components.explorer.Explorer
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 internal fun App(openUrl: (String) -> Unit) = AppTheme {
     val targetFile: File by remember { mutableStateOf(fileTree) }
@@ -34,20 +44,42 @@ internal fun App(openUrl: (String) -> Unit) = AppTheme {
         bottomBar = {
             BottomAppBar(
                 actions = {
-                    IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Default.Delete, contentDescription = "Localized description")
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = scaleIn(),
+                        exit = scaleOut()
+                    ) {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                painter = MainRes.image.delete.painterResource(),
+                                contentDescription = "Delete",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
                     }
-                    IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(
-                            Icons.Default.ModeEdit,
-                            contentDescription = "Localized description",
-                        )
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = scaleIn(),
+                        exit = scaleOut()
+                    ) {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                painter = MainRes.image.edit.painterResource(),
+                                contentDescription = "Edit",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
                     }
-                    if (!selectedFile.isDirectory) {
+                    AnimatedVisibility(
+                        visible = !selectedFile.isDirectory,
+                        enter = scaleIn(),
+                        exit = scaleOut()
+                    ) {
                         IconButton(onClick = { openUrl(selectedFile.url) }) {
                             Icon(
                                 painter = MainRes.image.browser.painterResource(),
-                                contentDescription = "Localized description",
+                                contentDescription = "Open in browser",
+                                modifier = Modifier.size(24.dp)
                             )
                         }
                     }
