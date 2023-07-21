@@ -18,10 +18,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.rememberScreenModel
@@ -30,7 +28,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import io.github.skeptick.libres.compose.painterResource
 import jp.albites.btree.MainRes
-import jp.albites.btree.component.explorer.File
 import jp.albites.btree.screen.setting.SettingScreen
 import view.components.explorer.Explorer
 
@@ -39,7 +36,9 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
     @Composable
     override fun Content() {
         val screenModel = rememberScreenModel { HomeScreenModel() }
-        var selectedFile: File by remember { mutableStateOf(screenModel.fileTree) }
+        val fileTree by screenModel.fileTree.collectAsState()
+        val selectedFile by screenModel.selectedFile.collectAsState()
+        val expandedDirs by screenModel.expandedDirs.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
 
         Scaffold(
@@ -73,11 +72,15 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                             }
                         }
                         AnimatedVisibility(
-                            visible = !selectedFile.isDirectory,
+                            visible = selectedFile.isBookmark,
                             enter = scaleIn(),
                             exit = scaleOut()
                         ) {
-                            IconButton(onClick = { openUrl(selectedFile.url) }) {
+                            IconButton(
+                                onClick = {
+                                    selectedFile.asBookmark?.let { openUrl(it.url) }
+                                }
+                            ) {
                                 Icon(
                                     painter = MainRes.image.browser.painterResource(),
                                     contentDescription = "Open in browser",
@@ -100,10 +103,12 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         ) {
             Explorer(
                 title = "BTree",
-                targetFile = screenModel.fileTree,
+                targetFile = fileTree,
                 selectedFile = selectedFile,
+                expandedDirs = expandedDirs,
                 onClickHome = { navigator.push(SettingScreen()) },
-                onClickFile = { selectedFile = it },
+                onClickFile = { file -> screenModel.onClickFile(file) },
+                onClickArrow = { directory ->  screenModel.onClickArrow(directory) },
                 modifier = Modifier.fillMaxSize().padding(it)
             )
         }

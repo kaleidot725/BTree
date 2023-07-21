@@ -1,8 +1,20 @@
 package jp.albites.btree.component.explorer
 
-data class File(
-    val isDirectory: Boolean = false,
-    val listFiles: List<File> = emptyList(),
-    val name: String = "TEST",
-    val url: String = "https://2023.droidkaigi.jp/"
-)
+sealed class File(
+    open val name: String
+) {
+    val isDirectory get() = this is Directory
+    val asDirectory get() = this as? Directory
+    val isBookmark get() = this is Bookmark
+    val asBookmark get() = this as? Bookmark
+}
+
+data class Directory(
+    override val name: String,
+    val list: List<File>,
+) : File(name)
+
+data class Bookmark(
+    override val name: String,
+    val url: String
+) : File(name)

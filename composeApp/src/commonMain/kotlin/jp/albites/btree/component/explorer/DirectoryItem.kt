@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun DirectoryItem(
-    file: File,
-    expanded: Boolean,
+    directory: Directory,
+    isExpanded: Boolean,
     onExpand: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        val degrees: Float by animateFloatAsState(if (expanded) 90f else 0f)
+        val degrees: Float by animateFloatAsState(if (isExpanded) 90f else 0f)
         Icon(
             imageVector = Icons.Default.KeyboardArrowRight,
             contentDescription = null,
@@ -50,7 +50,7 @@ internal fun DirectoryItem(
         )
 
         Text(
-            text = file.name,
+            text = directory.name,
             maxLines = 1,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleMedium,
