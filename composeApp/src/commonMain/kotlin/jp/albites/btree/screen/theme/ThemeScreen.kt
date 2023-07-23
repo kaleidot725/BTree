@@ -1,19 +1,14 @@
-package jp.albites.btree.screen.setting
+package jp.albites.btree.screen.theme
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.CardMembership
-import androidx.compose.material.icons.filled.ColorLens
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,27 +17,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import jp.albites.btree.screen.setting.component.SettingItem
-import jp.albites.btree.screen.theme.ThemeScreen
+import jp.albites.btree.model.Theme
+import jp.albites.btree.screen.setting.component.SettingCheckItem
 
-class SettingScreen : Screen {
+class ThemeScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        val screenModel = rememberScreenModel { SettingScreenModel() }
         val navigator = LocalNavigator.currentOrThrow
+        val screenModel = rememberScreenModel { ThemeScreenModel() }
+        val selectedTheme by screenModel.selectedTheme.collectAsState()
 
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Setting") },
+                    title = { Text("Theme") },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
@@ -51,41 +48,44 @@ class SettingScreen : Screen {
                 )
             }
         ) {
-            Column(modifier = Modifier.fillMaxSize().padding(it)) {
-                SettingItem(
-                    title = "Theme",
-                    icon = Icons.Default.ColorLens,
-                    iconDescription = "theme",
+            Column(modifier = Modifier.padding(it)) {
+                SettingCheckItem(
+                    title = "Light",
+                    icon = Icons.Default.LightMode,
+                    checked = selectedTheme == Theme.LIGHT,
+                    onCheckedChange = { screenModel.selectTheme(Theme.LIGHT) },
+                    iconDescription = "LightMode",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
-                        .clickable(onClick = { navigator.push(ThemeScreen()) })
                         .padding(12.dp)
                 )
 
                 Divider()
 
-                SettingItem(
-                    title = "License",
-                    icon = Icons.Default.Language,
-                    iconDescription = "License",
+                SettingCheckItem(
+                    title = "Dark",
+                    icon = Icons.Default.DarkMode,
+                    checked = selectedTheme == Theme.DARK,
+                    onCheckedChange = { screenModel.selectTheme(Theme.DARK) },
+                    iconDescription = "DarkMode",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
-                        .clickable(onClick = {})
                         .padding(12.dp)
                 )
 
                 Divider()
 
-                SettingItem(
-                    title = "Version : v0.1.0",
-                    icon = Icons.Default.CardMembership,
-                    iconDescription = "Version",
+                SettingCheckItem(
+                    title = "Sync System",
+                    icon = Icons.Default.Sync,
+                    checked = selectedTheme == Theme.SYSTEM,
+                    onCheckedChange = { screenModel.selectTheme(Theme.SYSTEM) },
+                    iconDescription = "Sync",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
-                        .clickable(onClick = {})
                         .padding(12.dp)
                 )
             }

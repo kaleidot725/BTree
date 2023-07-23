@@ -51,7 +51,7 @@ kotlin {
                 implementation(libs.napier)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.koin.core)
-                implementation(libs.kstore)
+                implementation(libs.multiplatform.settings)
             }
         }
 

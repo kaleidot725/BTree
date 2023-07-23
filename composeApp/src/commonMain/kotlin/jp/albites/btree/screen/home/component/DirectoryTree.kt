@@ -13,6 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import jp.albites.btree.model.Bookmark
+import jp.albites.btree.model.Directory
+import jp.albites.btree.model.File
 
 @Composable
 internal fun DirectoryTree(

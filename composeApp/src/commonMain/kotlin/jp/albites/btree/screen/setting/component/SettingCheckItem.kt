@@ -55,7 +55,6 @@ internal fun SettingCheckItem(
         Checkbox(
             checked = checked,
             onCheckedChange = onCheckedChange,
-            colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.onSurface),
             modifier = Modifier
                 .size(24.dp)
                 .align(Alignment.CenterVertically),

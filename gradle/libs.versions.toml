@@ -7,13 +7,13 @@ androidx-appcompat = "1.6.1"
 androidx-activityCompose = "1.7.0"
 compose-uitooling = "1.4.1"
 libres = "1.1.8"
+multiplatformSettings = "1.0.0"
 voyager = "1.0.0-rc06"
 composeImageLoader = "1.4.1"
 napier = "2.6.1"
 buildConfig = "3.1.0"
 kotlinx-coroutines = "1.6.4"
 koin = "3.4.0"
-kstore = "0.6.0"
 
 [libraries]
 
@@ -21,13 +21,13 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
 libres = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
+multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
 
 [plugins]
 
