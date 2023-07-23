@@ -15,12 +15,13 @@ kotlin {
     android {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "11"
             }
         }
     }
 
-    jvm("desktop")
+    jvm("desktop") {
+    }
 
     iosX64()
     iosArm64()
@@ -100,10 +101,6 @@ android {
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDirs("src/androidMain/resources")
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
     packagingOptions {
         resources.excludes.add("META-INF/**")
