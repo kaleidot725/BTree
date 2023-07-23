@@ -1,4 +1,4 @@
-package jp.albites.btree.component.explorer
+package jp.albites.btree.screen.home.component
 
 sealed class File(
     open val name: String

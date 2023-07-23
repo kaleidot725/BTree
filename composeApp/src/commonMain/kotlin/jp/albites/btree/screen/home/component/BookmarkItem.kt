@@ -1,4 +1,4 @@
-package jp.albites.btree.component.explorer
+package jp.albites.btree.screen.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -37,7 +37,6 @@ internal fun BookmarkItem(
         Text(
             text = bookmark.name,
             maxLines = 1,
-            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleMedium,
             overflow = TextOverflow.Visible,
             modifier = Modifier

@@ -10,31 +10,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.albites.btree.component.explorer.Bookmark
-import jp.albites.btree.component.explorer.BookmarkItem
-import jp.albites.btree.component.explorer.Directory
-import jp.albites.btree.component.explorer.DirectoryTree
-import jp.albites.btree.component.explorer.ExplorerTitle
-import jp.albites.btree.component.explorer.File
+import jp.albites.btree.screen.home.component.Bookmark
+import jp.albites.btree.screen.home.component.BookmarkItem
+import jp.albites.btree.screen.home.component.Directory
+import jp.albites.btree.screen.home.component.DirectoryTree
+import jp.albites.btree.screen.home.component.File
 
 @Composable
 fun Explorer(
-    title: String,
     targetFile: File,
     selectedFile: File,
     expandedDirs: List<Directory>,
-    onClickHome: () -> Unit,
     onClickArrow: (Directory) -> Unit,
     onClickFile: (File) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
-        ExplorerTitle(
-            title = title,
-            onOpen = onClickHome,
-            modifier = Modifier.padding(8.dp)
-        )
-
         when (targetFile) {
             is Bookmark -> {
                 BookmarkItem(

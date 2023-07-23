@@ -1,4 +1,4 @@
-package jp.albites.btree.component.explorer
+package jp.albites.btree.screen.home.component
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
@@ -52,7 +52,6 @@ internal fun DirectoryItem(
         Text(
             text = directory.name,
             maxLines = 1,
-            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleMedium,
             overflow = TextOverflow.Visible,
             modifier = Modifier.align(Alignment.CenterVertically)

@@ -9,14 +9,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AppSettingsAlt
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,6 +49,16 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         val navigator = LocalNavigator.currentOrThrow
 
         Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("BTree") },
+                    actions = {
+                        IconButton(onClick = { navigator.push(SettingScreen()) }) {
+                            Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+                        }
+                    }
+                )
+            },
             bottomBar = {
                 BottomAppBar(
                     actions = {
@@ -52,7 +69,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             IconButton(onClick = { /* doSomething() */ }) {
                                 Icon(
-                                    painter = MainRes.image.delete.painterResource(),
+                                    imageVector = Icons.Default.Delete,
                                     contentDescription = "Delete",
                                     modifier = Modifier.size(24.dp)
                                 )
@@ -65,7 +82,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             IconButton(onClick = { /* doSomething() */ }) {
                                 Icon(
-                                    painter = MainRes.image.edit.painterResource(),
+                                    imageVector = Icons.Default.Edit,
                                     contentDescription = "Edit",
                                     modifier = Modifier.size(24.dp)
                                 )
@@ -102,13 +119,11 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             },
         ) {
             Explorer(
-                title = "BTree",
                 targetFile = fileTree,
                 selectedFile = selectedFile,
                 expandedDirs = expandedDirs,
-                onClickHome = { navigator.push(SettingScreen()) },
                 onClickFile = { file -> screenModel.onClickFile(file) },
-                onClickArrow = { directory ->  screenModel.onClickArrow(directory) },
+                onClickArrow = { directory -> screenModel.onClickArrow(directory) },
                 modifier = Modifier.fillMaxSize().padding(it)
             )
         }

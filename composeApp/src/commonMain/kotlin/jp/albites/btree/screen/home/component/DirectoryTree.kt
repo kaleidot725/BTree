@@ -1,4 +1,4 @@
-package jp.albites.btree.component.explorer
+package jp.albites.btree.screen.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
