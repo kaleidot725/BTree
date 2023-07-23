@@ -1,4 +1,4 @@
-package jp.albites.btree.model
+package jp.albites.btree.model.domain
 
 sealed class File(
     open val name: String

@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.home.component
+package jp.albites.btree.view.screen.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import jp.albites.btree.model.Bookmark
+import jp.albites.btree.model.domain.Bookmark
 
 @Composable
 internal fun BookmarkItem(

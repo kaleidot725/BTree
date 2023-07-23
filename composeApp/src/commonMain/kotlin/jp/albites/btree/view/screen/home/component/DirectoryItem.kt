@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.home.component
+package jp.albites.btree.view.screen.home.component
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
@@ -21,7 +21,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import jp.albites.btree.model.Directory
+import jp.albites.btree.model.domain.Directory
 
 @Composable
 internal fun DirectoryItem(

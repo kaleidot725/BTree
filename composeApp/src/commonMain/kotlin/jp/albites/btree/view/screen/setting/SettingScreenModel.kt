@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.setting
+package jp.albites.btree.view.screen.setting
 
 import cafe.adriel.voyager.core.model.ScreenModel
 

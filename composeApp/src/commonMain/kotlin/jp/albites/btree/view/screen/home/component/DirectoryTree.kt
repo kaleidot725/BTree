@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.home.component
+package jp.albites.btree.view.screen.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
-import jp.albites.btree.model.Bookmark
-import jp.albites.btree.model.Directory
-import jp.albites.btree.model.File
+import jp.albites.btree.model.domain.Bookmark
+import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.model.domain.File
 
 @Composable
 internal fun DirectoryTree(

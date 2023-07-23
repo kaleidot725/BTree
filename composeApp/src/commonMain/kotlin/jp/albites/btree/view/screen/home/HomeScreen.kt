@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.home
+package jp.albites.btree.view.screen.home
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -35,7 +35,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import io.github.skeptick.libres.compose.painterResource
 import jp.albites.btree.MainRes
-import jp.albites.btree.screen.setting.SettingScreen
+import jp.albites.btree.view.screen.setting.SettingScreen
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {

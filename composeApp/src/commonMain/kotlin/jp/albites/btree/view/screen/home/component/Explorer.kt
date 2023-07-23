@@ -10,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.albites.btree.model.Bookmark
-import jp.albites.btree.screen.home.component.BookmarkItem
-import jp.albites.btree.model.Directory
-import jp.albites.btree.screen.home.component.DirectoryTree
-import jp.albites.btree.model.File
+import jp.albites.btree.model.domain.Bookmark
+import jp.albites.btree.view.screen.home.component.BookmarkItem
+import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.view.screen.home.component.DirectoryTree
+import jp.albites.btree.model.domain.File
 
 @Composable
 fun Explorer(

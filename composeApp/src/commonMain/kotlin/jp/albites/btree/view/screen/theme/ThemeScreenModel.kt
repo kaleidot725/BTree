@@ -1,7 +1,7 @@
-package jp.albites.btree.screen.theme
+package jp.albites.btree.view.screen.theme
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import jp.albites.btree.model.Theme
+import jp.albites.btree.model.domain.Theme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

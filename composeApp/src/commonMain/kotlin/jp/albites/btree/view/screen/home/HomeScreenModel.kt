@@ -1,9 +1,9 @@
-package jp.albites.btree.screen.home
+package jp.albites.btree.view.screen.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import jp.albites.btree.model.Bookmark
-import jp.albites.btree.model.Directory
-import jp.albites.btree.model.File
+import jp.albites.btree.model.domain.Bookmark
+import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.model.domain.File
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.setting
+package jp.albites.btree.view.screen.setting
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -29,8 +29,8 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import jp.albites.btree.screen.setting.component.SettingItem
-import jp.albites.btree.screen.theme.ThemeScreen
+import jp.albites.btree.view.screen.setting.component.SettingItem
+import jp.albites.btree.view.screen.theme.ThemeScreen
 
 class SettingScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)

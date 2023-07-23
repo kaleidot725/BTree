@@ -1,4 +1,4 @@
-package jp.albites.btree.screen.theme
+package jp.albites.btree.view.screen.theme
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,8 +25,8 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import jp.albites.btree.model.Theme
-import jp.albites.btree.screen.setting.component.SettingCheckItem
+import jp.albites.btree.model.domain.Theme
+import jp.albites.btree.view.screen.setting.component.SettingCheckItem
 
 class ThemeScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
