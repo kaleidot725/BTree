@@ -78,7 +78,7 @@ class SettingScreen : Screen {
                 Divider()
 
                 SettingItem(
-                    title = "Version",
+                    title = "Version : v0.1.0",
                     icon = Icons.Default.CardMembership,
                     iconDescription = "Version",
                     modifier = Modifier
