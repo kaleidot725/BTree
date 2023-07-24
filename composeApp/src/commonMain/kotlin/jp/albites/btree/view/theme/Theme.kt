@@ -2,6 +2,7 @@ package jp.albites.btree.view.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -14,8 +15,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import jp.albites.btree.model.domain.Theme
+import jp.albites.btree.model.repository.ThemeRepository
+import org.koin.mp.KoinPlatform.getKoin
 
-private val LightColorScheme = lightColorScheme(
+val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     secondary = md_theme_light_secondary,
@@ -28,7 +32,7 @@ private val LightColorScheme = lightColorScheme(
     onSurface = md_theme_light_onSurface,
 )
 
-private val DarkColorScheme = darkColorScheme(
+val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     secondary = md_theme_dark_secondary,
@@ -59,17 +63,11 @@ private val AppTypography = Typography(
 
 @Composable
 internal fun AppTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    colorScheme: ColorScheme,
     content: @Composable() () -> Unit
 ) {
-    val colors = if (!useDarkTheme) {
-        LightColorScheme
-    } else {
-        DarkColorScheme
-    }
-
     MaterialTheme(
-        colorScheme = colors,
+        colorScheme = colorScheme,
         typography = AppTypography,
         shapes = AppShapes,
         content = content

@@ -15,14 +15,12 @@ kotlin {
     android {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "1.8"
             }
         }
     }
 
-    jvm("desktop") {
-    }
-
+    jvm("desktop")
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -53,6 +51,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.koin.core)
                 implementation(libs.multiplatform.settings)
+                implementation(libs.multiplatform.settings.coroutines)
             }
         }
 
@@ -68,6 +67,7 @@ kotlin {
                 implementation(libs.androidx.activityCompose)
                 implementation(libs.compose.uitooling)
                 implementation(libs.kotlinx.coroutines.android)
+                implementation(libs.koin.android)
             }
         }
 

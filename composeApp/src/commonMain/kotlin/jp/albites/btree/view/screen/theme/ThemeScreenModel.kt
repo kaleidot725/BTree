@@ -1,16 +1,23 @@
 package jp.albites.btree.view.screen.theme
 
 import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.coroutineScope
 import jp.albites.btree.model.domain.Theme
-import kotlinx.coroutines.flow.MutableStateFlow
+import jp.albites.btree.model.repository.ThemeRepository
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 
-class ThemeScreenModel : ScreenModel {
-    private val _selectedTheme: MutableStateFlow<Theme>  = MutableStateFlow(Theme.SYSTEM)
-    val selectedTheme: StateFlow<Theme> = _selectedTheme.asStateFlow()
+class ThemeScreenModel(
+    private val themeRepository: ThemeRepository
+) : ScreenModel {
+    val selectedTheme: StateFlow<Theme?> = themeRepository.themeFlow.stateIn(
+        coroutineScope,
+        SharingStarted.WhileSubscribed(),
+        null
+    )
 
     fun selectTheme(theme: Theme) {
-        _selectedTheme.value = theme
+        themeRepository.update(theme)
     }
 }
