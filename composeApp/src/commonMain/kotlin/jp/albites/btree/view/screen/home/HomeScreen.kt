@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AppSettingsAlt
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
@@ -33,13 +34,11 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import io.github.skeptick.libres.compose.painterResource
-import jp.albites.btree.MainRes
 import jp.albites.btree.view.screen.setting.SettingScreen
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val screenModel = rememberScreenModel { HomeScreenModel() }
@@ -99,7 +98,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 }
                             ) {
                                 Icon(
-                                    painter = MainRes.image.browser.painterResource(),
+                                    imageVector = Icons.Default.Bookmark,
                                     contentDescription = "Open in browser",
                                     modifier = Modifier.size(24.dp)
                                 )

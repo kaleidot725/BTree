@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.libres)
     alias(libs.plugins.buildConfig)
 }
 
@@ -117,16 +116,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-libres {
-    generatedClassName = "MainRes"
-    camelCaseNamesForAppleFramework = true
-}
-tasks.getByPath("desktopProcessResources").dependsOn("libresGenerateResources")
-tasks.getByPath("desktopSourcesJar").dependsOn("libresGenerateResources")
-
-buildConfig {
-    // BuildConfig configuration here.
-    // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
 }

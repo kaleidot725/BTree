@@ -1,18 +1,18 @@
 [versions]
 
-kotlin = "1.8.20"
+kotlin = "1.9.0"
 agp = "8.0.1"
-compose = "1.4.0"
+compose = "1.5.0-beta01"
 androidx-appcompat = "1.6.1"
 multiplatformSettings = "1.0.0"
 voyager = "1.0.0-rc06"
-androidx-activityCompose = "1.7.0"
-compose-uitooling = "1.4.1"
+androidx-activityCompose = "1.7.2"
+compose-uitooling = "1.4.3"
 libres = "1.1.8"
 composeImageLoader = "1.4.1"
 napier = "2.6.1"
 buildConfig = "3.1.0"
-kotlinx-coroutines = "1.6.4"
+kotlinx-coroutines = "1.7.3"
 koin = "3.4.0"
 koin-android = "3.4.2"
 
