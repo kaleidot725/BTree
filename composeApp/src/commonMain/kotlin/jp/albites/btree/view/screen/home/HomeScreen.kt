@@ -35,10 +35,12 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.view.screen.setting.SettingScreen
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
     @Composable
     override fun Content() {
         val screenModel = rememberScreenModel { HomeScreenModel() }
@@ -98,7 +100,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 }
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.Bookmark,
+                                    painter = painterResource("browser.png"),
                                     contentDescription = "Open in browser",
                                     modifier = Modifier.size(24.dp)
                                 )

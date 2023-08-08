@@ -10,8 +10,8 @@ import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.screen.home.HomeScreen
 import jp.albites.btree.view.theme.AppTheme
-import jp.albites.btree.view.theme.DarkColorScheme
-import jp.albites.btree.view.theme.LightColorScheme
+import jp.albites.btree.view.theme.DarkColors
+import jp.albites.btree.view.theme.LightColors
 import kotlinx.coroutines.flow.Flow
 import org.koin.mp.KoinPlatform
 
@@ -34,9 +34,9 @@ private fun getThemeFlow(): Flow<Theme> {
 @Composable
 private fun getColorScheme(theme: Theme): ColorScheme {
     return when (theme) {
-        Theme.DARK -> DarkColorScheme
-        Theme.LIGHT -> LightColorScheme
-        Theme.SYSTEM -> if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme
+        Theme.DARK -> DarkColors
+        Theme.LIGHT -> LightColors
+        Theme.SYSTEM -> if (isSystemInDarkTheme()) DarkColors else LightColors
     }
 }
 
