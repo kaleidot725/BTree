@@ -13,7 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.AddLink
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
@@ -26,10 +27,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -60,6 +61,8 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         val expandedDirs by screenModel.expandedDirs.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         var showAddDialog by remember { mutableStateOf(false) }
+        var showDeleteDialog by remember { mutableStateOf(false) }
+        var showEditDialog by remember { mutableStateOf(false) }
 
         Box {
             Scaffold(
@@ -84,7 +87,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 enter = scaleIn(),
                                 exit = scaleOut()
                             ) {
-                                IconButton(onClick = { /* doSomething() */ }) {
+                                IconButton(onClick = { showDeleteDialog = true }) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
                                         contentDescription = "Delete",
@@ -97,7 +100,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 enter = scaleIn(),
                                 exit = scaleOut()
                             ) {
-                                IconButton(onClick = { /* doSomething() */ }) {
+                                IconButton(onClick = { showEditDialog = true }) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
                                         contentDescription = "Edit",
@@ -106,14 +109,33 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 }
                             }
                             AnimatedVisibility(
-                                visible = selectedFile.isBookmark,
+                                visible = true,
                                 enter = scaleIn(),
                                 exit = scaleOut()
                             ) {
                                 IconButton(
+                                    onClick = { showAddDialog = true }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.AddCircle,
+                                        contentDescription = "AddLink",
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                }
+                            }
+                        },
+                        floatingActionButton = {
+                            AnimatedVisibility(
+                                visible = selectedFile.isBookmark,
+                                enter = scaleIn(),
+                                exit = scaleOut()
+                            ) {
+                                FloatingActionButton(
                                     onClick = {
                                         selectedFile.asBookmark?.let { openUrl(it.url) }
-                                    }
+                                    },
+                                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
                                 ) {
                                     Icon(
                                         painter = painterResource("browser.png"),
@@ -121,15 +143,6 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                         modifier = Modifier.size(24.dp)
                                     )
                                 }
-                            }
-                        },
-                        floatingActionButton = {
-                            FloatingActionButton(
-                                onClick = { showAddDialog = true },
-                                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-                            ) {
-                                Icon(Icons.Filled.Add, "Localized description")
                             }
                         }
                     )
@@ -146,51 +159,189 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             }
 
             if (showAddDialog) {
-                Box(
-                    modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
+                AddScreen(
+                    onApply = { showAddDialog = false },
+                    onClose = { showAddDialog = false }
+                )
+            }
+
+            if (showDeleteDialog) {
+                DeleteScreen(
+                    onApply = { showDeleteDialog = false },
+                    onClose = { showDeleteDialog = false }
+                )
+            }
+
+            if (showEditDialog) {
+                EditScreen(
+                    onApply = { showEditDialog = false },
+                    onClose = { showEditDialog = false }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AddScreen(
+    onClose: () -> Unit,
+    onApply: () -> Unit,
+) {
+    Box(
+        modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
+    ) {
+        Card(
+            modifier = Modifier.align(Alignment.Center).wrapContentSize()
+        ) {
+            var name by remember { mutableStateOf("") }
+            var url by remember { mutableStateOf("") }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+            ) {
+                Text(
+                    text = "Register",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    placeholder = { Text("Name") }
+                )
+
+                OutlinedTextField(
+                    value = url,
+                    onValueChange = { url = it },
+                    placeholder = { Text("URL") }
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-                    Card(
-                        modifier = Modifier.align(Alignment.Center).wrapContentSize()
+                    Button(
+                        onClick = { onClose() },
                     ) {
-                        var name by remember { mutableStateOf("") }
-                        var url by remember { mutableStateOf("") }
+                        Text("Close")
+                    }
 
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier.padding(32.dp)
-                        ) {
-                            OutlinedTextField(
-                                value = name,
-                                onValueChange = { name = it },
-                                placeholder = { Text("Name") }
-                            )
-
-                            OutlinedTextField(
-                                value = url,
-                                onValueChange = { url = it },
-                                placeholder = { Text("URL") }
-                            )
-
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                modifier = Modifier.align(Alignment.CenterHorizontally)
-                            ) {
-                                Button(
-                                    onClick = { showAddDialog = false },
-                                ) {
-                                    Text("Close")
-                                }
-
-                                Button(
-                                    onClick = { showAddDialog = false },
-                                ) {
-                                    Text("Apply")
-                                }
-                            }
-
-                        }
+                    Button(
+                        onClick = { onApply() },
+                    ) {
+                        Text("Apply")
                     }
                 }
+
+            }
+        }
+    }
+}
+
+@Composable
+private fun DeleteScreen(
+    onClose: () -> Unit,
+    onApply: () -> Unit,
+) {
+    Box(
+        modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
+    ) {
+        Card(
+            modifier = Modifier.align(Alignment.Center).wrapContentSize()
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+            ) {
+                Column {
+                    Text(
+                        text = "Delete",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Text(
+                        text = "Do you delete bookmark?",
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                }
+
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Button(
+                        onClick = { onClose() },
+                    ) {
+                        Text("Close")
+                    }
+
+                    Button(
+                        onClick = { onApply() },
+                    ) {
+                        Text("Apply")
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun EditScreen(
+    onClose: () -> Unit,
+    onApply: () -> Unit,
+) {
+    Box(
+        modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
+    ) {
+        Card(
+            modifier = Modifier.align(Alignment.Center).wrapContentSize()
+        ) {
+            var name by remember { mutableStateOf("") }
+            var url by remember { mutableStateOf("") }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+            ) {
+                Text(
+                    text = "Edit",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    placeholder = { Text("Name") }
+                )
+
+                OutlinedTextField(
+                    value = url,
+                    onValueChange = { url = it },
+                    placeholder = { Text("URL") }
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Button(
+                        onClick = { onClose() },
+                    ) {
+                        Text("Close")
+                    }
+
+                    Button(
+                        onClick = { onApply() },
+                    ) {
+                        Text("Apply")
+                    }
+                }
+
             }
         }
     }
