@@ -66,19 +66,6 @@ class SettingScreen : Screen {
                 Divider()
 
                 SettingItem(
-                    title = "License",
-                    icon = Icons.Default.Language,
-                    iconDescription = "License",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(64.dp)
-                        .clickable(onClick = {})
-                        .padding(12.dp)
-                )
-
-                Divider()
-
-                SettingItem(
                     title = "Version : v0.1.0",
                     icon = Icons.Default.CardMembership,
                     iconDescription = "Version",
