@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.AddLink
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
@@ -46,6 +45,7 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import jp.albites.btree.view.screen.home.register.RegisterDialog
 import jp.albites.btree.view.screen.setting.SettingScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -159,21 +159,21 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             }
 
             if (showAddDialog) {
-                AddScreen(
+                RegisterDialog(
                     onApply = { showAddDialog = false },
                     onClose = { showAddDialog = false }
                 )
             }
 
             if (showDeleteDialog) {
-                DeleteScreen(
+                DeleteDialog(
                     onApply = { showDeleteDialog = false },
                     onClose = { showDeleteDialog = false }
                 )
             }
 
             if (showEditDialog) {
-                EditScreen(
+                EditDialog(
                     onApply = { showEditDialog = false },
                     onClose = { showEditDialog = false }
                 )
@@ -183,64 +183,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 }
 
 @Composable
-private fun AddScreen(
-    onClose: () -> Unit,
-    onApply: () -> Unit,
-) {
-    Box(
-        modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
-    ) {
-        Card(
-            modifier = Modifier.align(Alignment.Center).wrapContentSize()
-        ) {
-            var name by remember { mutableStateOf("") }
-            var url by remember { mutableStateOf("") }
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
-            ) {
-                Text(
-                    text = "Register",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    placeholder = { Text("Name") }
-                )
-
-                OutlinedTextField(
-                    value = url,
-                    onValueChange = { url = it },
-                    placeholder = { Text("URL") }
-                )
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                ) {
-                    Button(
-                        onClick = { onClose() },
-                    ) {
-                        Text("Close")
-                    }
-
-                    Button(
-                        onClick = { onApply() },
-                    ) {
-                        Text("Apply")
-                    }
-                }
-
-            }
-        }
-    }
-}
-
-@Composable
-private fun DeleteScreen(
+private fun DeleteDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
@@ -291,7 +234,7 @@ private fun DeleteScreen(
 
 
 @Composable
-private fun EditScreen(
+private fun EditDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
