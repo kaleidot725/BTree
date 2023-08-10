@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.android.application)
     alias(libs.plugins.buildConfig)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -45,15 +46,15 @@ kotlin {
                 implementation(compose.materialIconsExtended)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation(libs.libres)
                 implementation(libs.voyager.navigator)
                 implementation(libs.voyager.bottom.sheet.navigator)
                 implementation(libs.composeImageLoader)
                 implementation(libs.napier)
-                implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.koin.core)
                 implementation(libs.multiplatform.settings)
                 implementation(libs.multiplatform.settings.coroutines)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
