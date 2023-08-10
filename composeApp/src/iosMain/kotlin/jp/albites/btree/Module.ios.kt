@@ -6,6 +6,7 @@ import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.coroutines.toFlowSettings
+import jp.albites.btree.model.repository.FileRepository
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import kotlinx.coroutines.Dispatchers
@@ -19,5 +20,10 @@ actual val osModule : Module = module {
         val delegate: NSUserDefaults = NSUserDefaults.standardUserDefaults
         val settings: ObservableSettings = NSUserDefaultsSettings(delegate)
         ThemeRepository(settings = settings)
+    }
+    factory {
+        val delegate: NSUserDefaults = NSUserDefaults.standardUserDefaults
+        val settings: ObservableSettings = NSUserDefaultsSettings(delegate)
+        FileRepository(settings = settings)
     }
 }

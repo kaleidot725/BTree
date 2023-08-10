@@ -1,50 +1,27 @@
 package jp.albites.btree.view.screen.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.coroutineScope
 import jp.albites.btree.model.domain.Bookmark
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
+import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 
-class HomeScreenModel : ScreenModel {
-    private val _fileTree: MutableStateFlow<File> = MutableStateFlow(
-        Directory(
-            list = listOf(
-                Directory(
-                    list = listOf(
-                        Bookmark(
-                            name = "Google Store",
-                            url = "https://store.google.com"
-                        ),
-                        Bookmark(
-                            name = "Google Search",
-                            url = "https://google.com"
-                        )
-                    ),
-                    name = "Google",
-                ),
-                Directory(
-                    list = listOf(
-                        Bookmark(
-                            name = "Apple Store",
-                            url = "https://www.apple.com/jp/store"
-                        ),
-                        Bookmark(
-                            name = "SwiftUI",
-                            url = "https://developer.apple.com/jp/xcode/swiftui/"
-                        )
-                    ),
-                    name = "APPLE"
-                )
-            ),
-            name = "ROOT"
-        )
+class HomeScreenModel(
+    private val fileRepository: FileRepository
+) : ScreenModel {
+    val fileTree: StateFlow<File> = fileRepository.fileFlow.stateIn(
+        coroutineScope,
+        SharingStarted.WhileSubscribed(),
+        Directory.ROOT
     )
-    val fileTree: StateFlow<File> = _fileTree.asStateFlow()
 
-    private val _selectedFile: MutableStateFlow<File> = MutableStateFlow(_fileTree.value)
+    private val _selectedFile: MutableStateFlow<File> = MutableStateFlow(fileTree.value)
     val selectedFile: StateFlow<File> = _selectedFile.asStateFlow()
 
     private val _expandedDirs: MutableStateFlow<List<Directory>> = MutableStateFlow(emptyList())

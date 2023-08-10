@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.AddLink
+import androidx.compose.material.icons.filled.CreateNewFolder
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
@@ -45,8 +47,10 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import jp.albites.btree.getScreenModel
 import jp.albites.btree.view.screen.home.register.RegisterDialog
 import jp.albites.btree.view.screen.setting.SettingScreen
+import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import view.components.explorer.Explorer
@@ -55,7 +59,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
     @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
     @Composable
     override fun Content() {
-        val screenModel = rememberScreenModel { HomeScreenModel() }
+        val screenModel = getScreenModel<HomeScreenModel>()
         val fileTree by screenModel.fileTree.collectAsState()
         val selectedFile by screenModel.selectedFile.collectAsState()
         val expandedDirs by screenModel.expandedDirs.collectAsState()
@@ -117,7 +121,22 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                     onClick = { showAddDialog = true }
                                 ) {
                                     Icon(
-                                        imageVector = Icons.Default.AddCircle,
+                                        imageVector = Icons.Default.AddLink,
+                                        contentDescription = "AddLink",
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                }
+                            }
+                            AnimatedVisibility(
+                                visible = true,
+                                enter = scaleIn(),
+                                exit = scaleOut()
+                            ) {
+                                IconButton(
+                                    onClick = { showAddDialog = true }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.CreateNewFolder,
                                         contentDescription = "AddLink",
                                         modifier = Modifier.size(24.dp)
                                     )

@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import jp.albites.btree.view.screen.home.HomeScreenModel
+import jp.albites.btree.view.screen.home.register.RegisterDialogModel
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
@@ -16,6 +18,14 @@ expect val osModule : Module
 val appModule: Module = module {
     factory {
         ThemeScreenModel(get())
+    }
+
+    factory {
+        HomeScreenModel(get())
+    }
+
+    factory {
+        RegisterDialogModel(get())
     }
 }
 

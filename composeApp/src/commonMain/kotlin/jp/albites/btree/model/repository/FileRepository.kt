@@ -3,10 +3,13 @@ package jp.albites.btree.model.repository
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getStringFlow
+import com.russhwolf.settings.coroutines.getStringOrNullFlow
+import com.russhwolf.settings.get
 import com.russhwolf.settings.set
 import jp.albites.btree.model.domain.Bookmark
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
+import jp.albites.btree.model.domain.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
@@ -17,17 +20,32 @@ class FileRepository(
     private val settings: ObservableSettings
 ) {
     @OptIn(ExperimentalSettingsApi::class)
-    private val file = settings.getStringFlow(FILE_LIST_KEY, "{}")
+    private val file  = settings.getStringOrNullFlow(FILE_LIST_KEY)
+
     val fileFlow: Flow<File>
         get() = file.map { text ->
-            val fileData = Json.decodeFromString<FileData>(text)
-            convertFile(fileData)
+            if (text != null) {
+                val fileData = Json.decodeFromString<FileData>(text)
+                convertFile(fileData)
+            } else {
+                Directory.ROOT
+            }
         }
 
     fun update(file: File) {
         val fileData = convertFileData(file)
         val text = Json.encodeToString(fileData)
         settings[FILE_LIST_KEY] = text
+    }
+
+    fun get() : File {
+        val text : String? = settings[FILE_LIST_KEY]
+        return if (text != null) {
+            val fileData = Json.decodeFromString<FileData>(text)
+            convertFile(fileData)
+        } else {
+            Directory.ROOT
+        }
     }
 
     private fun convertFileData(file: File): FileData {

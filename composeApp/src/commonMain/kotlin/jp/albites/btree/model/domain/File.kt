@@ -12,7 +12,11 @@ sealed class File(
 data class Directory(
     override val name: String,
     val list: List<File>,
-) : File(name)
+) : File(name) {
+    companion object {
+        val ROOT = Directory("ROOT", emptyList())
+    }
+}
 
 data class Bookmark(
     override val name: String,

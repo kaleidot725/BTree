@@ -2,6 +2,7 @@ package jp.albites.btree
 
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.PreferencesSettings
+import jp.albites.btree.model.repository.FileRepository
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
@@ -13,5 +14,11 @@ actual val osModule : Module = module {
         val delegate: Preferences = Preferences.userRoot()
         val settings: ObservableSettings = PreferencesSettings(delegate)
         ThemeRepository(settings = settings)
+    }
+
+    factory {
+        val delegate: Preferences = Preferences.userRoot()
+        val settings: ObservableSettings = PreferencesSettings(delegate)
+        FileRepository(settings = settings)
     }
 }

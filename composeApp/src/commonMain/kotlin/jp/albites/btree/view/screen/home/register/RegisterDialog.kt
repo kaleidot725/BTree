@@ -22,13 +22,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import jp.albites.btree.getScreenModel
+import jp.albites.btree.view.screen.home.HomeScreenModel
 
 @Composable
 fun Screen.RegisterDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = rememberScreenModel { RegisterDialogModel() }
+    val screenModel = getScreenModel<RegisterDialogModel>()
     val name by screenModel.name.collectAsState()
     val url by screenModel.url.collectAsState()
     val isValid by screenModel.isValid.collectAsState()

@@ -2,13 +2,18 @@ package jp.albites.btree.view.screen.home.register
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
+import jp.albites.btree.model.domain.Bookmark
+import jp.albites.btree.model.domain.File
+import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-class RegisterDialogModel : ScreenModel {
+class RegisterDialogModel(
+    private val fileRepository: FileRepository
+) : ScreenModel {
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
     val name: StateFlow<String> = _name
 
@@ -33,7 +38,11 @@ class RegisterDialogModel : ScreenModel {
 
     fun register() {
         if (isValid.value) {
-            // TODO 書き込み処理を実行する
+            val root = fileRepository.get().asDirectory!!
+            val newBookmark = Bookmark(name = name.value, url = url.value) as File
+            val newBookmarks = root.list + newBookmark
+            val newRoot = root.copy(list = newBookmarks)
+            fileRepository.update(newRoot)
         }
     }
 
