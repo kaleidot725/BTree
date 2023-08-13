@@ -10,6 +10,7 @@ import jp.albites.btree.model.domain.Bookmark
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.model.domain.Theme
+import jp.albites.btree.util.randomUUID
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
@@ -49,6 +50,7 @@ class FileRepository(
     }
 
     private fun convertFileData(file: File): FileData {
+        val id = file.id
         val name = file.name
         val url = file.asBookmark?.url
         val isDirectory = file.isDirectory
@@ -56,6 +58,7 @@ class FileRepository(
             convertFileData(it)
         }
         return FileData(
+            id = id,
             name = name,
             isDirectory = isDirectory,
             list = list,
@@ -66,11 +69,13 @@ class FileRepository(
     private fun convertFile(fileData: FileData): File {
         return if (fileData.isDirectory) {
             return Directory(
+                id = fileData.id,
                 name = fileData.name,
                 list = fileData.list.map { convertFile(it) }
             )
         } else {
             return Bookmark(
+                id = fileData.id,
                 name = fileData.name,
                 url = fileData.url!!
             )
@@ -79,6 +84,7 @@ class FileRepository(
 
     @Serializable
     private data class FileData(
+        val id: String = randomUUID(),
         val name: String,
         val isDirectory: Boolean,
         val list: List<FileData> = emptyList(),

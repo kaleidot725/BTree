@@ -29,7 +29,7 @@ class HomeScreenModel(
 
     fun onClickArrow(directory: Directory) {
         val current = _expandedDirs.value
-        val isExpanded = current.any { it == directory }
+        val isExpanded = current.any { it.id == directory.id }
         if (isExpanded) {
             val bottomDirectories = mutableListOf<Directory>()
             collectDirectories(bottomDirectories, directory)

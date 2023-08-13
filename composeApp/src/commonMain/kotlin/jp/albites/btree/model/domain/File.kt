@@ -1,6 +1,10 @@
 package jp.albites.btree.model.domain
 
+import jp.albites.btree.util.randomUUID
+
+
 sealed class File(
+    open val id: String = randomUUID(),
     open val name: String
 ) {
     val isDirectory get() = this is Directory
@@ -10,15 +14,17 @@ sealed class File(
 }
 
 data class Directory(
+    override val id: String = randomUUID(),
     override val name: String,
     val list: List<File>,
-) : File(name) {
+) : File(id, name) {
     companion object {
-        val ROOT = Directory("ROOT", emptyList())
+        val ROOT = Directory("ROOT", "ROOT", emptyList())
     }
 }
 
 data class Bookmark(
+    override val id: String = randomUUID(),
     override val name: String,
     val url: String
-) : File(name)
+) : File(id, name)

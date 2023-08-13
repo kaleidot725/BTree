@@ -21,9 +21,7 @@ kotlin {
     }
 
     jvm("desktop")
-    iosX64()
     iosArm64()
-    iosSimulatorArm64()
 
     cocoapods {
         version = "1.0.0"
