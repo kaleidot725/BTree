@@ -6,6 +6,7 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.view.screen.home.HomeScreenModel
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialogModel
+import jp.albites.btree.view.screen.home.dicretory.DirectoryDialogModel
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
@@ -27,12 +28,16 @@ val appModule: Module = module {
     factory {
         BookmarkDialogModel(get())
     }
+
+    factory {
+        DirectoryDialogModel(get())
+    }
 }
 
 val allModule get() = listOf(appModule, osModule)
 
 @Composable
-public inline fun <reified T : ScreenModel> Screen.getScreenModel(
+inline fun <reified T : ScreenModel> Screen.getScreenModel(
     qualifier: Qualifier? = null,
     noinline parameters: ParametersDefinition? = null,
 ): T {

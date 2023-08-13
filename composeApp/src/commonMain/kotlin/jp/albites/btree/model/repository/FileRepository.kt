@@ -84,7 +84,7 @@ class FileRepository(
 
     @Serializable
     private data class FileData(
-        val id: String = randomUUID(),
+        val id: String,
         val name: String,
         val isDirectory: Boolean,
         val list: List<FileData> = emptyList(),

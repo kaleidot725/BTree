@@ -47,6 +47,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.getScreenModel
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
+import jp.albites.btree.view.screen.home.dicretory.DirectoryDialog
 import jp.albites.btree.view.screen.setting.SettingScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -61,7 +62,8 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         val selectedFile by screenModel.selectedFile.collectAsState()
         val expandedDirs by screenModel.expandedDirs.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
-        var showAddDialog by remember { mutableStateOf(false) }
+        var showBookmarkDialog by remember { mutableStateOf(false) }
+        var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
         var showEditDialog by remember { mutableStateOf(false) }
 
@@ -115,7 +117,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 exit = scaleOut()
                             ) {
                                 IconButton(
-                                    onClick = { showAddDialog = true }
+                                    onClick = { showBookmarkDialog = true }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.AddLink,
@@ -130,7 +132,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 exit = scaleOut()
                             ) {
                                 IconButton(
-                                    onClick = { showAddDialog = true }
+                                    onClick = { showDirectoryDialog = true }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.CreateNewFolder,
@@ -174,10 +176,17 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 )
             }
 
-            if (showAddDialog) {
+            if (showBookmarkDialog) {
                 BookmarkDialog(
-                    onApply = { showAddDialog = false },
-                    onClose = { showAddDialog = false }
+                    onApply = { showBookmarkDialog = false },
+                    onClose = { showBookmarkDialog = false }
+                )
+            }
+
+            if (showDirectoryDialog) {
+                DirectoryDialog(
+                    onApply = { showDirectoryDialog = false },
+                    onClose = { showDirectoryDialog = false }
                 )
             }
 
