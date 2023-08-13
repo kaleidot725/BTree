@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLink
 import androidx.compose.material.icons.filled.CreateNewFolder
@@ -58,15 +60,14 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
     @Composable
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
-        val fileTree by screenModel.fileTree.collectAsState()
-        val selectedFile by screenModel.selectedFile.collectAsState()
-        val expandedDirs by screenModel.expandedDirs.collectAsState()
+        val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         var showBookmarkDialog by remember { mutableStateOf(false) }
         var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
         var showEditDialog by remember { mutableStateOf(false) }
 
+        println("$$$$$$$$$$$$ ${state.toString()}")
         Box {
             Scaffold(
                 topBar = {
@@ -144,13 +145,13 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         },
                         floatingActionButton = {
                             AnimatedVisibility(
-                                visible = selectedFile.isBookmark,
+                                visible = state.selectedFile.isBookmark,
                                 enter = scaleIn(),
                                 exit = scaleOut()
                             ) {
                                 FloatingActionButton(
                                     onClick = {
-                                        selectedFile.asBookmark?.let { openUrl(it.url) }
+                                        state.selectedFile.asBookmark?.let { openUrl(it.url) }
                                     },
                                     containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                                     elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
@@ -167,12 +168,12 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 },
             ) {
                 Explorer(
-                    targetFile = fileTree,
-                    selectedFile = selectedFile,
-                    expandedDirs = expandedDirs,
+                    targetFile = state.fileTree,
+                    selectedFile = state.selectedFile,
+                    expandedDirs = state.expandedDirs,
                     onClickFile = { file -> screenModel.onClickFile(file) },
                     onClickArrow = { directory -> screenModel.onClickArrow(directory) },
-                    modifier = Modifier.fillMaxSize().padding(it)
+                    modifier = Modifier.fillMaxSize().padding(it).verticalScroll(rememberScrollState())
                 )
             }
 

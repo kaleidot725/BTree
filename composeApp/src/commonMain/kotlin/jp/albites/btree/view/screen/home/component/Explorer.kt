@@ -33,7 +33,7 @@ fun Explorer(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { onClickFile.invoke(targetFile) }
-                        .background(if (selectedFile == targetFile) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
+                        .background(if (selectedFile.id == targetFile.id) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
                         .padding(horizontal = 8.dp)
                         .padding(vertical = 4.dp)
                 )

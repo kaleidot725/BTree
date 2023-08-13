@@ -27,7 +27,7 @@ internal fun DirectoryTree(
     onClickFile: (File) -> Unit = { },
     modifier: Modifier = Modifier
 ) {
-    val isExpanded by rememberUpdatedState(expandedDirs.any { it == directory })
+    val isExpanded by rememberUpdatedState(expandedDirs.any { it.id == directory.id })
 
     Column(modifier = modifier) {
         DirectoryItem(
@@ -40,7 +40,7 @@ internal fun DirectoryTree(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onClickFile.invoke(directory) }
-                .background(if (selectedFile == directory) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
+                .background(if (selectedFile.id == directory.id) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
                 .padding(horizontal = 8.dp)
                 .padding(vertical = 4.dp)
                 .padding(start = level * 24.dp)
@@ -55,7 +55,7 @@ internal fun DirectoryTree(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { onClickFile.invoke(it) }
-                                .background(if (selectedFile == it) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
+                                .background(if (selectedFile.id == it.id) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
                                 .padding(horizontal = 8.dp)
                                 .padding(vertical = 4.dp)
                                 .padding(start = (level + 1) * 24.dp)
