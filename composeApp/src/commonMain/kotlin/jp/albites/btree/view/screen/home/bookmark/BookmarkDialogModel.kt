@@ -1,4 +1,4 @@
-package jp.albites.btree.view.screen.home.register
+package jp.albites.btree.view.screen.home.bookmark
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-class RegisterDialogModel(
+class BookmarkDialogModel(
     private val fileRepository: FileRepository
 ) : ScreenModel {
     private val _name: MutableStateFlow<String> = MutableStateFlow("")

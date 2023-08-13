@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.AddLink
 import androidx.compose.material.icons.filled.CreateNewFolder
 import androidx.compose.material.icons.filled.Delete
@@ -43,14 +42,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.getScreenModel
-import jp.albites.btree.view.screen.home.register.RegisterDialog
+import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
 import jp.albites.btree.view.screen.setting.SettingScreen
-import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import view.components.explorer.Explorer
@@ -178,7 +175,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             }
 
             if (showAddDialog) {
-                RegisterDialog(
+                BookmarkDialog(
                     onApply = { showAddDialog = false },
                     onClose = { showAddDialog = false }
                 )

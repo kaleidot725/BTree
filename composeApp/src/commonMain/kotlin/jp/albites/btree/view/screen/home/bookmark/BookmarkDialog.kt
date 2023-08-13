@@ -1,4 +1,4 @@
-package jp.albites.btree.view.screen.home.register
+package jp.albites.btree.view.screen.home.bookmark
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,17 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.getScreenModel
-import jp.albites.btree.view.screen.home.HomeScreenModel
 
 @Composable
-fun Screen.RegisterDialog(
+fun Screen.BookmarkDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getScreenModel<RegisterDialogModel>()
+    val screenModel = getScreenModel<BookmarkDialogModel>()
     val name by screenModel.name.collectAsState()
     val url by screenModel.url.collectAsState()
     val isValid by screenModel.isValid.collectAsState()
