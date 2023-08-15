@@ -39,6 +39,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,8 +67,8 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
         var showEditDialog by remember { mutableStateOf(false) }
+        val selectedDirectory by rememberUpdatedState(state.selectedFile.asDirectory)
 
-        println("$$$$$$$$$$$$ ${state.toString()}")
         Box {
             Scaffold(
                 topBar = {
@@ -177,16 +178,17 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 )
             }
 
-            if (showBookmarkDialog) {
+            if (showBookmarkDialog && selectedDirectory != null) {
                 BookmarkDialog(
-                    targetDirectory = state.selectedFile.asDirectory!!,
+                    targetDirectory = selectedDirectory!!,
                     onApply = { showBookmarkDialog = false },
                     onClose = { showBookmarkDialog = false }
                 )
             }
 
-            if (showDirectoryDialog) {
+            if (showDirectoryDialog && selectedDirectory != null) {
                 DirectoryDialog(
+                    targetDirectory = selectedDirectory!!,
                     onApply = { showDirectoryDialog = false },
                     onClose = { showDirectoryDialog = false }
                 )

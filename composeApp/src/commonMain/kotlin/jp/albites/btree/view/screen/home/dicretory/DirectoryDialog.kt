@@ -21,14 +21,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import jp.albites.btree.getDialogScreenModel
 import jp.albites.btree.getScreenModel
+import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.view.screen.home.bookmark.BookmarkDialogModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun Screen.DirectoryDialog(
+    targetDirectory: Directory,
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getScreenModel<DirectoryDialogModel>()
+    val screenModel = getDialogScreenModel<DirectoryDialogModel>(tag = targetDirectory.toString()){
+        (parametersOf(targetDirectory))
+    }
     val name by screenModel.name.collectAsState()
     val isValid by screenModel.isValid.collectAsState()
 
@@ -66,7 +73,7 @@ fun Screen.DirectoryDialog(
                     Button(
                         enabled = isValid,
                         onClick = {
-                            screenModel.create()
+                            screenModel.register()
                             onApply()
                         },
                     ) {

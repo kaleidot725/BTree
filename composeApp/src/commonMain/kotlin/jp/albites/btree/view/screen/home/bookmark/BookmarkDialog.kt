@@ -33,7 +33,7 @@ fun Screen.BookmarkDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getDialogScreenModel<BookmarkDialogModel>(tag = targetDirectory.id){
+    val screenModel = getDialogScreenModel<BookmarkDialogModel>(tag = targetDirectory.toString()){
         (parametersOf(targetDirectory))
     }
     val name by screenModel.name.collectAsState()

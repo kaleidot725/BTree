@@ -30,8 +30,8 @@ val appModule: Module = module {
         BookmarkDialogModel(dir, get())
     }
 
-    factory {
-        DirectoryDialogModel(get())
+    factory { (dir: Directory) ->
+        DirectoryDialogModel(dir, get())
     }
 }
 

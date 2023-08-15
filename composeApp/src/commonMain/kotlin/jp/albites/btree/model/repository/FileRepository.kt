@@ -55,15 +55,26 @@ class FileRepository(
         }
     }
 
-    private fun replaceLeaf(target: FileData, leaf: FileData) {
-        val hasLeaf = target.list.any { it.id == leaf.id }
-        if (!hasLeaf) return
+    private fun replaceLeaf(target: FileData, leaf: FileData) : Boolean {
+        val isEmptyLeaf = target.list.isEmpty()
+        if (isEmptyLeaf) return false
 
-        val index = target.list.indexOfFirst { it.id == leaf.id }
-        val newLeaf = target.list.toMutableList()
-        newLeaf.removeAt(index)
-        newLeaf.add(index, leaf)
-        target.list = newLeaf
+        val hasNotLeaf = !target.list.any { it.id == leaf.id }
+        if (hasNotLeaf) {
+            var success = false
+            for (i in 0..target.list.lastIndex) {
+                success = replaceLeaf(target.list[i], leaf)
+                if (success) break
+            }
+            return success
+        } else {
+            val index = target.list.indexOfFirst { it.id == leaf.id }
+            val newLeaf = target.list.toMutableList()
+            newLeaf.removeAt(index)
+            newLeaf.add(index, leaf)
+            target.list = newLeaf
+            return true
+        }
     }
 
     private fun convertFileData(file: File): FileData {

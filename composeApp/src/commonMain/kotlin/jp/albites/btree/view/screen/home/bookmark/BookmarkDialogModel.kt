@@ -40,11 +40,19 @@ class BookmarkDialogModel(
 
     fun register() {
         if (isValid.value) {
-            val leaf = target
-            val newBookmark = Bookmark(name = name.value, url = url.value) as File
-            val newBookmarks = leaf.list + newBookmark
-            val newLeaf = leaf.copy(list = newBookmarks)
-            fileRepository.updateLeaf(newLeaf)
+            if (target.id == Directory.ROOT.id) {
+                val root = target
+                val newBookmark = Bookmark(name = name.value, url = url.value) as File
+                val newBookmarks = root.list + newBookmark
+                val newRoot = root.copy(list = newBookmarks)
+                fileRepository.updateRoot(newRoot)
+            } else {
+                val leaf = target
+                val newBookmark = Bookmark(name = name.value, url = url.value) as File
+                val newBookmarks = leaf.list + newBookmark
+                val newLeaf = leaf.copy(list = newBookmarks)
+                fileRepository.updateLeaf(newLeaf)
+            }
         }
     }
 
