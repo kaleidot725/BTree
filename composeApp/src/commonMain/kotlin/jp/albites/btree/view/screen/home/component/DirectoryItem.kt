@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -32,16 +33,21 @@ internal fun DirectoryItem(
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         val degrees: Float by animateFloatAsState(if (isExpanded) 90f else 0f)
-        Icon(
-            imageVector = Icons.Default.KeyboardArrowRight,
-            contentDescription = null,
-            modifier = Modifier
-                .size(24.dp)
-                .rotate(degrees)
-                .align(Alignment.CenterVertically)
-                .clip(CircleShape)
-                .clickable(role = Role.Checkbox) { onExpand.invoke() }
-        )
+
+        if (directory.list.isEmpty()) {
+            Spacer(Modifier.size(24.dp))
+        } else {
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp)
+                    .rotate(degrees)
+                    .align(Alignment.CenterVertically)
+                    .clip(CircleShape)
+                    .clickable(role = Role.Checkbox) { onExpand.invoke() }
+            )
+        }
 
         Icon(
             imageVector = Icons.Default.Folder,

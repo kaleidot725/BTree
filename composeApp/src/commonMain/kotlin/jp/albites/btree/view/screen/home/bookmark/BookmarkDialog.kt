@@ -21,14 +21,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import io.ktor.http.parametersOf
+import jp.albites.btree.getDialogScreenModel
 import jp.albites.btree.getScreenModel
+import jp.albites.btree.model.domain.Directory
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun Screen.BookmarkDialog(
+    targetDirectory: Directory,
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getScreenModel<BookmarkDialogModel>()
+    val screenModel = getDialogScreenModel<BookmarkDialogModel>(tag = targetDirectory.id){
+        (parametersOf(targetDirectory))
+    }
     val name by screenModel.name.collectAsState()
     val url by screenModel.url.collectAsState()
     val isValid by screenModel.isValid.collectAsState()
@@ -80,7 +87,6 @@ fun Screen.BookmarkDialog(
                         Text("Apply")
                     }
                 }
-
             }
         }
     }

@@ -2,7 +2,6 @@ package jp.albites.btree.view.screen.home.dicretory
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
-import jp.albites.btree.model.domain.Bookmark
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.model.repository.FileRepository
@@ -35,7 +34,7 @@ class DirectoryDialogModel(
             val newBookmark = Directory(name = name.value, list = emptyList()) as File
             val newBookmarks = root.list + newBookmark
             val newRoot = root.copy(list = newBookmarks)
-            fileRepository.update(newRoot)
+            fileRepository.updateRoot(newRoot)
         }
     }
 }

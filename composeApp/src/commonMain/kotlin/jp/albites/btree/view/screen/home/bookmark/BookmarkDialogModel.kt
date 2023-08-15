@@ -3,6 +3,7 @@ package jp.albites.btree.view.screen.home.bookmark
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import jp.albites.btree.model.domain.Bookmark
+import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 class BookmarkDialogModel(
+    private val target: Directory,
     private val fileRepository: FileRepository
 ) : ScreenModel {
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
@@ -38,11 +40,11 @@ class BookmarkDialogModel(
 
     fun register() {
         if (isValid.value) {
-            val root = fileRepository.get().asDirectory!!
+            val leaf = target
             val newBookmark = Bookmark(name = name.value, url = url.value) as File
-            val newBookmarks = root.list + newBookmark
-            val newRoot = root.copy(list = newBookmarks)
-            fileRepository.update(newRoot)
+            val newBookmarks = leaf.list + newBookmark
+            val newLeaf = leaf.copy(list = newBookmarks)
+            fileRepository.updateLeaf(newLeaf)
         }
     }
 

@@ -113,7 +113,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 }
                             }
                             AnimatedVisibility(
-                                visible = true,
+                                visible = state.selectedFile.isDirectory,
                                 enter = scaleIn(),
                                 exit = scaleOut()
                             ) {
@@ -128,7 +128,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 }
                             }
                             AnimatedVisibility(
-                                visible = true,
+                                visible = state.selectedFile.isDirectory,
                                 enter = scaleIn(),
                                 exit = scaleOut()
                             ) {
@@ -179,6 +179,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 
             if (showBookmarkDialog) {
                 BookmarkDialog(
+                    targetDirectory = state.selectedFile.asDirectory!!,
                     onApply = { showBookmarkDialog = false },
                     onClose = { showBookmarkDialog = false }
                 )
