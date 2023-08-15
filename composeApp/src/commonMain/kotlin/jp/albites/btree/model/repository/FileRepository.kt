@@ -39,10 +39,11 @@ class FileRepository(
     fun updateLeaf(file: File) {
         val target = convertFileData(get())
         val leaf = convertFileData(file)
-        replaceLeaf(target, leaf)
-
-        val text = Json.encodeToString(target)
-        settings[FILE_LIST_KEY] = text
+        val result = replaceLeaf(target, leaf)
+        if (result) {
+            val text = Json.encodeToString(target)
+            settings[FILE_LIST_KEY] = text
+        }
     }
 
     fun get(): File {
@@ -61,17 +62,18 @@ class FileRepository(
 
         val hasNotLeaf = !target.list.any { it.id == leaf.id }
         if (hasNotLeaf) {
-            var success = false
             for (i in 0..target.list.lastIndex) {
-                success = replaceLeaf(target.list[i], leaf)
-                if (success) break
+                val success = replaceLeaf(target.list[i], leaf)
+                if (success) return true
             }
-            return success
+            return false
         } else {
             val index = target.list.indexOfFirst { it.id == leaf.id }
             val newLeaf = target.list.toMutableList()
+
             newLeaf.removeAt(index)
             newLeaf.add(index, leaf)
+
             target.list = newLeaf
             return true
         }
@@ -82,14 +84,14 @@ class FileRepository(
         val name = file.name
         val url = file.asBookmark?.url
         val isDirectory = file.isDirectory
-        val list = (file.asDirectory?.list ?: emptyList()).map {
-            convertFileData(it)
-        }
+        val directoryList = file.asDirectory?.list ?: emptyList()
+        val directoryFileDataList = directoryList.map { convertFileData(it) }
+
         return FileData(
             id = id,
             name = name,
             isDirectory = isDirectory,
-            list = list,
+            list = directoryFileDataList,
             url = url
         )
     }
