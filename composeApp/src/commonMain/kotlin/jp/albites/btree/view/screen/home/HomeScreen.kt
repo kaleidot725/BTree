@@ -58,6 +58,8 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
         var showEditDialog by remember { mutableStateOf(false) }
+
+        val selectedFile by rememberUpdatedState(state.selectedFile)
         val selectedDirectory by rememberUpdatedState(state.selectedFile.asDirectory)
 
         Box {
@@ -188,6 +190,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 
             if (showDeleteDialog) {
                 DeleteDialog(
+                    targetFile = selectedFile,
                     onApply = { showDeleteDialog = false },
                     onClose = { showDeleteDialog = false }
                 )

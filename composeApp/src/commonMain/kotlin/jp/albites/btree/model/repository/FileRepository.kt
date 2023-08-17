@@ -46,6 +46,16 @@ class FileRepository(
         }
     }
 
+    fun deleteLeaf(file: File) {
+        val target = convertFileData(get())
+        val leaf = convertFileData(file)
+        val result = deleteLeaf(target, leaf)
+        if (result) {
+            val text = Json.encodeToString(target)
+            settings[FILE_LIST_KEY] = text
+        }
+    }
+
     fun get(): File {
         val text: String? = settings[FILE_LIST_KEY]
         return if (text != null) {
@@ -53,6 +63,26 @@ class FileRepository(
             convertFile(fileData)
         } else {
             Directory.ROOT
+        }
+    }
+
+    private fun deleteLeaf(target: FileData, leaf: FileData) : Boolean {
+        val isEmptyLeaf = target.list.isEmpty()
+        if (isEmptyLeaf) return false
+
+        val hasNotLeaf = !target.list.any { it.id == leaf.id }
+        if (hasNotLeaf) {
+            for (i in 0..target.list.lastIndex) {
+                val success = deleteLeaf(target.list[i], leaf)
+                if (success) return true
+            }
+            return false
+        } else {
+            val index = target.list.indexOfFirst { it.id == leaf.id }
+            val newLeaf = target.list.toMutableList()
+            newLeaf.removeAt(index)
+            target.list = newLeaf
+            return true
         }
     }
 

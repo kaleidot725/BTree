@@ -17,12 +17,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
+import jp.albites.btree.getDialogScreenModel
+import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.model.domain.File
+import org.koin.core.parameter.parametersOf
 
 @Composable
-fun DeleteDialog(
+fun Screen.DeleteDialog(
+    targetFile: File,
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
+    val screenModel = getDialogScreenModel<DeleteDialogModel>(tag = targetFile.toString()) {
+        (parametersOf(targetFile))
+    }
+
     Box(
         modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
     ) {
@@ -56,7 +66,10 @@ fun DeleteDialog(
                     }
 
                     Button(
-                        onClick = { onApply() },
+                        onClick = {
+                            screenModel.delete()
+                            onApply()
+                        },
                     ) {
                         Text("Apply")
                     }
