@@ -10,6 +10,7 @@ import jp.albites.btree.view.screen.home.HomeScreenModel
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialogModel
 import jp.albites.btree.view.screen.home.delete.DeleteDialogModel
 import jp.albites.btree.view.screen.home.dicretory.DirectoryDialogModel
+import jp.albites.btree.view.screen.home.edit.EditDialogModel
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
@@ -38,6 +39,10 @@ val appModule: Module = module {
 
     factory { (file: File) ->
         DeleteDialogModel(file, get())
+    }
+
+    factory { (file: File) ->
+        EditDialogModel(file, get())
     }
 }
 

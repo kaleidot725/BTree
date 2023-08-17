@@ -198,6 +198,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 
             if (showEditDialog) {
                 EditDialog(
+                    targetFile = selectedFile,
                     onApply = { showEditDialog = false },
                     onClose = { showEditDialog = false }
                 )
