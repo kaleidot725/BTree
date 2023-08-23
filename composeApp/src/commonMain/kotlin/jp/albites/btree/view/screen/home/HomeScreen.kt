@@ -133,6 +133,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     expandedDirs = state.expandedDirs,
                     onClickFile = { file -> screenModel.onClickFile(file) },
                     onClickArrow = { directory -> screenModel.onClickArrow(directory) },
+                    onClickBookmark = { bookmark -> openUrl(bookmark.url) },
                     modifier = Modifier.fillMaxSize().padding(it)
                         .verticalScroll(rememberScrollState())
                         .clickable { screenModel.onResetFile() }

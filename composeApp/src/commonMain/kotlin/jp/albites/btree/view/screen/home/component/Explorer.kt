@@ -23,6 +23,7 @@ fun Explorer(
     expandedDirs: List<Directory>,
     onClickArrow: (Directory) -> Unit,
     onClickFile: (File) -> Unit,
+    onClickBookmark: (Bookmark) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
@@ -31,6 +32,7 @@ fun Explorer(
                 is Bookmark -> {
                     BookmarkItem(
                         bookmark = file,
+                        openBookmark = { onClickBookmark.invoke(file) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { onClickFile.invoke(file) }
@@ -47,7 +49,8 @@ fun Explorer(
                         expandedDirs = expandedDirs,
                         level = 0,
                         onClickFile = onClickFile,
-                        onClickArrow = onClickArrow
+                        onClickArrow = onClickArrow,
+                        onClickBookmark = onClickBookmark
                     )
                 }
             }

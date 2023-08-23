@@ -25,6 +25,7 @@ internal fun DirectoryTree(
     level: Int = 0,
     onClickArrow: (Directory) -> Unit = {},
     onClickFile: (File) -> Unit = { },
+    onClickBookmark: (Bookmark) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isExpanded by rememberUpdatedState(expandedDirs.any { it.id == directory.id })
@@ -48,10 +49,11 @@ internal fun DirectoryTree(
 
         if (isExpanded) {
             directory.list.forEach {
-                when(it) {
+                when (it) {
                     is Bookmark -> {
                         BookmarkItem(
                             bookmark = it,
+                            openBookmark = { onClickBookmark(it) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { onClickFile.invoke(it) }
@@ -61,6 +63,7 @@ internal fun DirectoryTree(
                                 .padding(start = (level + 1) * 24.dp)
                         )
                     }
+
                     is Directory -> {
                         DirectoryTree(
                             directory = it,
@@ -68,7 +71,8 @@ internal fun DirectoryTree(
                             expandedDirs = expandedDirs,
                             level = level + 1,
                             onClickFile = onClickFile,
-                            onClickArrow = onClickArrow
+                            onClickArrow = onClickArrow,
+                            onClickBookmark = { onClickBookmark(it) },
                         )
                     }
                 }
