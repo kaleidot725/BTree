@@ -48,7 +48,7 @@ fun Screen.DirectoryDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Text(
-                    text = "Register",
+                    text = "Create Folder",
                     style = MaterialTheme.typography.titleMedium
                 )
 

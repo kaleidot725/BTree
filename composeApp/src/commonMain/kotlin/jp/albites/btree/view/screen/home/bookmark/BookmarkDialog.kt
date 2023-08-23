@@ -50,7 +50,7 @@ fun Screen.BookmarkDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Text(
-                    text = "Register",
+                    text = "Create Link",
                     style = MaterialTheme.typography.titleMedium
                 )
 

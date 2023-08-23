@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
@@ -17,9 +18,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLink
 import androidx.compose.material.icons.filled.CreateNewFolder
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DeleteSweep
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.EditNote
+import androidx.compose.material.icons.filled.InsertLink
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,7 +46,10 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.getScreenModel
+import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.view.exntension.clickableNoRipple
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
+import jp.albites.btree.view.screen.home.component.HomeMenuIcon
 import jp.albites.btree.view.screen.home.delete.DeleteDialog
 import jp.albites.btree.view.screen.home.dicretory.DirectoryDialog
 import jp.albites.btree.view.screen.home.edit.EditDialog
@@ -67,7 +75,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         Box {
             Scaffold(
                 topBar = {
-                    TopAppBar(
+                    CenterAlignedTopAppBar(
                         title = { Text("BTree") },
                         actions = {
                             IconButton(onClick = { navigator.push(SettingScreen()) }) {
@@ -82,7 +90,6 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 bottomBar = {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
                             modifier = Modifier
                                 .padding(vertical = 16.dp)
                                 .align(Alignment.Center)
@@ -90,45 +97,39 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                     color = Color.LightGray.copy(alpha = 0.3f),
                                     shape = RoundedCornerShape(8.dp)
                                 )
-                                .padding(horizontal = 16.dp)
+                                .padding(horizontal = 16.dp, vertical = 8.dp)
                         ) {
-                            IconButton(enabled = true, onClick = { showDeleteDialog = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.DeleteSweep,
-                                    contentDescription = "Delete",
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
-
-                            IconButton(onClick = { showEditDialog = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.EditNote,
-                                    contentDescription = "Edit",
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
-
-                            IconButton(
+                            HomeMenuIcon(
+                                icon = Icons.Default.CreateNewFolder,
+                                label = "Add Folder",
                                 enabled = state.selectedFile.isDirectory,
-                                onClick = { showBookmarkDialog = true }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.AddLink,
-                                    contentDescription = "AddLink",
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
+                                onClick = { showDirectoryDialog = true },
+                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                            )
 
-                            IconButton(
+                            HomeMenuIcon(
+                                icon = Icons.Default.InsertLink,
+                                label = "Add Link",
                                 enabled = state.selectedFile.isDirectory,
-                                onClick = { showDirectoryDialog = true }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.CreateNewFolder,
-                                    contentDescription = "AddLink",
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
+                                onClick = { showBookmarkDialog = true },
+                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                            )
+
+                            HomeMenuIcon(
+                                icon = Icons.Default.Edit,
+                                label = "Edit File",
+                                enabled = state.selectedFile.id != Directory.ROOT.id,
+                                onClick = { showEditDialog = true },
+                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                            )
+
+                            HomeMenuIcon(
+                                icon = Icons.Default.Delete,
+                                label = "Delete File",
+                                enabled = state.selectedFile.id != Directory.ROOT.id,
+                                onClick = { showDeleteDialog = true },
+                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                            )
                         }
                     }
                 },
@@ -142,7 +143,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     onClickBookmark = { bookmark -> openUrl(bookmark.url) },
                     modifier = Modifier.fillMaxSize().padding(it)
                         .verticalScroll(rememberScrollState())
-                        .clickable { screenModel.onResetFile() }
+                        .clickableNoRipple { screenModel.onResetFile() }
                 )
             }
 
