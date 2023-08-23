@@ -41,8 +41,8 @@ val appModule: Module = module {
         DeleteDialogModel(fileId, get())
     }
 
-    factory { (file: File) ->
-        EditDialogModel(file, get())
+    factory { (fileId: String) ->
+        EditDialogModel(fileId, get())
     }
 }
 

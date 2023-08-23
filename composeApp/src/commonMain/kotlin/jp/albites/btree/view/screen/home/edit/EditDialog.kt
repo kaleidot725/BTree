@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import jp.albites.btree.getDialogModel
 import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.File
 import org.koin.core.parameter.parametersOf
@@ -31,9 +32,10 @@ fun Screen.EditDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getScreenModel<EditDialogModel> {
-        (parametersOf(targetFile))
+    val screenModel = getDialogModel<EditDialogModel>(tag = targetFile.toString()) {
+        (parametersOf(targetFile.id))
     }
+    val target by screenModel.target.collectAsState()
     val name by screenModel.name.collectAsState()
     val url by screenModel.url.collectAsState()
     val isValid by screenModel.isValid.collectAsState()
@@ -59,7 +61,7 @@ fun Screen.EditDialog(
                     placeholder = { Text("Name") }
                 )
 
-                if (screenModel.isBookmark) {
+                if (target?.isBookmark == true) {
                     OutlinedTextField(
                         value = url,
                         onValueChange = { screenModel.updateUrl(it) },
