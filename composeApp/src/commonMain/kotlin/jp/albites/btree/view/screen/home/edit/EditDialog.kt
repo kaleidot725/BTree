@@ -16,15 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import jp.albites.btree.getDialogScreenModel
+import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.File
 import org.koin.core.parameter.parametersOf
 
@@ -34,7 +31,7 @@ fun Screen.EditDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getDialogScreenModel<EditDialogModel>(tag = targetFile.toString()) {
+    val screenModel = getScreenModel<EditDialogModel> {
         (parametersOf(targetFile))
     }
     val name by screenModel.name.collectAsState()

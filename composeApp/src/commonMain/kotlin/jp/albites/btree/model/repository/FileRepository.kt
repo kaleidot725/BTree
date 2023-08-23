@@ -31,8 +31,8 @@ class FileRepository(
         }
 
     fun updateRoot(file: File) {
-        val fileData = convertFileData(file)
-        val text = Json.encodeToString(fileData)
+        val root = convertFileData(file)
+        val text = Json.encodeToString(root)
         settings[FILE_LIST_KEY] = text
     }
 
@@ -46,10 +46,15 @@ class FileRepository(
         }
     }
 
-    fun deleteLeaf(file: File) {
+    fun getLeaf(id: String): File? {
         val target = convertFileData(get())
-        val leaf = convertFileData(file)
-        val result = deleteLeaf(target, leaf)
+        val latestLeafData = findLeafFromFileData(target, id) ?: return null
+        return convertFile(latestLeafData)
+    }
+
+    fun deleteLeaf(id : String) {
+        val target = convertFileData(get())
+        val result = deleteLeaf(target, id)
         if (result) {
             val text = Json.encodeToString(target)
             settings[FILE_LIST_KEY] = text
@@ -66,19 +71,19 @@ class FileRepository(
         }
     }
 
-    private fun deleteLeaf(target: FileData, leaf: FileData) : Boolean {
+    private fun deleteLeaf(target: FileData, id: String): Boolean {
         val isEmptyLeaf = target.list.isEmpty()
         if (isEmptyLeaf) return false
 
-        val hasNotLeaf = !target.list.any { it.id == leaf.id }
+        val hasNotLeaf = !target.list.any { it.id == id }
         if (hasNotLeaf) {
             for (i in 0..target.list.lastIndex) {
-                val success = deleteLeaf(target.list[i], leaf)
+                val success = deleteLeaf(target.list[i], id)
                 if (success) return true
             }
             return false
         } else {
-            val index = target.list.indexOfFirst { it.id == leaf.id }
+            val index = target.list.indexOfFirst { it.id == id }
             val newLeaf = target.list.toMutableList()
             newLeaf.removeAt(index)
             target.list = newLeaf
@@ -86,7 +91,7 @@ class FileRepository(
         }
     }
 
-    private fun replaceLeaf(target: FileData, leaf: FileData) : Boolean {
+    private fun replaceLeaf(target: FileData, leaf: FileData): Boolean {
         val isEmptyLeaf = target.list.isEmpty()
         if (isEmptyLeaf) return false
 
@@ -106,6 +111,22 @@ class FileRepository(
 
             target.list = newLeaf
             return true
+        }
+    }
+
+    private fun findLeafFromFileData(target: FileData, id: String): FileData? {
+        val isEmptyLeaf = target.list.isEmpty()
+        if (isEmptyLeaf) return null
+
+        val targetLeaf = target.list.firstOrNull { it.id == id }
+        if (targetLeaf == null) {
+            for (i in 0..target.list.lastIndex) {
+                val targetLeafR = findLeafFromFileData(target.list[i], id)
+                if (targetLeafR != null) return targetLeafR
+            }
+            return null
+        } else {
+            return targetLeaf
         }
     }
 

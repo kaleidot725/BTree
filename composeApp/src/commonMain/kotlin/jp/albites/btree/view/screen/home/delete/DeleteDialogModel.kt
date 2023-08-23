@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class DeleteDialogModel(
-    private val target: File,
+    private val targetId: String,
     private val fileRepository: FileRepository
 ) : ScreenModel {
     fun delete() {
-        fileRepository.deleteLeaf(target)
+        fileRepository.deleteLeaf(targetId)
     }
 }

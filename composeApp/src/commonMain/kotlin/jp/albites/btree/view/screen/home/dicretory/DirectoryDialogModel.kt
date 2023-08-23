@@ -2,7 +2,6 @@ package jp.albites.btree.view.screen.home.dicretory
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
-import jp.albites.btree.model.domain.Bookmark
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.model.repository.FileRepository
@@ -13,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class DirectoryDialogModel(
-    private val target: Directory,
+    private val targetId: String,
     private val fileRepository: FileRepository
 ) : ScreenModel {
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
@@ -32,14 +31,14 @@ class DirectoryDialogModel(
 
     fun register() {
         if (isValid.value) {
-            if (target.id == Directory.ROOT.id) {
-                val root = target
+            if (targetId == Directory.ROOT.id) {
+                val root = fileRepository.get().asDirectory ?: return
                 val newDirectory = Directory(name = name.value, list = emptyList()) as File
                 val newFiles = root.list + newDirectory
                 val newRoot = root.copy(list = newFiles)
                 fileRepository.updateRoot(newRoot)
             } else {
-                val leaf = target
+                val leaf = fileRepository.getLeaf(targetId)?.asDirectory ?: return
                 val newDirectory = Directory(name = name.value, list = emptyList()) as File
                 val newFiles = leaf.list + newDirectory
                 val newLeaf = leaf.copy(list = newFiles)

@@ -21,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import io.ktor.http.parametersOf
-import jp.albites.btree.getDialogScreenModel
 import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.Directory
 import org.koin.core.parameter.parametersOf
@@ -33,7 +31,7 @@ fun Screen.BookmarkDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getDialogScreenModel<BookmarkDialogModel>(tag = targetDirectory.toString()){
+    val screenModel = getScreenModel<BookmarkDialogModel>{
         (parametersOf(targetDirectory))
     }
     val name by screenModel.name.collectAsState()

@@ -33,12 +33,12 @@ val appModule: Module = module {
         BookmarkDialogModel(dir, get())
     }
 
-    factory { (dir: Directory) ->
-        DirectoryDialogModel(dir, get())
+    factory { (dirId: String) ->
+        DirectoryDialogModel(dirId, get())
     }
 
-    factory { (file: File) ->
-        DeleteDialogModel(file, get())
+    factory { (fileId: String) ->
+        DeleteDialogModel(fileId, get())
     }
 
     factory { (file: File) ->
@@ -58,7 +58,7 @@ inline fun <reified T : ScreenModel> Screen.getScreenModel(
 }
 
 @Composable
-inline fun <reified T : ScreenModel> Screen.getDialogScreenModel(
+inline fun <reified T : ScreenModel> Screen.getDialogModel(
     tag: String,
     qualifier: Qualifier? = null,
     noinline parameters: ParametersDefinition? = null,

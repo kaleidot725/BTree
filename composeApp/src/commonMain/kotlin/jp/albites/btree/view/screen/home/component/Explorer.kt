@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.albites.btree.model.domain.Bookmark
-import jp.albites.btree.view.screen.home.component.BookmarkItem
 import jp.albites.btree.model.domain.Directory
-import jp.albites.btree.view.screen.home.component.DirectoryTree
 import jp.albites.btree.model.domain.File
+import jp.albites.btree.view.screen.home.component.BookmarkItem
+import jp.albites.btree.view.screen.home.component.DirectoryTree
 
 @Composable
 fun Explorer(
-    targetFile: File,
+    rootDirectory: Directory,
     selectedFile: File,
     expandedDirs: List<Directory>,
     onClickArrow: (Directory) -> Unit,
@@ -26,28 +26,30 @@ fun Explorer(
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
-        when (targetFile) {
-            is Bookmark -> {
-                BookmarkItem(
-                    bookmark = targetFile,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onClickFile.invoke(targetFile) }
-                        .background(if (selectedFile.id == targetFile.id) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
-                        .padding(horizontal = 8.dp)
-                        .padding(vertical = 4.dp)
-                )
-            }
+        rootDirectory.list.forEach { file ->
+            when (file) {
+                is Bookmark -> {
+                    BookmarkItem(
+                        bookmark = file,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onClickFile.invoke(file) }
+                            .background(if (selectedFile.id == file.id) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
+                            .padding(horizontal = 8.dp)
+                            .padding(vertical = 4.dp)
+                    )
+                }
 
-            is Directory -> {
-                DirectoryTree(
-                    directory = targetFile,
-                    selectedFile = selectedFile,
-                    expandedDirs = expandedDirs,
-                    level = 0,
-                    onClickFile = onClickFile,
-                    onClickArrow = onClickArrow
-                )
+                is Directory -> {
+                    DirectoryTree(
+                        directory = file,
+                        selectedFile = selectedFile,
+                        expandedDirs = expandedDirs,
+                        level = 0,
+                        onClickFile = onClickFile,
+                        onClickArrow = onClickArrow
+                    )
+                }
             }
         }
     }

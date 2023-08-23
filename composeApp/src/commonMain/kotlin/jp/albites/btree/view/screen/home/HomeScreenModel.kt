@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.stateIn
 
 class HomeScreenModel(
@@ -23,9 +22,11 @@ class HomeScreenModel(
     private val selectedFile: MutableStateFlow<File> = MutableStateFlow(fileTree.value)
     private val expandedDirs: MutableStateFlow<List<Directory>> = MutableStateFlow(emptyList())
     val state = combine(fileTree, selectedFile, expandedDirs) { fileTree, selectedFile, expandedDirs ->
+        val rootDirectory = fileTree.asDirectory ?: Directory.ROOT
+        val latestFile = fileRepository.getLeaf(selectedFile.id) ?: Directory.ROOT
         HomeScreenState(
-            fileTree = fileTree,
-            selectedFile = selectedFile,
+            fileTree = rootDirectory,
+            selectedFile = latestFile,
             expandedDirs = expandedDirs
         )
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), HomeScreenState())
@@ -50,6 +51,10 @@ class HomeScreenModel(
 
     fun onClickFile(file: File) {
         selectedFile.value = file
+    }
+
+    fun onResetFile() {
+        selectedFile.value = Directory.ROOT
     }
 
     private fun collectDirectories(list: MutableList<Directory>, target: Directory) {

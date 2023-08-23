@@ -34,9 +34,7 @@ internal fun DirectoryItem(
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         val degrees: Float by animateFloatAsState(if (isExpanded) 90f else 0f)
 
-        if (directory.list.isEmpty()) {
-            Spacer(Modifier.size(24.dp))
-        } else {
+        if (directory.list.isNotEmpty()) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = null,

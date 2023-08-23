@@ -1,10 +1,8 @@
 package jp.albites.btree.view.screen.home
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -15,7 +13,7 @@ import androidx.compose.material.icons.filled.CreateNewFolder
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,7 +27,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -76,75 +73,69 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     )
                 },
                 bottomBar = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
-                            .background(BottomAppBarDefaults.containerColor)
-                    ) {
-                        Row(
-                            modifier = Modifier.align(Alignment.Center)
+                    BottomAppBar {
+                        IconButton(enabled = true, onClick = { showDeleteDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Default.DeleteSweep,
+                                contentDescription = "Delete",
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
+
+                        IconButton(onClick = { showEditDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Default.EditNote,
+                                contentDescription = "Edit",
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
+
+                        IconButton(
+                            enabled = state.selectedFile.isDirectory,
+                            onClick = { showBookmarkDialog = true }
                         ) {
-                            IconButton(enabled = true, onClick = { showDeleteDialog = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.DeleteSweep,
-                                    contentDescription = "Delete",
-                                    modifier = Modifier.size(28.dp)
-                                )
-                            }
+                            Icon(
+                                imageVector = Icons.Default.AddLink,
+                                contentDescription = "AddLink",
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
 
-                            IconButton(onClick = { showEditDialog = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.EditNote,
-                                    contentDescription = "Edit",
-                                    modifier = Modifier.size(28.dp)
-                                )
-                            }
+                        IconButton(
+                            enabled = state.selectedFile.isDirectory,
+                            onClick = { showDirectoryDialog = true }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CreateNewFolder,
+                                contentDescription = "AddLink",
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
 
-                            IconButton(
-                                enabled = state.selectedFile.isDirectory,
-                                onClick = { showBookmarkDialog = true }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.AddLink,
-                                    contentDescription = "AddLink",
-                                    modifier = Modifier.size(28.dp)
-                                )
+                        IconButton(
+                            enabled = state.selectedFile.isBookmark,
+                            onClick = {
+                                state.selectedFile.asBookmark?.let { openUrl(it.url) }
                             }
-
-                            IconButton(
-                                enabled = state.selectedFile.isDirectory,
-                                onClick = { showDirectoryDialog = true }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.CreateNewFolder,
-                                    contentDescription = "AddLink",
-                                    modifier = Modifier.size(28.dp)
-                                )
-                            }
-
-                            IconButton(
-                                enabled = state.selectedFile.isBookmark,
-                                onClick = {
-                                    state.selectedFile.asBookmark?.let { openUrl(it.url) }
-                                }
-                            ) {
-                                Icon(
-                                    painter = painterResource("browser.png"),
-                                    contentDescription = "Open in browser",
-                                    modifier = Modifier.size(28.dp)
-                                )
-                            }
+                        ) {
+                            Icon(
+                                painter = painterResource("browser.png"),
+                                contentDescription = "Open in browser",
+                                modifier = Modifier.size(28.dp)
+                            )
                         }
                     }
                 },
             ) {
                 Explorer(
-                    targetFile = state.fileTree,
+                    rootDirectory = state.fileTree,
                     selectedFile = state.selectedFile,
                     expandedDirs = state.expandedDirs,
                     onClickFile = { file -> screenModel.onClickFile(file) },
                     onClickArrow = { directory -> screenModel.onClickArrow(directory) },
                     modifier = Modifier.fillMaxSize().padding(it)
                         .verticalScroll(rememberScrollState())
+                        .clickable { screenModel.onResetFile() }
                 )
             }
 

@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import jp.albites.btree.getDialogScreenModel
-import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.getDialogModel
+import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.File
 import org.koin.core.parameter.parametersOf
 
@@ -29,8 +29,8 @@ fun Screen.DeleteDialog(
     onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
-    val screenModel = getDialogScreenModel<DeleteDialogModel>(tag = targetFile.toString()) {
-        (parametersOf(targetFile))
+    val screenModel = getDialogModel<DeleteDialogModel>(tag = targetFile.toString()) {
+        (parametersOf(targetFile.id))
     }
 
     Box(
