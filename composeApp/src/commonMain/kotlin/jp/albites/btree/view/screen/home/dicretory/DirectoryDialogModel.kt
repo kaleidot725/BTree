@@ -32,7 +32,7 @@ class DirectoryDialogModel(
     fun register() {
         if (isValid.value) {
             if (targetId == Directory.ROOT.id) {
-                val root = fileRepository.get().asDirectory ?: return
+                val root = fileRepository.getRoot()
                 val newDirectory = Directory(name = name.value, list = emptyList()) as File
                 val newFiles = root.list + newDirectory
                 val newRoot = root.copy(list = newFiles)
@@ -45,5 +45,7 @@ class DirectoryDialogModel(
                 fileRepository.updateLeaf(newLeaf)
             }
         }
+
+        _name.value = ""
     }
 }

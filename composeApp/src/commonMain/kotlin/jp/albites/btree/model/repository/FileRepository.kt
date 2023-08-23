@@ -37,7 +37,7 @@ class FileRepository(
     }
 
     fun updateLeaf(file: File) {
-        val target = convertFileData(get())
+        val target = convertFileData(getRoot())
         val leaf = convertFileData(file)
         val result = replaceLeaf(target, leaf)
         if (result) {
@@ -47,13 +47,13 @@ class FileRepository(
     }
 
     fun getLeaf(id: String): File? {
-        val target = convertFileData(get())
+        val target = convertFileData(getRoot())
         val latestLeafData = findLeafFromFileData(target, id) ?: return null
         return convertFile(latestLeafData)
     }
 
     fun deleteLeaf(id : String) {
-        val target = convertFileData(get())
+        val target = convertFileData(getRoot())
         val result = deleteLeaf(target, id)
         if (result) {
             val text = Json.encodeToString(target)
@@ -61,11 +61,11 @@ class FileRepository(
         }
     }
 
-    fun get(): File {
+    fun getRoot(): Directory {
         val text: String? = settings[FILE_LIST_KEY]
         return if (text != null) {
             val fileData = Json.decodeFromString<FileData>(text)
-            convertFile(fileData)
+            convertFile(fileData)?.asDirectory ?: Directory.ROOT
         } else {
             Directory.ROOT
         }

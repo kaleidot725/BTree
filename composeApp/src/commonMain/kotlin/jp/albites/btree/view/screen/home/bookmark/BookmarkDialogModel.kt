@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 class BookmarkDialogModel(
-    private val target: Directory,
+    private val targetId: String,
     private val fileRepository: FileRepository
 ) : ScreenModel {
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
@@ -40,20 +40,22 @@ class BookmarkDialogModel(
 
     fun register() {
         if (isValid.value) {
-            if (target.id == Directory.ROOT.id) {
-                val root = target
+            if (targetId == Directory.ROOT.id) {
+                val root = fileRepository.getRoot()
                 val newBookmark = Bookmark(name = name.value, url = url.value) as File
                 val newBookmarks = root.list + newBookmark
                 val newRoot = root.copy(list = newBookmarks)
                 fileRepository.updateRoot(newRoot)
             } else {
-                val leaf = target
+                val leaf = fileRepository.getLeaf(targetId)?.asDirectory ?: return
                 val newBookmark = Bookmark(name = name.value, url = url.value) as File
                 val newBookmarks = leaf.list + newBookmark
                 val newLeaf = leaf.copy(list = newBookmarks)
                 fileRepository.updateLeaf(newLeaf)
             }
         }
+        _name.value = ""
+        _url.value = ""
     }
 
     private fun isUrlValid(url: String): Boolean {

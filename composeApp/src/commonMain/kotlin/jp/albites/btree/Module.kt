@@ -29,8 +29,8 @@ val appModule: Module = module {
         HomeScreenModel(get())
     }
 
-    factory { (dir: Directory) ->
-        BookmarkDialogModel(dir, get())
+    factory { (dirId: String) ->
+        BookmarkDialogModel(dirId, get())
     }
 
     factory { (dirId: String) ->
