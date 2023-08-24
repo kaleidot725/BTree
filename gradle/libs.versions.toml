@@ -1,19 +1,19 @@
 [versions]
 
 kotlin = "1.9.0"
-agp = "8.0.1"
-compose = "1.5.0-beta01"
+agp = "8.1.0"
+compose = "1.5.0-rc04"
 androidx-appcompat = "1.6.1"
 multiplatformSettings = "1.0.0"
 voyager = "1.0.0-rc06"
 androidx-activityCompose = "1.7.2"
-compose-uitooling = "1.4.3"
-composeImageLoader = "1.4.1"
+compose-uitooling = "1.5.0"
+composeImageLoader = "1.6.4"
 napier = "2.6.1"
 buildConfig = "3.1.0"
 kotlinx-coroutines = "1.7.3"
-koin = "3.4.0"
-koin-android = "3.4.2"
+koin = "3.4.3"
+koin-android = "3.4.3"
 kotlinx-serialization = "1.5.1"
 
 [libraries]

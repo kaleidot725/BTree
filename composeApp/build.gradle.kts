@@ -12,16 +12,11 @@ plugins {
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
 
+    android()
     jvm("desktop")
-    iosArm64()
+    ios()
+    iosSimulatorArm64()
 
     cocoapods {
         version = "1.0.0"
@@ -40,6 +35,7 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
+                implementation(compose.material)
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
@@ -83,17 +79,16 @@ kotlin {
             dependencies {
             }
         }
-
     }
 }
 
 android {
     namespace = "jp.albites.btree"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
 
         applicationId = "jp.albites.btree.androidApp"
         versionCode = 1
@@ -106,6 +101,11 @@ android {
 
     packagingOptions {
         resources.excludes.add("META-INF/**")
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

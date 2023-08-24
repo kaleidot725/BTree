@@ -65,7 +65,7 @@ class FileRepository(
         val text: String? = settings[FILE_LIST_KEY]
         return if (text != null) {
             val fileData = Json.decodeFromString<FileData>(text)
-            convertFile(fileData)?.asDirectory ?: Directory.ROOT
+            convertFile(fileData).asDirectory ?: Directory.ROOT
         } else {
             Directory.ROOT
         }
