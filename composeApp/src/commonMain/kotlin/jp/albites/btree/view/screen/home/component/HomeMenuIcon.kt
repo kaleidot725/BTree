@@ -27,7 +27,7 @@ fun HomeMenuIcon(
 ) {
     Box(modifier = modifier) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .clickableNoRipple(enabled = enabled, onClick = onClick)
