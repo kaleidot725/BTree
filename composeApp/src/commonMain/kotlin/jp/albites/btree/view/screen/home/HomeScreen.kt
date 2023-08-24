@@ -91,8 +91,8 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Row(
                             modifier = Modifier
-                                .padding(vertical = 16.dp)
-                                .align(Alignment.Center)
+                                .fillMaxWidth()
+                                .padding(8.dp)
                                 .background(
                                     color = Color.LightGray.copy(alpha = 0.3f),
                                     shape = RoundedCornerShape(8.dp)
@@ -101,34 +101,42 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.CreateNewFolder,
-                                label = "Add Folder",
+                                label = "Create Folder",
                                 enabled = state.selectedFile.isDirectory,
                                 onClick = { showDirectoryDialog = true },
-                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .weight(1.0f)
                             )
 
                             HomeMenuIcon(
                                 icon = Icons.Default.InsertLink,
-                                label = "Add Link",
+                                label = "Add Bookmark",
                                 enabled = state.selectedFile.isDirectory,
                                 onClick = { showBookmarkDialog = true },
-                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .weight(1.0f)
                             )
 
                             HomeMenuIcon(
                                 icon = Icons.Default.Edit,
-                                label = "Edit File",
+                                label = "Edit",
                                 enabled = state.selectedFile.id != Directory.ROOT.id,
                                 onClick = { showEditDialog = true },
-                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .weight(1.0f)
                             )
 
                             HomeMenuIcon(
                                 icon = Icons.Default.Delete,
-                                label = "Delete File",
+                                label = "Delete",
                                 enabled = state.selectedFile.id != Directory.ROOT.id,
                                 onClick = { showDeleteDialog = true },
-                                modifier = Modifier.align(Alignment.CenterVertically).width(70.dp)
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .weight(1.0f)
                             )
                         }
                     }

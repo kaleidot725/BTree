@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,7 +36,7 @@ fun HomeMenuIcon(
             Icon(
                 imageVector = icon,
                 contentDescription = label,
-                tint = if (enabled) Color.White else Color.LightGray.copy(alpha = 0.5f),
+                tint = getColor(enabled),
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.CenterHorizontally)
@@ -44,9 +44,18 @@ fun HomeMenuIcon(
             Text(
                 text = label,
                 fontSize = 10.sp,
-                color = if (enabled) Color.White else Color.LightGray.copy(alpha = 0.5f),
+                color = getColor(enabled),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
+    }
+}
+
+@Composable
+private fun getColor(enabled: Boolean): Color {
+    return if (enabled) {
+        LocalContentColor.current
+    } else {
+        LocalContentColor.current.copy(alpha = 0.38f)
     }
 }
