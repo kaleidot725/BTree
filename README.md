@@ -3,7 +3,7 @@
 BTree is bookmark management application for iOS and Android, Windows, macOS.  
 BTree is created by Compose Multiplatform.
 
-![Group 2 (1)](https://github.com/kaleidot725/BTree/assets/23740796/65931c52-4819-41e1-8e9a-9721d26c848d)
+![Group 2 (1) - 01](https://github.com/kaleidot725/BTree/assets/23740796/093f829b-0c46-4174-9113-612692d0f2d2)
 
 ## Features
 
@@ -15,7 +15,7 @@ BTree is created by Compose Multiplatform.
 
 ## Architecture
 
-![Group 3](https://github.com/kaleidot725/BTree/assets/23740796/27877370-a8eb-4f4b-80cc-419953ff827e)
+![Group 3 - 01](https://github.com/kaleidot725/BTree/assets/23740796/93499c09-2d8d-43f5-be6f-2618aa061a68)
 
 ## Library
 
