@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.buildConfig)
     alias(libs.plugins.kotlinx.serialization)
 }
 
@@ -42,7 +41,6 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(libs.voyager.navigator)
                 implementation(libs.voyager.bottom.sheet.navigator)
-                implementation(libs.composeImageLoader)
                 implementation(libs.napier)
                 implementation(libs.koin.core)
                 implementation(libs.multiplatform.settings)
