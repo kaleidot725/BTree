@@ -49,6 +49,7 @@ kotlin {
                 implementation(libs.multiplatform.settings.coroutines)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.insetsx)
             }
         }
 
@@ -88,7 +89,7 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 33
 
         applicationId = "jp.albites.btree.androidApp"
         versionCode = 1
@@ -104,8 +105,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
