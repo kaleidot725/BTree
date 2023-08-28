@@ -1,8 +1,13 @@
 package jp.albites.btree.view.screen.home
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,8 +43,6 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.moriatsushi.insetsx.systemBarsPadding
-import jp.albites.btree.model.domain.Directory
-import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.exntension.clickableNoRipple
 import jp.albites.btree.view.resources.StringResource
@@ -49,11 +52,10 @@ import jp.albites.btree.view.screen.home.delete.DeleteDialog
 import jp.albites.btree.view.screen.home.dicretory.DirectoryDialog
 import jp.albites.btree.view.screen.home.edit.EditDialog
 import jp.albites.btree.view.screen.setting.SettingScreen
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
     @Composable
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
@@ -94,45 +96,65 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                             )
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                     ) {
-                        HomeMenuIcon(
-                            icon = Icons.Default.CreateNewFolder,
-                            label = StringResource.homeCreateFolder(),
-                            enabled = state.canCreateNewFolder,
-                            onClick = { showDirectoryDialog = true },
+                        AnimatedContent(
+                            targetState = state.canCreateNewFolder,
+                            transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .weight(1.0f)
-                        )
+                        ) {
+                            HomeMenuIcon(
+                                icon = Icons.Default.CreateNewFolder,
+                                label = StringResource.homeCreateFolder(),
+                                enabled = it,
+                                onClick = { showDirectoryDialog = true },
+                            )
+                        }
 
-                        HomeMenuIcon(
-                            icon = Icons.Default.InsertLink,
-                            label = StringResource.homeAddBookmark(),
-                            enabled = state.canAddBookmark,
-                            onClick = { showBookmarkDialog = true },
+                        AnimatedContent(
+                            targetState = state.canAddBookmark,
+                            transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .weight(1.0f)
-                        )
+                        ) {
+                            HomeMenuIcon(
+                                icon = Icons.Default.InsertLink,
+                                label = StringResource.homeAddBookmark(),
+                                enabled = it,
+                                onClick = { showBookmarkDialog = true },
+                            )
+                        }
 
-                        HomeMenuIcon(
-                            icon = Icons.Default.Edit,
-                            label = StringResource.homeEdit(),
-                            enabled = state.canEdit,
-                            onClick = { showEditDialog = true },
-                            modifier = Modifier
+                        AnimatedContent(
+                            targetState = state.canEdit,
+                            transitionSpec = { scaleIn() togetherWith scaleOut() },
+                            modifier = Modifier         
                                 .align(Alignment.CenterVertically)
                                 .weight(1.0f)
-                        )
+                        ) {
+                            HomeMenuIcon(
+                                icon = Icons.Default.Edit,
+                                label = StringResource.homeEdit(),
+                                enabled = it,
+                                onClick = { showEditDialog = true },
+                            )
+                        }
 
-                        HomeMenuIcon(
-                            icon = Icons.Default.Delete,
-                            label = StringResource.homeDelete(),
-                            enabled = state.canDelete,
-                            onClick = { showDeleteDialog = true },
+                        AnimatedContent(
+                            targetState = state.canDelete,
+                            transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .weight(1.0f)
-                        )
+                        ) {
+                            HomeMenuIcon(
+                                icon = Icons.Default.Delete,
+                                label = StringResource.homeDelete(),
+                                enabled = it,
+                                onClick = { showDeleteDialog = true },
+                            )
+                        }
                     }
                 }
             },
