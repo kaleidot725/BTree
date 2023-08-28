@@ -1,4 +1,4 @@
-package jp.albites.btree.view.theme
+package jp.albites.btree.view.resources
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme

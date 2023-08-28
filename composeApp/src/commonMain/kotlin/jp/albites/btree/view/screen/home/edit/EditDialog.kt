@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getDialogModel
+import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -47,21 +48,21 @@ fun Screen.EditDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Text(
-                    text = "Edit ${state.file.name}",
+                    text =  StringResource.editTitle(state.name),
                     style = MaterialTheme.typography.titleMedium
                 )
 
                 OutlinedTextField(
                     value = state.name,
                     onValueChange = { screenModel.updateName(it) },
-                    placeholder = { Text("Name") }
+                    placeholder = { Text(StringResource.editNamePlaceHolder()) }
                 )
 
                 if (state.file.isBookmark) {
                     OutlinedTextField(
                         value = state.url,
                         onValueChange = { screenModel.updateUrl(it) },
-                        placeholder = { Text("URL") }
+                        placeholder = { Text(StringResource.editUrlPlaceHolder()) }
                     )
                 }
 
@@ -72,7 +73,7 @@ fun Screen.EditDialog(
                     Button(
                         onClick = { onClose() },
                     ) {
-                        Text("Close")
+                        Text(StringResource.close())
                     }
 
                     Button(
@@ -82,7 +83,7 @@ fun Screen.EditDialog(
                         },
                         enabled = state.isValid
                     ) {
-                        Text("Apply")
+                        Text(StringResource.apply())
                     }
                 }
             }

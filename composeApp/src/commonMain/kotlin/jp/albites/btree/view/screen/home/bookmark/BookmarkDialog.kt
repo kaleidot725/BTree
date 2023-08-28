@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.util.getDialogModel
+import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -47,20 +48,20 @@ fun Screen.BookmarkDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Text(
-                    text = "Create Link",
+                    text = StringResource.bookmarkTitle(),
                     style = MaterialTheme.typography.titleMedium
                 )
 
                 OutlinedTextField(
                     value = state.name,
                     onValueChange = screenModel::updateName,
-                    placeholder = { Text("Name") }
+                    placeholder = { Text(StringResource.bookmarkNamePlaceHolder()) }
                 )
 
                 OutlinedTextField(
                     value = state.url,
                     onValueChange = screenModel::updateUrl,
-                    placeholder = { Text("URL") }
+                    placeholder = { Text(StringResource.bookmarkUrlPlaceHolder()) }
                 )
 
                 Row(
@@ -70,7 +71,7 @@ fun Screen.BookmarkDialog(
                     Button(
                         onClick = { onClose() },
                     ) {
-                        Text("Close")
+                        Text(StringResource.close())
                     }
 
                     Button(
@@ -80,7 +81,7 @@ fun Screen.BookmarkDialog(
                             onApply()
                         },
                     ) {
-                        Text("Apply")
+                        Text(StringResource.apply())
                     }
                 }
             }

@@ -42,6 +42,7 @@ import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.exntension.clickableNoRipple
+import jp.albites.btree.view.resources.StringResource
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
 import jp.albites.btree.view.screen.home.component.HomeMenuIcon
 import jp.albites.btree.view.screen.home.delete.DeleteDialog
@@ -70,7 +71,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         Scaffold(
             topBar = {
                 CenterAlignedTopAppBar(
-                    title = { Text("BTree") },
+                    title = { Text(StringResource.homeTitle()) },
                     actions = {
                         IconButton(onClick = { navigator.push(SettingScreen()) }) {
                             Icon(
@@ -95,7 +96,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     ) {
                         HomeMenuIcon(
                             icon = Icons.Default.CreateNewFolder,
-                            label = "Create Folder",
+                            label = StringResource.homeCreateFolder(),
                             enabled = state.selectedFile.isDirectory,
                             onClick = { showDirectoryDialog = true },
                             modifier = Modifier
@@ -105,7 +106,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 
                         HomeMenuIcon(
                             icon = Icons.Default.InsertLink,
-                            label = "Add Bookmark",
+                            label = StringResource.homeAddBookmark(),
                             enabled = state.selectedFile.isDirectory,
                             onClick = { showBookmarkDialog = true },
                             modifier = Modifier
@@ -115,7 +116,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 
                         HomeMenuIcon(
                             icon = Icons.Default.Edit,
-                            label = "Edit",
+                            label = StringResource.homeEdit(),
                             enabled = state.selectedFile.id != File.NONE.id,
                             onClick = { showEditDialog = true },
                             modifier = Modifier
@@ -125,7 +126,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
 
                         HomeMenuIcon(
                             icon = Icons.Default.Delete,
-                            label = "Delete",
+                            label = StringResource.homeDelete(),
                             enabled = state.selectedFile.id != File.NONE.id,
                             onClick = { showDeleteDialog = true },
                             modifier = Modifier

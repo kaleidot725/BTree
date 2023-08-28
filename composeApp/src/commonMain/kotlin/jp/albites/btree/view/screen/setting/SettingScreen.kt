@@ -29,6 +29,7 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import jp.albites.btree.view.resources.StringResource
 import jp.albites.btree.view.screen.setting.component.SettingItem
 import jp.albites.btree.view.screen.theme.ThemeScreen
 
@@ -40,7 +41,7 @@ class SettingScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Setting") },
+                    title = { Text(StringResource.settingTitle()) },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
@@ -51,7 +52,7 @@ class SettingScreen : Screen {
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(it)) {
                 SettingItem(
-                    title = "Theme",
+                    title = StringResource.settingThemeTitle(),
                     icon = Icons.Default.ColorLens,
                     iconDescription = "theme",
                     modifier = Modifier
@@ -64,7 +65,7 @@ class SettingScreen : Screen {
                 Divider()
 
                 SettingItem(
-                    title = "Version : v0.1.0",
+                    title = StringResource.settingVersion(),
                     icon = Icons.Default.CardMembership,
                     iconDescription = "Version",
                     modifier = Modifier

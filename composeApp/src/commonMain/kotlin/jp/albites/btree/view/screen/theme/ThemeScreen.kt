@@ -26,6 +26,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.util.getScreenModel
+import jp.albites.btree.view.resources.StringResource
 import jp.albites.btree.view.screen.setting.component.SettingCheckItem
 
 class ThemeScreen : Screen {
@@ -39,7 +40,7 @@ class ThemeScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Theme") },
+                    title = { Text(StringResource.settingThemeTitle()) },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
@@ -50,7 +51,7 @@ class ThemeScreen : Screen {
         ) {
             Column(modifier = Modifier.padding(it)) {
                 SettingCheckItem(
-                    title = "Light",
+                    title = StringResource.settingThemeLight(),
                     icon = Icons.Default.LightMode,
                     checked = selectedTheme == Theme.LIGHT,
                     onCheckedChange = { screenModel.selectTheme(Theme.LIGHT) },
@@ -64,7 +65,7 @@ class ThemeScreen : Screen {
                 Divider()
 
                 SettingCheckItem(
-                    title = "Dark",
+                    title = StringResource.settingThemeDark(),
                     icon = Icons.Default.DarkMode,
                     checked = selectedTheme == Theme.DARK,
                     onCheckedChange = { screenModel.selectTheme(Theme.DARK) },
@@ -78,7 +79,7 @@ class ThemeScreen : Screen {
                 Divider()
 
                 SettingCheckItem(
-                    title = "Sync System",
+                    title = StringResource.settingThemeSync(),
                     icon = Icons.Default.Sync,
                     checked = selectedTheme == Theme.SYSTEM,
                     onCheckedChange = { screenModel.selectTheme(Theme.SYSTEM) },

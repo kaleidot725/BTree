@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getDialogModel
+import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -47,12 +48,12 @@ fun Screen.DeleteDialog(
             ) {
                 Column {
                     Text(
-                        text = "Delete ${state.file.name}",
+                        text = StringResource.deleteTitle(state.file.name),
                         style = MaterialTheme.typography.titleMedium
                     )
 
                     Text(
-                        text = "Do you delete ${state.file.name}?",
+                        text = StringResource.deleteMessage(state.file.name),
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
@@ -64,7 +65,7 @@ fun Screen.DeleteDialog(
                     Button(
                         onClick = { onClose() },
                     ) {
-                        Text("Close")
+                        Text(StringResource.close())
                     }
 
                     Button(
@@ -73,7 +74,7 @@ fun Screen.DeleteDialog(
                             onApply()
                         },
                     ) {
-                        Text("Apply")
+                        Text(StringResource.apply())
                     }
                 }
             }

@@ -11,9 +11,9 @@ import com.moriatsushi.insetsx.rememberWindowInsetsController
 import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.screen.home.HomeScreen
-import jp.albites.btree.view.theme.AppTheme
-import jp.albites.btree.view.theme.DarkColors
-import jp.albites.btree.view.theme.LightColors
+import jp.albites.btree.view.resources.AppTheme
+import jp.albites.btree.view.resources.DarkColors
+import jp.albites.btree.view.resources.LightColors
 import kotlinx.coroutines.flow.Flow
 import org.koin.mp.KoinPlatform
 
