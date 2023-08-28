@@ -158,7 +158,7 @@ class FileRepository(
             return Bookmark(
                 id = fileData.id,
                 name = fileData.name,
-                url = fileData.url!!
+                url = fileData.url ?: ""
             )
         }
     }

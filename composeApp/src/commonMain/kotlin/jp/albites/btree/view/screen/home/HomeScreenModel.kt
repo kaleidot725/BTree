@@ -24,12 +24,12 @@ class HomeScreenModel(
     val state = combine(fileTree, selectedFile, expandedDirs) { fileTree, selectedFile, expandedDirs ->
         val rootDirectory = fileTree.asDirectory ?: Directory.ROOT
         val latestFile = fileRepository.getLeaf(selectedFile.id) ?: Directory.ROOT
-        HomeScreenState(
+        State(
             fileTree = rootDirectory,
             selectedFile = latestFile,
             expandedDirs = expandedDirs
         )
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), HomeScreenState())
+    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
     fun onClickArrow(directory: Directory) {
         val current = expandedDirs.value
@@ -63,4 +63,10 @@ class HomeScreenModel(
             collectDirectories(list, it)
         }
     }
+
+    data class State(
+        val fileTree: Directory = Directory.ROOT,
+        val selectedFile: File = File.NONE,
+        val expandedDirs: List<Directory> = emptyList(),
+    )
 }

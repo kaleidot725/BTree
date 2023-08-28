@@ -28,7 +28,7 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun Screen.EditDialog(
     targetFile: File,
-    onClose: () -> Unit,    
+    onClose: () -> Unit,
     onApply: () -> Unit,
 ) {
     val screenModel = getDialogModel<EditDialogModel>(tag = targetFile.toString()) {
@@ -47,7 +47,7 @@ fun Screen.EditDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Text(
-                    text = "Edit",
+                    text = "Edit ${state.file.name}",
                     style = MaterialTheme.typography.titleMedium
                 )
 

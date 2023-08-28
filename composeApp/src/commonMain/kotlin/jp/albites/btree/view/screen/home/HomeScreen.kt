@@ -39,6 +39,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.moriatsushi.insetsx.systemBarsPadding
 import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.exntension.clickableNoRipple
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
@@ -51,15 +52,13 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {
-    @OptIn(
-        ExperimentalMaterial3Api::class, ExperimentalResourceApi::class,
-        ExperimentalLayoutApi::class
-    )
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
+
         var showBookmarkDialog by remember { mutableStateOf(false) }
         var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
@@ -117,7 +116,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         HomeMenuIcon(
                             icon = Icons.Default.Edit,
                             label = "Edit",
-                            enabled = state.selectedFile.id != Directory.ROOT.id,
+                            enabled = state.selectedFile.id != File.NONE.id,
                             onClick = { showEditDialog = true },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
@@ -127,7 +126,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         HomeMenuIcon(
                             icon = Icons.Default.Delete,
                             label = "Delete",
-                            enabled = state.selectedFile.id != Directory.ROOT.id,
+                            enabled = state.selectedFile.id != File.NONE.id,
                             onClick = { showDeleteDialog = true },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
@@ -155,19 +154,23 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         }
 
         if (showBookmarkDialog && selectedDirectory != null) {
-            BookmarkDialog(
-                targetDirectory = selectedDirectory!!,
-                onApply = { showBookmarkDialog = false },
-                onClose = { showBookmarkDialog = false }
-            )
+            selectedDirectory?.let {
+                BookmarkDialog(
+                    targetDirectory = it,
+                    onApply = { showBookmarkDialog = false },
+                    onClose = { showBookmarkDialog = false }
+                )
+            }
         }
 
         if (showDirectoryDialog && selectedDirectory != null) {
-            DirectoryDialog(
-                targetDirectory = selectedDirectory!!,
-                onApply = { showDirectoryDialog = false },
-                onClose = { showDirectoryDialog = false }
-            )
+            selectedDirectory?.let {
+                DirectoryDialog(
+                    targetDirectory = it,
+                    onApply = { showDirectoryDialog = false },
+                    onClose = { showDirectoryDialog = false }
+                )
+            }
         }
 
         if (showDeleteDialog) {
