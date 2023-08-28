@@ -36,9 +36,7 @@ class SettingScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        val screenModel = rememberScreenModel { SettingScreenModel() }
         val navigator = LocalNavigator.currentOrThrow
-
         Scaffold(
             topBar = {
                 TopAppBar(
