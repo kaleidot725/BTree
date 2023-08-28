@@ -13,6 +13,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +33,7 @@ fun Screen.DeleteDialog(
     val screenModel = getDialogModel<DeleteDialogModel>(tag = targetFile.toString()) {
         (parametersOf(targetFile.id))
     }
+    val state by screenModel.state.collectAsState()
 
     Box(
         modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
@@ -44,12 +47,12 @@ fun Screen.DeleteDialog(
             ) {
                 Column {
                     Text(
-                        text = "Delete",
+                        text = "Delete ${state.file.name}",
                         style = MaterialTheme.typography.titleMedium
                     )
 
                     Text(
-                        text = "Do you delete bookmark?",
+                        text = "Do you delete ${state.file.name}?",
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
@@ -73,7 +76,6 @@ fun Screen.DeleteDialog(
                         Text("Apply")
                     }
                 }
-
             }
         }
     }

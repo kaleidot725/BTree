@@ -11,6 +11,10 @@ sealed class File(
     val asDirectory get() = this as? Directory
     val isBookmark get() = this is Bookmark
     val asBookmark get() = this as? Bookmark
+
+    companion object {
+        val NONE = Directory("", "", emptyList())
+    }
 }
 
 data class Directory(

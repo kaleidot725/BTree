@@ -9,7 +9,6 @@ import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
@@ -17,12 +16,8 @@ class BookmarkDialogModel(
     private val targetId: String,
     private val fileRepository: FileRepository
 ) : ScreenModel {
-    private val _name: MutableStateFlow<String> = MutableStateFlow("")
-    val name: StateFlow<String> = _name.asStateFlow()
-
-    private val _url: MutableStateFlow<String> = MutableStateFlow("")
-    val url: StateFlow<String> = _url.asStateFlow()
-
+    private val name: MutableStateFlow<String> = MutableStateFlow("")
+    private val url: MutableStateFlow<String> = MutableStateFlow("")
     val state: StateFlow<State> = combine(name, url) { name, url ->
         val isValid = when {
             name.isEmpty() -> false
@@ -33,11 +28,11 @@ class BookmarkDialogModel(
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
     fun updateName(name: String) {
-        _name.value = name
+        this.name.value = name
     }
 
     fun updateUrl(url: String) {
-        _url.value = url
+        this.url.value = url
     }
 
     fun register() {
@@ -56,8 +51,8 @@ class BookmarkDialogModel(
                 fileRepository.updateLeaf(newLeaf)
             }
         }
-        _name.value = ""
-        _url.value = ""
+        name.value = ""
+        url.value = ""
     }
 
     private fun isUrlValid(url: String): Boolean {
