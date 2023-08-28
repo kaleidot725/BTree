@@ -34,8 +34,7 @@ fun Screen.DirectoryDialog(
     val screenModel = getDialogModel<DirectoryDialogModel>(tag = targetDirectory.toString()) {
         (parametersOf(targetDirectory.id))
     }
-    val name by screenModel.name.collectAsState()
-    val isValid by screenModel.isValid.collectAsState()
+    val state by screenModel.state.collectAsState()
 
     Box(
         modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
@@ -53,7 +52,7 @@ fun Screen.DirectoryDialog(
                 )
 
                 OutlinedTextField(
-                    value = name,
+                    value = state.name,
                     onValueChange = screenModel::updateName,
                     placeholder = { Text("Name") }
                 )
@@ -69,7 +68,7 @@ fun Screen.DirectoryDialog(
                     }
 
                     Button(
-                        enabled = isValid,
+                        enabled = state.isValid,
                         onClick = {
                             screenModel.register()
                             onApply()
@@ -78,7 +77,6 @@ fun Screen.DirectoryDialog(
                         Text("Apply")
                     }
                 }
-
             }
         }
     }

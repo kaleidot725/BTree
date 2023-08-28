@@ -15,22 +15,21 @@ class DirectoryDialogModel(
     private val targetId: String,
     private val fileRepository: FileRepository
 ) : ScreenModel {
-    private val _name: MutableStateFlow<String> = MutableStateFlow("")
-    val name: StateFlow<String> = _name
-
-    val isValid: StateFlow<Boolean> = name.map { name ->
-        when {
+    private val name: MutableStateFlow<String> = MutableStateFlow("")
+    val state: StateFlow<State> = name.map { name ->
+        val isValid = when {
             name.isEmpty() -> false
             else -> true
         }
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), false)
+        State(name, isValid)
+    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
     fun updateName(name: String) {
-        _name.value = name
+        this.name.value = name
     }
 
     fun register() {
-        if (isValid.value) {
+        if (state.value.isValid) {
             if (targetId == Directory.ROOT.id) {
                 val root = fileRepository.getRoot()
                 val newDirectory = Directory(name = name.value, list = emptyList()) as File
@@ -46,6 +45,11 @@ class DirectoryDialogModel(
             }
         }
 
-        _name.value = ""
+        name.value = ""
     }
+
+    data class State(
+        val name: String = "",
+        val isValid: Boolean = false,
+    )
 }
