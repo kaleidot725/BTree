@@ -1,4 +1,4 @@
-package jp.albites.btree
+package jp.albites.btree.util
 
 import java.awt.Desktop
 import java.net.URI

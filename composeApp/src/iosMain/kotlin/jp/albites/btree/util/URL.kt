@@ -1,4 +1,4 @@
-package jp.albites.btree
+package jp.albites.btree.util
 
 import platform.Foundation.NSURL
 import platform.UIKit.UIApplication

@@ -38,8 +38,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.moriatsushi.insetsx.systemBarsPadding
-import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.Directory
+import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.exntension.clickableNoRipple
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
 import jp.albites.btree.view.screen.home.component.HomeMenuIcon

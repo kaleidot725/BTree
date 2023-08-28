@@ -21,9 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import jp.albites.btree.getDialogModel
-import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.File
+import jp.albites.btree.util.getDialogModel
 import org.koin.core.parameter.parametersOf
 
 @Composable

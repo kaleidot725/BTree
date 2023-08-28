@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import jp.albites.btree.getScreenModel
 import jp.albites.btree.model.domain.Theme
+import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.screen.setting.component.SettingCheckItem
 
 class ThemeScreen : Screen {

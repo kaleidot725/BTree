@@ -1,4 +1,4 @@
-package jp.albites.btree
+package jp.albites.btree.view
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
@@ -60,4 +60,3 @@ fun isDarkMode(theme: Theme): Boolean {
     }
 }
 
-internal expect fun openUrl(url: String?)
