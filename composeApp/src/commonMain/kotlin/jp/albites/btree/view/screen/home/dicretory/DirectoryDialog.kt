@@ -1,11 +1,8 @@
 package jp.albites.btree.view.screen.home.dicretory
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -18,13 +15,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.util.getDialogModel
 import jp.albites.btree.view.resources.StringResource
-import jp.albites.btree.view.screen.home.component.DialogLayout
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -38,9 +35,12 @@ fun Screen.DirectoryDialog(
     }
     val state by screenModel.state.collectAsState()
 
-    DialogLayout {
+    Dialog(
+        onDismissRequest = { onClose() },
+        properties = DialogProperties(),
+    ) {
         Card(
-            modifier = Modifier.align(Alignment.Center).wrapContentSize()
+            modifier = Modifier.wrapContentSize()
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),

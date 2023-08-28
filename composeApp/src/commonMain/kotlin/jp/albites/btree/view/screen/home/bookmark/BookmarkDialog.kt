@@ -16,11 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.util.getDialogModel
 import jp.albites.btree.view.resources.StringResource
-import jp.albites.btree.view.screen.home.component.DialogLayout
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -34,8 +35,11 @@ fun Screen.BookmarkDialog(
     }
     val state by screenModel.state.collectAsState()
 
-    DialogLayout {
-        Card(modifier= Modifier.align(Alignment.Center).wrapContentSize()) {
+    Dialog(
+        onDismissRequest = { onClose() },
+        properties = DialogProperties(),
+    ) {
+        Card(modifier = Modifier.wrapContentSize()) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
