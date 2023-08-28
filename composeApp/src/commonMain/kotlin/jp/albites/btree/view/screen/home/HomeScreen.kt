@@ -97,7 +97,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         HomeMenuIcon(
                             icon = Icons.Default.CreateNewFolder,
                             label = StringResource.homeCreateFolder(),
-                            enabled = state.selectedFile.isDirectory,
+                            enabled = state.canCreateNewFolder,
                             onClick = { showDirectoryDialog = true },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
@@ -107,7 +107,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         HomeMenuIcon(
                             icon = Icons.Default.InsertLink,
                             label = StringResource.homeAddBookmark(),
-                            enabled = state.selectedFile.isDirectory,
+                            enabled = state.canAddBookmark,
                             onClick = { showBookmarkDialog = true },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
@@ -117,7 +117,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         HomeMenuIcon(
                             icon = Icons.Default.Edit,
                             label = StringResource.homeEdit(),
-                            enabled = state.selectedFile.id != File.NONE.id,
+                            enabled = state.canEdit,
                             onClick = { showEditDialog = true },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
@@ -127,7 +127,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         HomeMenuIcon(
                             icon = Icons.Default.Delete,
                             label = StringResource.homeDelete(),
-                            enabled = state.selectedFile.id != File.NONE.id,
+                            enabled = state.canDelete,
                             onClick = { showDeleteDialog = true },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)

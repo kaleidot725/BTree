@@ -22,12 +22,16 @@ class HomeScreenModel(
     private val selectedFile: MutableStateFlow<File> = MutableStateFlow(fileTree.value)
     private val expandedDirs: MutableStateFlow<List<Directory>> = MutableStateFlow(emptyList())
     val state = combine(fileTree, selectedFile, expandedDirs) { fileTree, selectedFile, expandedDirs ->
-        val rootDirectory = fileTree.asDirectory ?: Directory.ROOT
+        val directory = fileTree.asDirectory ?: Directory.ROOT
         val latestFile = fileRepository.getLeaf(selectedFile.id) ?: Directory.ROOT
         State(
-            fileTree = rootDirectory,
+            fileTree = directory,
             selectedFile = latestFile,
-            expandedDirs = expandedDirs
+            expandedDirs = expandedDirs,
+            canEdit = latestFile.id != Directory.ROOT.id,
+            canDelete = latestFile.id != Directory.ROOT.id,
+            canAddBookmark = latestFile.isDirectory,
+            canCreateNewFolder =  latestFile.isDirectory
         )
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
@@ -68,5 +72,9 @@ class HomeScreenModel(
         val fileTree: Directory = Directory.ROOT,
         val selectedFile: File = File.NONE,
         val expandedDirs: List<Directory> = emptyList(),
+        val canCreateNewFolder: Boolean = false,
+        val canAddBookmark: Boolean = false,
+        val canDelete: Boolean = false,
+        val canEdit  : Boolean = false,
     )
 }
