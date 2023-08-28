@@ -32,7 +32,9 @@ internal fun App(openUrl: (String) -> Unit) {
     }
 
     AppTheme(colorScheme) {
-        Navigator(HomeScreen(openUrl = openUrl))
+        Navigator(
+            screen = HomeScreen(openUrl = openUrl)
+        )
     }
 }
 

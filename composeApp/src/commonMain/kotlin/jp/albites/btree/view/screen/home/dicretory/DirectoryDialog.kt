@@ -24,6 +24,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.util.getDialogModel
 import jp.albites.btree.view.resources.StringResource
+import jp.albites.btree.view.screen.home.component.DialogLayout
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -37,9 +38,7 @@ fun Screen.DirectoryDialog(
     }
     val state by screenModel.state.collectAsState()
 
-    Box(
-        modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
-    ) {
+    DialogLayout {
         Card(
             modifier = Modifier.align(Alignment.Center).wrapContentSize()
         ) {
