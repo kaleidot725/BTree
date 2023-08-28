@@ -9,6 +9,7 @@ import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
@@ -17,18 +18,19 @@ class BookmarkDialogModel(
     private val fileRepository: FileRepository
 ) : ScreenModel {
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
-    val name: StateFlow<String> = _name
+    val name: StateFlow<String> = _name.asStateFlow()
 
     private val _url: MutableStateFlow<String> = MutableStateFlow("")
-    val url: StateFlow<String> = _url
+    val url: StateFlow<String> = _url.asStateFlow()
 
-    val isValid: StateFlow<Boolean> = name.combine(url) { name, url ->
-        when {
+    val state: StateFlow<State> = combine(name, url) { name, url ->
+        val isValid = when {
             name.isEmpty() -> false
             url.isEmpty() || !isUrlValid(url) -> false
             else -> true
         }
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), false)
+        State(name, url, isValid)
+    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
     fun updateName(name: String) {
         _name.value = name
@@ -39,7 +41,7 @@ class BookmarkDialogModel(
     }
 
     fun register() {
-        if (isValid.value) {
+        if (state.value.isValid) {
             if (targetId == Directory.ROOT.id) {
                 val root = fileRepository.getRoot()
                 val newBookmark = Bookmark(name = name.value, url = url.value) as File
@@ -62,4 +64,10 @@ class BookmarkDialogModel(
         val regex = "^(http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$"
         return url.matches(regex.toRegex())
     }
+
+    data class State(
+        val name: String = "",
+        val url: String = "",
+        val isValid: Boolean = false
+    )
 }

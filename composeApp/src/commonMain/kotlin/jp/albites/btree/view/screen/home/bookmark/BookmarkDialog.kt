@@ -34,9 +34,7 @@ fun Screen.BookmarkDialog(
     val screenModel = getDialogModel<BookmarkDialogModel>(tag = targetDirectory.toString()) {
         (parametersOf(targetDirectory.id))
     }
-    val name by screenModel.name.collectAsState()
-    val url by screenModel.url.collectAsState()
-    val isValid by screenModel.isValid.collectAsState()
+    val state by screenModel.state.collectAsState()
 
     Box(
         modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
@@ -54,13 +52,13 @@ fun Screen.BookmarkDialog(
                 )
 
                 OutlinedTextField(
-                    value = name,
+                    value = state.name,
                     onValueChange = screenModel::updateName,
                     placeholder = { Text("Name") }
                 )
 
                 OutlinedTextField(
-                    value = url,
+                    value = state.url,
                     onValueChange = screenModel::updateUrl,
                     placeholder = { Text("URL") }
                 )
@@ -76,7 +74,7 @@ fun Screen.BookmarkDialog(
                     }
 
                     Button(
-                        enabled = isValid,
+                        enabled = state.isValid,
                         onClick = {
                             screenModel.register()
                             onApply()
