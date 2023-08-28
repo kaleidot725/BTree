@@ -28,16 +28,13 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun Screen.EditDialog(
     targetFile: File,
-    onClose: () -> Unit,
+    onClose: () -> Unit,    
     onApply: () -> Unit,
 ) {
     val screenModel = getDialogModel<EditDialogModel>(tag = targetFile.toString()) {
         (parametersOf(targetFile.id))
     }
-    val target by screenModel.target.collectAsState()
-    val name by screenModel.name.collectAsState()
-    val url by screenModel.url.collectAsState()
-    val isValid by screenModel.isValid.collectAsState()
+    val state by screenModel.state.collectAsState()
 
     Box(
         modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.2f))
@@ -55,14 +52,14 @@ fun Screen.EditDialog(
                 )
 
                 OutlinedTextField(
-                    value = name,
+                    value = state.name,
                     onValueChange = { screenModel.updateName(it) },
                     placeholder = { Text("Name") }
                 )
 
-                if (target?.isBookmark == true) {
+                if (state.file.isBookmark) {
                     OutlinedTextField(
-                        value = url,
+                        value = state.url,
                         onValueChange = { screenModel.updateUrl(it) },
                         placeholder = { Text("URL") }
                     )
@@ -83,7 +80,7 @@ fun Screen.EditDialog(
                             screenModel.apply()
                             onApply()
                         },
-                        enabled = isValid
+                        enabled = state.isValid
                     ) {
                         Text("Apply")
                     }

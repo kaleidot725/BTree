@@ -9,7 +9,6 @@ import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -18,17 +17,14 @@ class EditDialogModel(
     private val targetId: String,
     private val fileRepository: FileRepository
 ) : ScreenModel {
-    private val _target: MutableStateFlow<File?> = MutableStateFlow(null)
-    val target: StateFlow<File?> = _target.asStateFlow()
+    private val target: MutableStateFlow<File> = MutableStateFlow(File.NONE)
 
-    private val _name: MutableStateFlow<String> = MutableStateFlow("")
-    val name: StateFlow<String> = _name.asStateFlow()
+    private val name: MutableStateFlow<String> = MutableStateFlow("")
 
-    private val _url: MutableStateFlow<String> = MutableStateFlow("")
-    val url: StateFlow<String> = _url.asStateFlow()
+    private val url: MutableStateFlow<String> = MutableStateFlow("")
 
-    val isValid: StateFlow<Boolean> = combine(_target, name, url) { target, name, url ->
-        when (target) {
+    val state: StateFlow<State> = combine(target, name, url) { target, name, url ->
+        val isValid = when (target) {
             is Bookmark -> {
                 name.isNotEmpty() && url.isNotEmpty() && isUrlValid(url)
             }
@@ -39,28 +35,29 @@ class EditDialogModel(
 
             else -> false
         }
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), false)
+        State(target, name, url, isValid)
+    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
     init {
         coroutineScope.launch {
             val leaf = fileRepository.getLeaf(targetId) ?: return@launch
-            _target.value = leaf
-            _name.value = leaf.name
-            _url.value = leaf.asBookmark?.url ?: ""
+            target.value = leaf
+            name.value = leaf.name
+            url.value = leaf.asBookmark?.url ?: ""
         }
     }
 
     fun updateName(name: String) {
-        _name.value = name
+        this.name.value = name
     }
 
     fun updateUrl(url: String) {
-        _url.value = url
+        this.url.value = url
     }
 
     fun apply() {
-        if (isValid.value) {
-            val value = _target.value ?: return
+        if (state.value.isValid) {
+            val value = target.value
             when (value) {
                 is Bookmark -> updateBookmark(value)
                 is Directory -> updateDirectory(value)
@@ -82,4 +79,11 @@ class EditDialogModel(
         val regex = "^(http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$"
         return url.matches(regex.toRegex())
     }
+
+    data class State(
+        val file: File = File.NONE,
+        val name: String = "",
+        val url: String = "",
+        val isValid: Boolean = false
+    )
 }
