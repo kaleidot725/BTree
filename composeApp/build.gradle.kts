@@ -46,6 +46,7 @@ kotlin {
                 implementation(libs.multiplatform.settings.coroutines)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.insetsx)
             }
         }
 

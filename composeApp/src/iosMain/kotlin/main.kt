@@ -1,4 +1,5 @@
 import androidx.compose.ui.window.ComposeUIViewController
+import com.moriatsushi.insetsx.WindowInsetsUIViewController
 import jp.albites.btree.view.App
 import jp.albites.btree.allModule
 import jp.albites.btree.util.openUrl
@@ -10,7 +11,7 @@ fun MainViewController(): UIViewController {
         modules(allModule)
     }
 
-    return ComposeUIViewController {
+    return WindowInsetsUIViewController {
         App(openUrl = { openUrl(it) })
     }
 }

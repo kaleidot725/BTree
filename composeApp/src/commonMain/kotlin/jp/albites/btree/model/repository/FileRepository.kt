@@ -149,13 +149,13 @@ class FileRepository(
 
     private fun convertFile(fileData: FileData): File {
         return if (fileData.isDirectory) {
-            return Directory(
+            Directory(
                 id = fileData.id,
                 name = fileData.name,
                 list = fileData.list.map { convertFile(it) }
             )
         } else {
-            return Bookmark(
+            Bookmark(
                 id = fileData.id,
                 name = fileData.name,
                 url = fileData.url ?: ""

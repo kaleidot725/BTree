@@ -32,8 +32,6 @@ class EditDialogModel(
             is Directory -> {
                 name.isNotEmpty()
             }
-
-            else -> false
         }
         State(target, name, url, isValid)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
