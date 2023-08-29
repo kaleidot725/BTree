@@ -40,14 +40,12 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(libs.voyager.navigator)
-                implementation(libs.voyager.bottom.sheet.navigator)
                 implementation(libs.napier)
                 implementation(libs.koin.core)
                 implementation(libs.multiplatform.settings)
                 implementation(libs.multiplatform.settings.coroutines)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
-                implementation(libs.insetsx)
             }
         }
 

@@ -8,10 +8,12 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -42,7 +44,6 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.moriatsushi.insetsx.systemBarsPadding
 import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.exntension.clickableNoRipple
 import jp.albites.btree.view.resources.StringResource
@@ -160,7 +161,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
-                .systemBarsPadding()
+                .windowInsetsPadding(WindowInsets.systemBars)
         ) {
             Explorer(
                 rootDirectory = state.fileTree,
@@ -172,7 +173,6 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 modifier = Modifier.fillMaxSize().padding(it)
                     .verticalScroll(rememberScrollState())
                     .clickableNoRipple { screenModel.onResetFile() }
-                    .systemBarsPadding()
             )
         }
 
