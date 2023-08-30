@@ -13,8 +13,6 @@ BTree is created by Compose Multiplatform.
 - [X] Open bookmark link website.
 - [ ] Rearrange directory and link structures
 
-https://github.com/kaleidot725/BTree/assets/23740796/3b286069-679d-48ac-b80f-22e15247c196
-
 ## Architecture
 
 | Class | Detailas |
