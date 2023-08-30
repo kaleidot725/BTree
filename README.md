@@ -21,13 +21,13 @@ BTree is created by Compose Multiplatform.
 
 | Name | Details |
 | ----- | ------ |
-| Compose Multiplatform | UI Framework |
-| Multiplatform Settings | Persist setting data |
-| Voyager | Navigation management |
-| Koin | DI Container |
-| Kotlin Serialization | Serialize setting data |
-| Napier | Logger |
-| InsetsX | Screen insets utility | 
+| [Compose Multiplatform](https://www.jetbrains.com/ja-jp/lp/compose-multiplatform/) | UI Framework |
+| [Kotlin Serialization](https://kotlinlang.org/docs/serialization.html) | Serialize and desrialize data |
+| [Kotlin Coroutines](https://kotlinlang.org/docs/serialization.html) | Launch ansyncronous execution |
+| [Koin](https://insert-koin.io/) | Dependency injection container |
+| [Voyager](https://voyager.adriel.cafe/) | Screen and navigation management |
+| [Multiplatform Settings](https://github.com/russhwolf/multiplatform-settings) | Save and load application data |
+| [InsetsX](https://github.com/mori-atsushi/insetsx) | Control status icon color | 
 
 ## Build
 
