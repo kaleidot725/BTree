@@ -31,14 +31,14 @@ https://github.com/kaleidot725/BTree/assets/23740796/3b286069-679d-48ac-b80f-22e
 
 ## Architecture
 
+![](https://raw.githubusercontent.com/kaleidot725/BTree/main/architecture.drawio.svg)
+
 | Class | Detailas |
 | ----- | -------- |
 | Screen(Voyger) | tttt |
 | Components | tttt |
 | ScreenModel(Vogyer) | tttt |
 | Repository | ttttt |
-
-![Group 3 - 01](https://github.com/kaleidot725/BTree/assets/23740796/93499c09-2d8d-43f5-be6f-2618aa061a68)
 
 ## Build
 
