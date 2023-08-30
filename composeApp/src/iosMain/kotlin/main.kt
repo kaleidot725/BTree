@@ -7,10 +7,6 @@ import org.koin.core.context.startKoin
 import platform.UIKit.UIViewController
 
 fun MainViewController(): UIViewController {
-    startKoin {
-        modules(allModule)
-    }
-
     return WindowInsetsUIViewController {
         App(openUrl = { openUrl(it) })
     }

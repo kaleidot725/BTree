@@ -56,7 +56,7 @@ import jp.albites.btree.view.screen.setting.SettingScreen
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()

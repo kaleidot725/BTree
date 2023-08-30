@@ -8,10 +8,6 @@ import jp.albites.btree.util.openUrl
 import org.koin.core.context.startKoin
 
 fun main() {
-    startKoin {
-        modules(allModule)
-    }
-
     return application {
         Window(
             title = "BTree",

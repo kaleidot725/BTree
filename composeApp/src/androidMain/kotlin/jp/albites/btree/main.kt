@@ -10,21 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import jp.albites.btree.util.openUrl
 import jp.albites.btree.view.App
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
 class AndroidApp : Application() {
     companion object {
         lateinit var INSTANCE: AndroidApp
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        INSTANCE = this
-        startKoin {
-            androidContext(this@AndroidApp)
-            modules(allModule)
-        }
     }
 }
 

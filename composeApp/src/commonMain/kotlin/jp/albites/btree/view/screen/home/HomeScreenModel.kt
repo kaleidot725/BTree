@@ -1,5 +1,6 @@
 package jp.albites.btree.view.screen.home
 
+import androidx.compose.runtime.collectAsState
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import jp.albites.btree.model.domain.Directory
@@ -8,8 +9,10 @@ import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class HomeScreenModel(
     fileRepository: FileRepository
@@ -72,8 +75,8 @@ class HomeScreenModel(
         val fileTree: Directory = Directory.ROOT,
         val selectedFile: File = File.NONE,
         val expandedDirs: List<Directory> = emptyList(),
-        val canCreateNewFolder: Boolean = false,
-        val canAddBookmark: Boolean = false,
+        val canCreateNewFolder: Boolean = true,
+        val canAddBookmark: Boolean = true,
         val canDelete: Boolean = false,
         val canEdit  : Boolean = false,
     )

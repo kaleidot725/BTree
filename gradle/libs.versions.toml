@@ -2,7 +2,7 @@
 
 insetsx = "0.1.0-alpha10"
 kotlin = "1.9.0"
-agp = "8.1.0"
+agp = "8.1.1"
 compose = "1.5.0"
 androidx-appcompat = "1.6.1"
 multiplatformSettings = "1.0.0"
@@ -12,7 +12,7 @@ compose-uitooling = "1.5.0"
 napier = "2.6.1"
 kotlinx-coroutines = "1.7.3"
 koin = "3.4.3"
-koin-android = "3.4.3"
+koin-compose = "1.0.4"
 kotlinx-serialization = "1.5.1"
 
 [libraries]
@@ -27,8 +27,10 @@ voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 [plugins]

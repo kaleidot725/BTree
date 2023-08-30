@@ -42,6 +42,7 @@ kotlin {
                 implementation(libs.voyager.navigator)
                 implementation(libs.napier)
                 implementation(libs.koin.core)
+                implementation(libs.koin.compose)
                 implementation(libs.multiplatform.settings)
                 implementation(libs.multiplatform.settings.coroutines)
                 implementation(libs.kotlinx.coroutines.core)
@@ -62,7 +63,6 @@ kotlin {
                 implementation(libs.androidx.activityCompose)
                 implementation(libs.compose.uitooling)
                 implementation(libs.kotlinx.coroutines.android)
-                implementation(libs.koin.android)
             }
         }
 
@@ -70,6 +70,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.common)
                 implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
 

@@ -8,6 +8,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.navigator.Navigator
 import com.moriatsushi.insetsx.rememberWindowInsetsController
+import jp.albites.btree.allModule
+import jp.albites.btree.appModule
 import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.screen.home.HomeScreen
@@ -15,29 +17,32 @@ import jp.albites.btree.view.resources.AppTheme
 import jp.albites.btree.view.resources.DarkColors
 import jp.albites.btree.view.resources.LightColors
 import kotlinx.coroutines.flow.Flow
+import org.koin.compose.KoinApplication
+import org.koin.compose.koinInject
 import org.koin.mp.KoinPlatform
 
 @Composable
 internal fun App(openUrl: (String) -> Unit) {
-    val theme by getThemeFlow().collectAsState(Theme.SYSTEM)
-    val isDarkMode = isDarkMode(theme)
-    val colorScheme = getColorScheme(theme)
-    val windowInsetsController = rememberWindowInsetsController()
+    KoinApplication(application = { modules(allModule) }) {
+        val theme by getThemeFlow().collectAsState(Theme.SYSTEM)
+        val isDarkMode = isDarkMode(theme)
+        val colorScheme = getColorScheme(theme)
+        val windowInsetsController = rememberWindowInsetsController()
 
-    LaunchedEffect(isDarkMode) {
-        windowInsetsController?.setStatusBarContentColor(dark = !isDarkMode)
-        windowInsetsController?.setNavigationBarsContentColor(dark = !isDarkMode)
-    }
+        LaunchedEffect(isDarkMode) {
+            windowInsetsController?.setStatusBarContentColor(dark = !isDarkMode)
+            windowInsetsController?.setNavigationBarsContentColor(dark = !isDarkMode)
+        }
 
-    AppTheme(colorScheme) {
-        Navigator(screen = HomeScreen(openUrl = openUrl))
+        AppTheme(colorScheme) {
+            Navigator(screen = HomeScreen(openUrl = openUrl))
+        }
     }
 }
 
 @Composable
 private fun getThemeFlow(): Flow<Theme> {
-    val koin = KoinPlatform.getKoin()
-    return koin.get<ThemeRepository>().themeFlow
+    return koinInject<ThemeRepository>().themeFlow
 }
 
 @Composable
