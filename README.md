@@ -13,10 +13,6 @@ BTree is created by Compose Multiplatform.
 - [X] Open bookmark link website.
 - [ ] Rearrange directory and link structures
 
-## Architecture
-
-![Group 3 - 01](https://github.com/kaleidot725/BTree/assets/23740796/93499c09-2d8d-43f5-be6f-2618aa061a68)
-
 ## Library
 
 | Name | Details |
@@ -28,6 +24,17 @@ BTree is created by Compose Multiplatform.
 | [Voyager](https://voyager.adriel.cafe/) | Screen and navigation management |
 | [Multiplatform Settings](https://github.com/russhwolf/multiplatform-settings) | Save and load application data |
 | [InsetsX](https://github.com/mori-atsushi/insetsx) | Control status icon color | 
+
+## Architecture
+
+| Class | Detailas |
+| ----- | -------- |
+| Screen | tttt |
+| Components | tttt |
+| ScreenModel | tttt |
+| Repository | ttttt |
+
+![Group 3 - 01](https://github.com/kaleidot725/BTree/assets/23740796/93499c09-2d8d-43f5-be6f-2618aa061a68)
 
 ## Build
 
