@@ -13,9 +13,19 @@ BTree is created by Compose Multiplatform.
 - [X] Open bookmark link website.
 - [ ] Rearrange directory and link structures
 
-### Demo
-
 https://github.com/kaleidot725/BTree/assets/23740796/3b286069-679d-48ac-b80f-22e15247c196
+
+## Architecture
+
+| Class | Detailas |
+| ----- | -------- |
+| Screen | TBD |
+| Component | TBD |
+| ScreenModel | TBD |
+| State | TBD |
+| Repository | TBD |
+
+![](https://raw.githubusercontent.com/kaleidot725/BTree/main/architecture.drawio.svg)
 
 ## Library
 
@@ -28,17 +38,6 @@ https://github.com/kaleidot725/BTree/assets/23740796/3b286069-679d-48ac-b80f-22e
 | [Voyager](https://voyager.adriel.cafe/) | Screen and navigation management |
 | [Multiplatform Settings](https://github.com/russhwolf/multiplatform-settings) | Save and load application data |
 | [InsetsX](https://github.com/mori-atsushi/insetsx) | Control status icon color | 
-
-## Architecture
-
-![](https://raw.githubusercontent.com/kaleidot725/BTree/main/architecture.drawio.svg)
-
-| Class | Detailas |
-| ----- | -------- |
-| Screen(Voyger) | tttt |
-| Components | tttt |
-| ScreenModel(Vogyer) | tttt |
-| Repository | ttttt |
 
 ## Build
 
