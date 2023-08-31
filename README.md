@@ -11,7 +11,6 @@ BTree is created by Compose Multiplatform.
 - [x] Create and delete the bookmark directory and link.
 - [x] Edit bookmark directory and link. 
 - [X] Open bookmark link website.
-- [ ] Rearrange directory and link structures
 
 ## Architecture
 
