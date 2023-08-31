@@ -17,10 +17,10 @@ BTree is created by Compose Multiplatform.
 
 | Class | Detailas |
 | ----- | -------- |
-| Screen | Screen inherite voyger Screen class. Screen define view hierarchy. |
+| Screen | Screen inherite voyger Screen class.<br>Screen define view hierarchy. |
 | Component | Component define a single view. |
 | State | State define data that displayed on UI. |
-| ScreenModel | ScreenModel inherite voyger ScreenModel class. ScreenModel manage Screen's lifecycle and state. |
+| ScreenModel | ScreenModel inherite voyger ScreenModel class.<br>ScreenModel manage Screen's lifecycle and state. |
 | Repository | Repository manage remote resource and local resource. |
 
 ![](https://raw.githubusercontent.com/kaleidot725/BTree/main/architecture.drawio.svg)
