@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +23,7 @@ internal fun SettingCheckItem(
     iconDescription: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -36,19 +34,19 @@ internal fun SettingCheckItem(
             contentDescription = iconDescription,
             modifier = Modifier
                 .size(24.dp)
-                .align(Alignment.CenterVertically)
+                .align(Alignment.CenterVertically),
         )
 
         Column(
             modifier = Modifier
                 .wrapContentHeight()
                 .weight(1.0f)
-                .align(Alignment.CenterVertically)
+                .align(Alignment.CenterVertically),
         ) {
             Text(
                 text = title,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
 

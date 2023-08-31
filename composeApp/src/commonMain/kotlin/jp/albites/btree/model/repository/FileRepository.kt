@@ -15,7 +15,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class FileRepository(
-    private val settings: ObservableSettings
+    private val settings: ObservableSettings,
 ) {
     @OptIn(ExperimentalSettingsApi::class)
     private val file = settings.getStringOrNullFlow(FILE_LIST_KEY)
@@ -52,7 +52,7 @@ class FileRepository(
         return convertFile(latestLeafData)
     }
 
-    fun deleteLeaf(id : String) {
+    fun deleteLeaf(id: String) {
         val target = convertFileData(getRoot())
         val result = deleteLeaf(target, id)
         if (result) {
@@ -143,7 +143,7 @@ class FileRepository(
             name = name,
             isDirectory = isDirectory,
             list = directoryFileDataList,
-            url = url
+            url = url,
         )
     }
 
@@ -152,13 +152,13 @@ class FileRepository(
             Directory(
                 id = fileData.id,
                 name = fileData.name,
-                list = fileData.list.map { convertFile(it) }
+                list = fileData.list.map { convertFile(it) },
             )
         } else {
             Bookmark(
                 id = fileData.id,
                 name = fileData.name,
-                url = fileData.url ?: ""
+                url = fileData.url ?: "",
             )
         }
     }
@@ -169,7 +169,7 @@ class FileRepository(
         val name: String,
         val isDirectory: Boolean,
         var list: List<FileData> = emptyList(),
-        val url: String? = null
+        val url: String? = null,
     )
 
     companion object {

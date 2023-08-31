@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -33,7 +32,7 @@ internal fun DirectoryItem(
     directory: Directory,
     isExpanded: Boolean,
     onExpand: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         val degrees: Float by animateFloatAsState(if (isExpanded) 90f else 0f)
@@ -46,7 +45,7 @@ internal fun DirectoryItem(
                 .rotate(degrees)
                 .align(Alignment.CenterVertically)
                 .clip(CircleShape)
-                .clickable(role = Role.Checkbox) { onExpand.invoke() }
+                .clickable(role = Role.Checkbox) { onExpand.invoke() },
         )
 
         Text(
@@ -54,7 +53,7 @@ internal fun DirectoryItem(
             maxLines = 1,
             style = MaterialTheme.typography.titleMedium,
             overflow = TextOverflow.Visible,
-            modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f)
+            modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
         )
 
         Text(
@@ -64,8 +63,8 @@ internal fun DirectoryItem(
                 .width(width = 40.dp)
                 .background(
                     color = Color.LightGray.copy(alpha = 0.3f),
-                    shape = RoundedCornerShape(8.dp)
-                )
+                    shape = RoundedCornerShape(8.dp),
+                ),
         )
     }
 }

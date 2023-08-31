@@ -9,17 +9,15 @@ import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.navigator.Navigator
 import com.moriatsushi.insetsx.rememberWindowInsetsController
 import jp.albites.btree.allModule
-import jp.albites.btree.appModule
 import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.model.repository.ThemeRepository
-import jp.albites.btree.view.screen.home.HomeScreen
 import jp.albites.btree.view.resources.AppTheme
 import jp.albites.btree.view.resources.DarkColors
 import jp.albites.btree.view.resources.LightColors
+import jp.albites.btree.view.screen.home.HomeScreen
 import kotlinx.coroutines.flow.Flow
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
-import org.koin.mp.KoinPlatform
 
 @Composable
 internal fun App(openUrl: (String) -> Unit) {
@@ -62,4 +60,3 @@ fun isDarkMode(theme: Theme): Boolean {
         Theme.SYSTEM -> isSystemInDarkTheme()
     }
 }
-

@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
 class ThemeScreenModel(
-    private val themeRepository: ThemeRepository
+    private val themeRepository: ThemeRepository,
 ) : ScreenModel {
     val selectedTheme: StateFlow<Theme?> = themeRepository.themeFlow.stateIn(
         coroutineScope,
         SharingStarted.WhileSubscribed(),
-        null
+        null,
     )
 
     fun selectTheme(theme: Theme) {

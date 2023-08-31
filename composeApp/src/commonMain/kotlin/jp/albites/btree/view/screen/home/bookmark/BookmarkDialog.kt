@@ -42,28 +42,28 @@ fun Screen.BookmarkDialog(
         Card(modifier = Modifier.wrapContentSize()) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp),
             ) {
                 Text(
                     text = StringResource.bookmarkTitle(),
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
                 )
 
                 OutlinedTextField(
                     value = state.name,
                     onValueChange = screenModel::updateName,
-                    placeholder = { Text(StringResource.bookmarkNamePlaceHolder()) }
+                    placeholder = { Text(StringResource.bookmarkNamePlaceHolder()) },
                 )
 
                 OutlinedTextField(
                     value = state.url,
                     onValueChange = screenModel::updateUrl,
-                    placeholder = { Text(StringResource.bookmarkUrlPlaceHolder()) }
+                    placeholder = { Text(StringResource.bookmarkUrlPlaceHolder()) },
                 )
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
                     Button(
                         onClick = { onClose() },

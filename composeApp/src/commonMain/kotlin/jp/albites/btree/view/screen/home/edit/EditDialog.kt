@@ -40,34 +40,34 @@ fun Screen.EditDialog(
         properties = DialogProperties(),
     ) {
         Card(
-            modifier = Modifier.wrapContentSize()
+            modifier = Modifier.wrapContentSize(),
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+                modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp),
             ) {
                 Text(
                     text = StringResource.editTitle(state.name),
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
                 )
 
                 OutlinedTextField(
                     value = state.name,
                     onValueChange = { screenModel.updateName(it) },
-                    placeholder = { Text(StringResource.editNamePlaceHolder()) }
+                    placeholder = { Text(StringResource.editNamePlaceHolder()) },
                 )
 
                 if (state.file.isBookmark) {
                     OutlinedTextField(
                         value = state.url,
                         onValueChange = { screenModel.updateUrl(it) },
-                        placeholder = { Text(StringResource.editUrlPlaceHolder()) }
+                        placeholder = { Text(StringResource.editUrlPlaceHolder()) },
                     )
                 }
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
                     Button(
                         onClick = { onClose() },
@@ -80,7 +80,7 @@ fun Screen.EditDialog(
                             screenModel.apply()
                             onApply()
                         },
-                        enabled = state.isValid
+                        enabled = state.isValid,
                     ) {
                         Text(StringResource.apply())
                     }

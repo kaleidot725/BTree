@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -6,13 +7,14 @@ plugins {
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ktlint)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
 
-    android()
+    androidTarget()
     jvm("desktop")
     ios()
     iosSimulatorArm64()
@@ -27,6 +29,11 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
+    }
+
+    dependencies {
+        lintChecks("com.slack.lint:slack-lint-checks:0.4.0")
+        lintChecks("com.slack.lint.compose:compose-lint-checks:1.2.0")
     }
 
     sourceSets {
@@ -81,13 +88,31 @@ kotlin {
     }
 }
 
+ktlint {
+    version.set("0.49.1")
+    verbose.set(true)
+    ignoreFailures.set(true)
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
+        reporter(ReporterType.SARIF)
+    }
+    kotlinScriptAdditionalPaths {
+        include(fileTree("scripts/"))
+    }
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
+    }
+}
+
 android {
     namespace = "jp.albites.btree"
     compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
 
         applicationId = "jp.albites.btree.androidApp"
         versionCode = 1
@@ -98,7 +123,7 @@ android {
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
-    packagingOptions {
+    packaging {
         resources.excludes.add("META-INF/**")
     }
 

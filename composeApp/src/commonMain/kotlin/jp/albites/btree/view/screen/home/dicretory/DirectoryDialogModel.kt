@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 
 class DirectoryDialogModel(
     private val targetId: String,
-    private val fileRepository: FileRepository
+    private val fileRepository: FileRepository,
 ) : ScreenModel {
     private val name: MutableStateFlow<String> = MutableStateFlow("")
     val state: StateFlow<State> = name.map { name ->

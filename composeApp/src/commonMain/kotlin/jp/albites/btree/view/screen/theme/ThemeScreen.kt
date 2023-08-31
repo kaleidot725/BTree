@@ -47,7 +47,7 @@ class ThemeScreen : Screen {
                         }
                     },
                 )
-            }
+            },
         ) {
             Column(modifier = Modifier.padding(it)) {
                 SettingCheckItem(
@@ -59,7 +59,7 @@ class ThemeScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
-                        .padding(12.dp)
+                        .padding(12.dp),
                 )
 
                 Divider()
@@ -73,7 +73,7 @@ class ThemeScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
-                        .padding(12.dp)
+                        .padding(12.dp),
                 )
 
                 Divider()
@@ -87,7 +87,7 @@ class ThemeScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
-                        .padding(12.dp)
+                        .padding(12.dp),
                 )
             }
         }

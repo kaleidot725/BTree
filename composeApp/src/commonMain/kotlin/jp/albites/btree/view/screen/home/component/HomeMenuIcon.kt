@@ -23,7 +23,7 @@ fun HomeMenuIcon(
     label: String,
     enabled: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         Column(
@@ -31,7 +31,7 @@ fun HomeMenuIcon(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickableNoRipple(enabled = enabled, onClick = onClick)
-                .align(Alignment.Center)
+                .align(Alignment.Center),
         ) {
             Icon(
                 imageVector = icon,
@@ -39,13 +39,13 @@ fun HomeMenuIcon(
                 tint = getColor(enabled),
                 modifier = Modifier
                     .size(24.dp)
-                    .align(Alignment.CenterHorizontally)
+                    .align(Alignment.CenterHorizontally),
             )
             Text(
                 text = label,
                 fontSize = 10.sp,
                 color = getColor(enabled),
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
         }
     }

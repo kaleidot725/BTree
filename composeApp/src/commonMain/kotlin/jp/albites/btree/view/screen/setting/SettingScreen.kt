@@ -2,7 +2,6 @@ package jp.albites.btree.view.screen.setting
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CardMembership
 import androidx.compose.material.icons.filled.ColorLens
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,8 +25,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -56,7 +50,7 @@ class SettingScreen : Screen {
             },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
-                .windowInsetsPadding(WindowInsets.systemBars)
+                .windowInsetsPadding(WindowInsets.systemBars),
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(it)) {
                 SettingItem(
@@ -67,7 +61,7 @@ class SettingScreen : Screen {
                         .fillMaxWidth()
                         .height(64.dp)
                         .clickable(onClick = { navigator.push(ThemeScreen()) })
-                        .padding(12.dp)
+                        .padding(12.dp),
                 )
 
                 Divider()
@@ -80,7 +74,7 @@ class SettingScreen : Screen {
                         .fillMaxWidth()
                         .height(64.dp)
                         .clickable(onClick = {})
-                        .padding(12.dp)
+                        .padding(12.dp),
                 )
             }
         }

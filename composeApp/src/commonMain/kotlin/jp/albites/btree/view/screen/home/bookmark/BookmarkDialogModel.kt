@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 
 class BookmarkDialogModel(
     private val targetId: String,
-    private val fileRepository: FileRepository
+    private val fileRepository: FileRepository,
 ) : ScreenModel {
     private val name: MutableStateFlow<String> = MutableStateFlow("")
     private val url: MutableStateFlow<String> = MutableStateFlow("")
@@ -63,6 +63,6 @@ class BookmarkDialogModel(
     data class State(
         val name: String = "",
         val url: String = "",
-        val isValid: Boolean = false
+        val isValid: Boolean = false,
     )
 }

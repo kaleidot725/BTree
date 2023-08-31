@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class EditDialogModel(
     private val targetId: String,
-    private val fileRepository: FileRepository
+    private val fileRepository: FileRepository,
 ) : ScreenModel {
     private val target: MutableStateFlow<File> = MutableStateFlow(File.NONE)
 
@@ -82,6 +82,6 @@ class EditDialogModel(
         val file: File = File.NONE,
         val name: String = "",
         val url: String = "",
-        val isValid: Boolean = false
+        val isValid: Boolean = false,
     )
 }

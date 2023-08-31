@@ -2,8 +2,6 @@ package jp.albites.btree.view.screen.home.delete
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
-import jp.albites.btree.model.domain.Bookmark
-import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.model.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class DeleteDialogModel(
     private val targetId: String,
-    private val fileRepository: FileRepository
+    private val fileRepository: FileRepository,
 ) : ScreenModel {
     private val file: MutableStateFlow<File> = MutableStateFlow(File.NONE)
     val state: StateFlow<State> = file.map { file ->
@@ -33,6 +31,6 @@ class DeleteDialogModel(
     }
 
     data class State(
-        val file: File = File.NONE
+        val file: File = File.NONE,
     )
 }

@@ -11,6 +11,7 @@ import androidx.core.view.WindowCompat
 import jp.albites.btree.util.openUrl
 import jp.albites.btree.view.App
 
+@Suppress("")
 class AndroidApp : Application() {
     companion object {
         lateinit var INSTANCE: AndroidApp

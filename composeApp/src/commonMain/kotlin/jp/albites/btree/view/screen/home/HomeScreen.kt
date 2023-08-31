@@ -1,7 +1,6 @@
 package jp.albites.btree.view.screen.home
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
@@ -79,10 +78,10 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         IconButton(onClick = { navigator.push(SettingScreen()) }) {
                             Icon(
                                 imageVector = Icons.Default.Settings,
-                                contentDescription = null
+                                contentDescription = null,
                             )
                         }
-                    }
+                    },
                 )
             },
             bottomBar = {
@@ -93,16 +92,16 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                             .padding(8.dp)
                             .background(
                                 color = Color.LightGray.copy(alpha = 0.3f),
-                                shape = RoundedCornerShape(8.dp)
+                                shape = RoundedCornerShape(8.dp),
                             )
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
                     ) {
                         AnimatedContent(
                             targetState = state.canCreateNewFolder,
                             transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
-                                .weight(1.0f)
+                                .weight(1.0f),
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.CreateNewFolder,
@@ -117,7 +116,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                             transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
-                                .weight(1.0f)
+                                .weight(1.0f),
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.InsertLink,
@@ -132,7 +131,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                             transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
-                                .weight(1.0f)
+                                .weight(1.0f),
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.Edit,
@@ -147,7 +146,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                             transitionSpec = { scaleIn() togetherWith scaleOut() },
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
-                                .weight(1.0f)
+                                .weight(1.0f),
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.Delete,
@@ -161,7 +160,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
-                .windowInsetsPadding(WindowInsets.systemBars)
+                .windowInsetsPadding(WindowInsets.systemBars),
         ) {
             Explorer(
                 rootDirectory = state.fileTree,
@@ -172,7 +171,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 onClickBookmark = { bookmark -> openUrl(bookmark.url) },
                 modifier = Modifier.fillMaxSize().padding(it)
                     .verticalScroll(rememberScrollState())
-                    .clickableNoRipple { screenModel.onResetFile() }
+                    .clickableNoRipple { screenModel.onResetFile() },
             )
         }
 
@@ -191,7 +190,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 DirectoryDialog(
                     targetDirectory = it,
                     onApply = { showDirectoryDialog = false },
-                    onClose = { showDirectoryDialog = false }
+                    onClose = { showDirectoryDialog = false },
                 )
             }
         }
@@ -200,7 +199,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             DeleteDialog(
                 targetFile = selectedFile,
                 onApply = { showDeleteDialog = false },
-                onClose = { showDeleteDialog = false }
+                onClose = { showDeleteDialog = false },
             )
         }
 
@@ -208,7 +207,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             EditDialog(
                 targetFile = selectedFile,
                 onApply = { showEditDialog = false },
-                onClose = { showEditDialog = false }
+                onClose = { showEditDialog = false },
             )
         }
     }

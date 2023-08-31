@@ -24,7 +24,7 @@ fun Explorer(
     onClickArrow: (Directory) -> Unit,
     onClickFile: (File) -> Unit,
     onClickBookmark: (Bookmark) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
         rootDirectory.list.forEach { file ->
@@ -38,7 +38,7 @@ fun Explorer(
                             .clickable { onClickFile.invoke(file) }
                             .background(if (selectedFile.id == file.id) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent)
                             .padding(horizontal = 8.dp)
-                            .padding(vertical = 4.dp)
+                            .padding(vertical = 4.dp),
                     )
                 }
 
@@ -50,7 +50,7 @@ fun Explorer(
                         level = 0,
                         onClickFile = onClickFile,
                         onClickArrow = onClickArrow,
-                        onClickBookmark = onClickBookmark
+                        onClickBookmark = onClickBookmark,
                     )
                 }
             }

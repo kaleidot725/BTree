@@ -9,19 +9,19 @@ import jp.albites.btree.model.domain.Theme
 import kotlinx.coroutines.flow.map
 
 class ThemeRepository(
-    private val settings: ObservableSettings
+    private val settings: ObservableSettings,
 ) {
     @OptIn(ExperimentalSettingsApi::class)
     private val themeText = settings.getStringFlow(THEME_KEY, Theme.SYSTEM.text)
     val themeFlow get() = themeText.map { themeText ->
-        Theme.values().firstOrNull { it.text ==  themeText} ?: Theme.SYSTEM
+        Theme.values().firstOrNull { it.text == themeText } ?: Theme.SYSTEM
     }
 
     fun update(theme: Theme) {
         settings[THEME_KEY] = theme.text
     }
 
-    fun get() : Theme {
+    fun get(): Theme {
         return settings[THEME_KEY] ?: Theme.SYSTEM
     }
 

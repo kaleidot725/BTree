@@ -134,7 +134,9 @@ val DarkColors = darkColorScheme(
 @Composable
 fun AppTheme(
     colorScheme: ColorScheme,
-    content: @Composable() () -> Unit
+    content:
+    @Composable()
+    () -> Unit,
 ) {
     MaterialTheme(
         colorScheme = colorScheme,
