@@ -41,12 +41,12 @@ fun HomeMenuIcon(
                     .size(24.dp)
                     .align(Alignment.CenterHorizontally),
             )
-            Text(
-                text = label,
-                fontSize = 10.sp,
-                color = getColor(enabled),
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-            )
+//            Text(
+//                text = label,
+//                fontSize = 10.sp,
+//                color = getColor(enabled),
+//                modifier = Modifier.align(Alignment.CenterHorizontally),
+//            )
         }
     }
 }
