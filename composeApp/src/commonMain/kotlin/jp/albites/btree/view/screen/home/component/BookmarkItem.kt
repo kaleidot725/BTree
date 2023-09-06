@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import jp.albites.btree.model.domain.Bookmark
 
@@ -39,7 +40,7 @@ internal fun BookmarkItem(
         Text(
             text = bookmark.name,
             maxLines = 1,
-            style = MaterialTheme.typography.titleMedium,
+            fontSize = 20.sp,
             overflow = TextOverflow.Visible,
             modifier = Modifier
                 .weight(1f, fill = true)

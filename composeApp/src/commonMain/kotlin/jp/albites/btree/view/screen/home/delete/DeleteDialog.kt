@@ -3,7 +3,10 @@ package jp.albites.btree.view.screen.home.delete
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -35,11 +38,13 @@ fun Screen.DeleteDialog(
     val state by screenModel.state.collectAsState()
 
     Dialog(
-        onDismissRequest = { onClose() },
+        onDismissRequest = { },
         properties = DialogProperties(),
     ) {
         Card(
-            modifier = Modifier.wrapContentSize(),
+            modifier = Modifier
+                .wrapContentSize()
+                .windowInsetsPadding(WindowInsets.ime),
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),

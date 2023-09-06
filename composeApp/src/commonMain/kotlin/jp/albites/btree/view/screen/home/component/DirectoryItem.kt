@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import jp.albites.btree.model.domain.Directory
 
 @Composable
@@ -51,16 +52,18 @@ internal fun DirectoryItem(
         Text(
             text = directory.name,
             maxLines = 1,
-            style = MaterialTheme.typography.titleMedium,
+            fontSize = 20.sp,
             overflow = TextOverflow.Visible,
             modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
         )
 
         Text(
             text = directory.list.count().toString(),
+            style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(width = 40.dp)
+                .align(Alignment.CenterVertically)
                 .background(
                     color = Color.LightGray.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(8.dp),
