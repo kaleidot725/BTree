@@ -5,6 +5,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -40,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -63,13 +65,11 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         val screenModel = getScreenModel<HomeScreenModel>()
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
-        val softwareKeyboardController = LocalSoftwareKeyboardController.current
 
         var showBookmarkDialog by remember { mutableStateOf(false) }
         var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
         var showEditDialog by remember { mutableStateOf(false) }
-
         val selectedFile by rememberUpdatedState(state.selectedFile)
         val selectedDirectory by rememberUpdatedState(state.selectedFile.asDirectory)
 
@@ -160,8 +160,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
-                .windowInsetsPadding(WindowInsets.systemBars)
-               ,
+                .windowInsetsPadding(WindowInsets.systemBars),
         ) {
             Explorer(
                 rootDirectory = state.fileTree,
@@ -181,11 +180,9 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         targetDirectory = directory,
                         onApply = {
                             showBookmarkDialog = false
-                            softwareKeyboardController?.hide()
                         },
                         onClose = {
                             showBookmarkDialog = false
-                            softwareKeyboardController?.hide()
                         },
                     )
                 }
@@ -197,12 +194,10 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         targetDirectory = it,
                         onApply = {
                             showDirectoryDialog = false
-                            softwareKeyboardController?.hide()
 
                         },
                         onClose = {
                             showDirectoryDialog = false
-                            softwareKeyboardController?.hide()
                         },
                     )
                 }
@@ -213,11 +208,9 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     targetFile = selectedFile,
                     onApply = {
                         showDeleteDialog = false
-                        softwareKeyboardController?.hide()
                     },
                     onClose = {
                         showDeleteDialog = false
-                        softwareKeyboardController?.hide()
                     },
                 )
             }
@@ -227,11 +220,9 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     targetFile = selectedFile,
                     onApply = {
                         showEditDialog = false
-                        softwareKeyboardController?.hide()
                     },
                     onClose = {
                         showEditDialog = false
-                        softwareKeyboardController?.hide()
                     },
                 )
             }

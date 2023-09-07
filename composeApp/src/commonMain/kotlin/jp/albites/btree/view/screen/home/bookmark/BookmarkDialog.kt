@@ -16,6 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -37,6 +40,8 @@ fun Screen.BookmarkDialog(
         (parametersOf(targetDirectory.id))
     }
     val state by screenModel.state.collectAsState()
+    var name by remember { mutableStateOf("") }
+    var url by remember { mutableStateOf("") }
 
     Dialog(
         onDismissRequest = { },
@@ -57,14 +62,20 @@ fun Screen.BookmarkDialog(
                 )
 
                 OutlinedTextField(
-                    value = state.name,
-                    onValueChange = screenModel::updateName,
+                    value = name,
+                    onValueChange = {
+                        screenModel.updateName(it)
+                        name = it
+                    },
                     placeholder = { Text(StringResource.bookmarkNamePlaceHolder()) },
                 )
 
                 OutlinedTextField(
-                    value = state.url,
-                    onValueChange = screenModel::updateUrl,
+                    value = url,
+                    onValueChange = {
+                        screenModel.updateUrl(it)
+                        url = it
+                    },
                     placeholder = { Text(StringResource.bookmarkUrlPlaceHolder()) },
                 )
 
