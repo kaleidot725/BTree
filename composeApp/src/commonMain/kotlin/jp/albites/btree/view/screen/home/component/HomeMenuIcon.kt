@@ -38,14 +38,8 @@ fun HomeMenuIcon(
                 contentDescription = label,
                 tint = getColor(enabled),
                 modifier = Modifier
-                    .size(24.dp)
+                    .size(28.dp)
                     .align(Alignment.CenterHorizontally),
-            )
-            Text(
-                text = label,
-                fontSize = 10.sp,
-                color = getColor(enabled),
-                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
         }
     }

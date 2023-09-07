@@ -5,24 +5,26 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddLink
 import androidx.compose.material.icons.filled.CreateNewFolder
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.InsertLink
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,8 +39,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -55,7 +59,7 @@ import jp.albites.btree.view.screen.setting.SettingScreen
 import view.components.explorer.Explorer
 
 class HomeScreen(val openUrl: (String) -> Unit) : Screen {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
     @Composable
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
@@ -66,7 +70,6 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         var showDirectoryDialog by remember { mutableStateOf(false) }
         var showDeleteDialog by remember { mutableStateOf(false) }
         var showEditDialog by remember { mutableStateOf(false) }
-
         val selectedFile by rememberUpdatedState(state.selectedFile)
         val selectedDirectory by rememberUpdatedState(state.selectedFile.asDirectory)
 
@@ -85,16 +88,13 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                 )
             },
             bottomBar = {
-                Box(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Divider()
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
-                            .background(
-                                color = Color.LightGray.copy(alpha = 0.3f),
-                                shape = RoundedCornerShape(8.dp),
-                            )
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                            .padding(vertical = 16.dp),
                     ) {
                         AnimatedContent(
                             targetState = state.canCreateNewFolder,
@@ -119,7 +119,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                                 .weight(1.0f),
                         ) {
                             HomeMenuIcon(
-                                icon = Icons.Default.InsertLink,
+                                icon = Icons.Default.AddLink,
                                 label = StringResource.homeAddBookmark(),
                                 enabled = it,
                                 onClick = { showBookmarkDialog = true },
@@ -173,42 +173,59 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                     .verticalScroll(rememberScrollState())
                     .clickableNoRipple { screenModel.onResetFile() },
             )
-        }
 
-        if (showBookmarkDialog && selectedDirectory != null) {
-            selectedDirectory?.let { directory ->
-                BookmarkDialog(
-                    targetDirectory = directory,
-                    onApply = { showBookmarkDialog = false },
-                    onClose = { showBookmarkDialog = false },
+            if (showBookmarkDialog && selectedDirectory != null) {
+                selectedDirectory?.let { directory ->
+                    BookmarkDialog(
+                        targetDirectory = directory,
+                        onApply = {
+                            showBookmarkDialog = false
+                        },
+                        onClose = {
+                            showBookmarkDialog = false
+                        },
+                    )
+                }
+            }
+
+            if (showDirectoryDialog && selectedDirectory != null) {
+                selectedDirectory?.let {
+                    DirectoryDialog(
+                        targetDirectory = it,
+                        onApply = {
+                            showDirectoryDialog = false
+
+                        },
+                        onClose = {
+                            showDirectoryDialog = false
+                        },
+                    )
+                }
+            }
+
+            if (showDeleteDialog) {
+                DeleteDialog(
+                    targetFile = selectedFile,
+                    onApply = {
+                        showDeleteDialog = false
+                    },
+                    onClose = {
+                        showDeleteDialog = false
+                    },
                 )
             }
-        }
 
-        if (showDirectoryDialog && selectedDirectory != null) {
-            selectedDirectory?.let {
-                DirectoryDialog(
-                    targetDirectory = it,
-                    onApply = { showDirectoryDialog = false },
-                    onClose = { showDirectoryDialog = false },
+            if (showEditDialog) {
+                EditDialog(
+                    targetFile = selectedFile,
+                    onApply = {
+                        showEditDialog = false
+                    },
+                    onClose = {
+                        showEditDialog = false
+                    },
                 )
             }
-        }
-
-        if (showDeleteDialog) {
-            DeleteDialog(
-                targetFile = selectedFile,
-                onApply = { showDeleteDialog = false },
-                onClose = { showDeleteDialog = false },
-            )
-        }
-
-        if (showEditDialog) {
-            EditDialog(
-                targetFile = selectedFile,
-                onApply = { showEditDialog = false },
-                onClose = { showEditDialog = false },
-            )
         }
     }
 }
