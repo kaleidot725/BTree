@@ -8,7 +8,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
-actual val osModule: Module = module {
+val osModule: Module = module {
     factory {
         val delegate: NSUserDefaults = NSUserDefaults.standardUserDefaults
         val settings: ObservableSettings = NSUserDefaultsSettings(delegate)

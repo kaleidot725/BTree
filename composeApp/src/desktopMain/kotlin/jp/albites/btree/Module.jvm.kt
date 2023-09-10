@@ -8,7 +8,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import java.util.prefs.Preferences
 
-actual val osModule: Module = module {
+val osModule: Module = module {
     factory {
         val delegate: Preferences = Preferences.userRoot()
         val settings: ObservableSettings = PreferencesSettings(delegate)
