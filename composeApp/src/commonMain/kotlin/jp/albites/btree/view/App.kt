@@ -18,10 +18,11 @@ import jp.albites.btree.view.screen.home.HomeScreen
 import kotlinx.coroutines.flow.Flow
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
+import org.koin.core.module.Module
 
 @Composable
-internal fun App(openUrl: (String) -> Unit) {
-    KoinApplication(application = { modules(allModule) }) {
+internal fun App(openUrl: (String) -> Unit, appendModules: List<Module> = emptyList()) {
+    KoinApplication(application = { modules(allModule + appendModules) }) {
         val theme by getThemeFlow().collectAsState(Theme.SYSTEM)
         val isDarkMode = isDarkMode(theme)
         val colorScheme = getColorScheme(theme)
