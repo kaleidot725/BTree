@@ -9,8 +9,6 @@ import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-expect val osModule: Module
-
 val appModule: Module = module {
     factory {
         ThemeScreenModel(get())
@@ -36,5 +34,3 @@ val appModule: Module = module {
         EditDialogModel(fileId, get())
     }
 }
-
-val allModule get() = listOf(appModule, osModule)

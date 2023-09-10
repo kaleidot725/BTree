@@ -7,8 +7,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.navigator.Navigator
-import com.moriatsushi.insetsx.rememberWindowInsetsController
-import jp.albites.btree.allModule
 import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.resources.AppTheme
@@ -21,16 +19,18 @@ import org.koin.compose.koinInject
 import org.koin.core.module.Module
 
 @Composable
-internal fun App(openUrl: (String) -> Unit, appendModules: List<Module> = emptyList()) {
-    KoinApplication(application = { modules(allModule + appendModules) }) {
+internal fun App(
+    openUrl: (String) -> Unit,
+    onChangedDarkMode: (Boolean) -> Unit = {},
+    modules: List<Module> = emptyList(),
+) {
+    KoinApplication(application = { modules(modules) }) {
         val theme by getThemeFlow().collectAsState(Theme.SYSTEM)
         val isDarkMode = isDarkMode(theme)
         val colorScheme = getColorScheme(theme)
-        val windowInsetsController = rememberWindowInsetsController()
 
         LaunchedEffect(isDarkMode) {
-            windowInsetsController?.setStatusBarContentColor(dark = !isDarkMode)
-            windowInsetsController?.setNavigationBarsContentColor(dark = !isDarkMode)
+            onChangedDarkMode(isDarkMode)
         }
 
         AppTheme(colorScheme) {

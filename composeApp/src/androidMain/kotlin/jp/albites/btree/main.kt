@@ -28,16 +28,12 @@ class AppActivity : ComponentActivity() {
         window.navigationBarColor = android.graphics.Color.TRANSPARENT
 
         setContent {
-            Box(
-                modifier = Modifier.navigationBarsPadding()) {
+            Box(modifier = Modifier.navigationBarsPadding()) {
                 App(
                     openUrl = { openUrl(it) },
-                    appendModules = listOf(
-                        module {
-                            single<Context> {
-                                applicationContext
-                            }
-                        }
+                    modules = listOf(
+                        appModule,
+                        osModule(applicationContext)
                     )
                 )
             }

@@ -1,6 +1,6 @@
-import UIKit
-import SwiftUI
 import ComposeApp
+import SwiftUI
+import UIKit
 
 @main
 struct iosApp: App {
@@ -12,14 +12,24 @@ struct iosApp: App {
 }
 
 struct ContentView: View {
+    @State var isDarkMode: Bool = false
+
     var body: some View {
-        ComposeView().edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        ComposeView(
+            onChangefdDarkMode: { b in isDarkMode = b }
+        ).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/)
     }
 }
 
 struct ComposeView: UIViewControllerRepresentable {
+    let onChangefdDarkMode: (Bool) -> Void
+
     func makeUIViewController(context: Context) -> UIViewController {
-        MainKt.MainViewController()
+        MainKt.MainViewController(
+            onChangedDarkMode: { kb in
+                onChangefdDarkMode(kb == KotlinBoolean(bool: true))
+            }
+        )
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
