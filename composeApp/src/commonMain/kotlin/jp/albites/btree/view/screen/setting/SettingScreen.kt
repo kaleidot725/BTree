@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CardMembership
 import androidx.compose.material.icons.filled.ColorLens
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,11 +26,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import jp.albites.btree.view.resources.StringResource
 import jp.albites.btree.view.screen.setting.component.SettingItem
+import jp.albites.btree.view.screen.theme.LanguageScreen
+import jp.albites.btree.view.screen.theme.LanguageScreenModel
 import jp.albites.btree.view.screen.theme.ThemeScreen
 
 class SettingScreen : Screen {
@@ -37,10 +40,12 @@ class SettingScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val strings = LocalStrings.current
+
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(StringResource.settingTitle()) },
+                    title = { Text(strings.settingTitle) },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
@@ -54,7 +59,7 @@ class SettingScreen : Screen {
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(it)) {
                 SettingItem(
-                    title = StringResource.settingThemeTitle(),
+                    title = strings.settingThemeTitle,
                     icon = Icons.Default.ColorLens,
                     iconDescription = "theme",
                     modifier = Modifier
@@ -67,7 +72,19 @@ class SettingScreen : Screen {
                 Divider()
 
                 SettingItem(
-                    title = StringResource.settingVersion(),
+                    title = strings.settingLanguageTitle,
+                    icon = Icons.Default.Language,
+                    iconDescription = "language",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp)
+                        .clickable(onClick = { navigator.push(LanguageScreen()) })
+                        .padding(12.dp),
+                )
+
+                Divider()
+                SettingItem(
+                    title = strings.settingVersion,
                     icon = Icons.Default.CardMembership,
                     iconDescription = "Version",
                     modifier = Modifier

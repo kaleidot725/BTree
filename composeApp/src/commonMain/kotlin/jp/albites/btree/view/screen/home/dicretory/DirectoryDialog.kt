@@ -25,13 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.util.getDialogModel
-import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Screen.DirectoryDialog(
     targetDirectory: Directory,
@@ -43,6 +42,7 @@ fun Screen.DirectoryDialog(
     }
     val state by screenModel.state.collectAsState()
     var name by remember { mutableStateOf("") }
+    val strings = LocalStrings.current
 
     Dialog(
         onDismissRequest = { },
@@ -58,7 +58,7 @@ fun Screen.DirectoryDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp),
             ) {
                 Text(
-                    text = StringResource.directoryTitle(),
+                    text = strings.directoryTitle,
                     style = MaterialTheme.typography.titleMedium,
                 )
 
@@ -68,7 +68,7 @@ fun Screen.DirectoryDialog(
                         screenModel.updateName(it)
                         name = it
                     },
-                    placeholder = { Text(StringResource.directoryNamePlaceHolder()) },
+                    placeholder = { Text(strings.directoryNamePlaceHolder) },
                 )
 
                 Row(
@@ -78,7 +78,7 @@ fun Screen.DirectoryDialog(
                     Button(
                         onClick = { onClose() },
                     ) {
-                        Text(StringResource.close())
+                        Text(strings.close)
                     }
 
                     Button(
@@ -88,7 +88,7 @@ fun Screen.DirectoryDialog(
                             onApply()
                         },
                     ) {
-                        Text(StringResource.apply())
+                        Text(strings.apply)
                     }
                 }
             }

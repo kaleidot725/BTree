@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Divider
@@ -25,23 +26,24 @@ import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import jp.albites.btree.model.domain.Language
 import jp.albites.btree.model.domain.Theme
 import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.screen.setting.component.SettingCheckItem
 
-class ThemeScreen : Screen {
+class LanguageScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val screenModel = getScreenModel<ThemeScreenModel>()
-        val selectedTheme by screenModel.selectedTheme.collectAsState()
+        val screenModel = getScreenModel<LanguageScreenModel>()
+        val selectedLanguage by screenModel.selectedLanguage.collectAsState()
         val strings = LocalStrings.current
 
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(strings.settingThemeTitle) },
+                    title = { Text(strings.settingLanguageTitle) },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
@@ -52,11 +54,11 @@ class ThemeScreen : Screen {
         ) {
             Column(modifier = Modifier.padding(it)) {
                 SettingCheckItem(
-                    title = strings.settingThemeLight,
-                    icon = Icons.Default.LightMode,
-                    checked = selectedTheme == Theme.LIGHT,
-                    onCheckedChange = { screenModel.selectTheme(Theme.LIGHT) },
-                    iconDescription = "LightMode",
+                    title = strings.settingLanguageEnglish,
+                    icon = Icons.Default.Language,
+                    checked = selectedLanguage == Language.ENGLISH,
+                    onCheckedChange = { screenModel.selectLanguage(Language.ENGLISH) },
+                    iconDescription = "ENGLISH",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
@@ -66,25 +68,11 @@ class ThemeScreen : Screen {
                 Divider()
 
                 SettingCheckItem(
-                    title = strings.settingThemeDark,
-                    icon = Icons.Default.DarkMode,
-                    checked = selectedTheme == Theme.DARK,
-                    onCheckedChange = { screenModel.selectTheme(Theme.DARK) },
-                    iconDescription = "DarkMode",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(64.dp)
-                        .padding(12.dp),
-                )
-
-                Divider()
-
-                SettingCheckItem(
-                    title = strings.settingThemeSync,
-                    icon = Icons.Default.Sync,
-                    checked = selectedTheme == Theme.SYSTEM,
-                    onCheckedChange = { screenModel.selectTheme(Theme.SYSTEM) },
-                    iconDescription = "Sync",
+                    title = strings.settingLanguageJapanese,
+                    icon = Icons.Default.Language,
+                    checked = selectedLanguage == Language.JAPANESE,
+                    onCheckedChange = { screenModel.selectLanguage(Language.JAPANESE) },
+                    iconDescription = "JAPANESE",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)

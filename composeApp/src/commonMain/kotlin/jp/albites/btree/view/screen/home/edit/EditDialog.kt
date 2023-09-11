@@ -28,13 +28,13 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getDialogModel
-import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Screen.EditDialog(
     targetFile: File,
@@ -49,6 +49,7 @@ fun Screen.EditDialog(
     var url by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    val strings = LocalStrings.current
 
     Dialog(
         onDismissRequest = { },
@@ -64,7 +65,7 @@ fun Screen.EditDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp),
             ) {
                 Text(
-                    text = StringResource.editTitle(state.name),
+                    text = strings.editTitle,
                     style = MaterialTheme.typography.titleMedium,
                 )
 
@@ -74,7 +75,7 @@ fun Screen.EditDialog(
                         screenModel.updateName(it)
                         name = it
                     },
-                    placeholder = { Text(StringResource.editNamePlaceHolder()) },
+                    placeholder = { Text(strings.editNamePlaceHolder) },
                 )
 
                 if (state.file.isBookmark) {
@@ -84,7 +85,7 @@ fun Screen.EditDialog(
                             screenModel.updateUrl(it)
                             url = it
                         },
-                        placeholder = { Text(StringResource.editUrlPlaceHolder()) },
+                        placeholder = { Text(strings.editUrlPlaceHolder) },
                     )
                 }
 
@@ -99,7 +100,7 @@ fun Screen.EditDialog(
                             onClose()
                         },
                     ) {
-                        Text(StringResource.close())
+                        Text(strings.close)
                     }
 
                     Button(
@@ -111,7 +112,7 @@ fun Screen.EditDialog(
                         },
                         enabled = state.isValid,
                     ) {
-                        Text(StringResource.apply())
+                        Text(strings.apply)
                     }
                 }
             }

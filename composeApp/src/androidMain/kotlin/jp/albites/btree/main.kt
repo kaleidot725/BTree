@@ -1,7 +1,6 @@
 package jp.albites.btree
 
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import jp.albites.btree.util.openUrl
 import jp.albites.btree.view.App
-import org.koin.dsl.module
 
 class AndroidApp : Application() {
     companion object {
@@ -33,8 +31,8 @@ class AppActivity : ComponentActivity() {
                     openUrl = { openUrl(it) },
                     modules = listOf(
                         appModule,
-                        osModule(applicationContext)
-                    )
+                        osModule(applicationContext),
+                    ),
                 )
             }
         }

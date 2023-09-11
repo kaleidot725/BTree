@@ -44,12 +44,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.util.getScreenModel
 import jp.albites.btree.view.exntension.clickableNoRipple
-import jp.albites.btree.view.resources.StringResource
 import jp.albites.btree.view.screen.home.bookmark.BookmarkDialog
 import jp.albites.btree.view.screen.home.component.HomeMenuIcon
 import jp.albites.btree.view.screen.home.delete.DeleteDialog
@@ -65,6 +65,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         val screenModel = getScreenModel<HomeScreenModel>()
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
+        val strings = LocalStrings.current
 
         var showBookmarkDialog by remember { mutableStateOf(false) }
         var showDirectoryDialog by remember { mutableStateOf(false) }
@@ -76,7 +77,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
         Scaffold(
             topBar = {
                 CenterAlignedTopAppBar(
-                    title = { Text(StringResource.homeTitle()) },
+                    title = { Text(strings.homeTitle) },
                     actions = {
                         IconButton(onClick = { navigator.push(SettingScreen()) }) {
                             Icon(
@@ -105,7 +106,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.CreateNewFolder,
-                                label = StringResource.homeCreateFolder(),
+                                label = strings.homeCreateFolder,
                                 enabled = it,
                                 onClick = { showDirectoryDialog = true },
                             )
@@ -120,7 +121,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.AddLink,
-                                label = StringResource.homeAddBookmark(),
+                                label = strings.homeAddBookmark,
                                 enabled = it,
                                 onClick = { showBookmarkDialog = true },
                             )
@@ -135,7 +136,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.Edit,
-                                label = StringResource.homeEdit(),
+                                label = strings.homeEdit,
                                 enabled = it,
                                 onClick = { showEditDialog = true },
                             )
@@ -150,7 +151,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         ) {
                             HomeMenuIcon(
                                 icon = Icons.Default.Delete,
-                                label = StringResource.homeDelete(),
+                                label = strings.homeDelete,
                                 enabled = it,
                                 onClick = { showDeleteDialog = true },
                             )
