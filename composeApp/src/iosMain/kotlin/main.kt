@@ -25,6 +25,10 @@ fun MainViewController(): UIViewController {
     }
 }
 
+private const val UIStatusBarStyleDark = 1L
+private const val UIStatusBarStyleLight = 3L
+private fun getStyle(isDarkMode: Boolean) = if (isDarkMode) UIStatusBarStyleDark else UIStatusBarStyleLight
+
 private class MainUIViewController : UIViewController {
     @OverrideInit
     constructor() : super(nibName = null, bundle = null)
@@ -62,11 +66,5 @@ private class MainUIViewController : UIViewController {
         )
         view = rootView
         composeViewController.didMoveToParentViewController(this)
-    }
-
-    companion object {
-        private const val UIStatusBarStyleDark = 1L
-        private const val UIStatusBarStyleLight = 3L
-        fun getStyle(isDarkMode: Boolean) = if (isDarkMode) UIStatusBarStyleDark else UIStatusBarStyleLight
     }
 }
