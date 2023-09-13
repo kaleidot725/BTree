@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -161,7 +162,7 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
             },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
-                .windowInsetsPadding(WindowInsets.systemBars),
+                .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime)),
         ) {
             Explorer(
                 rootDirectory = state.fileTree,
