@@ -196,6 +196,12 @@ task("updateLicences") {
         to = File("composeApp/src/commonMain/resources/licensee/ios/artifacts.json")
     )
     val list = listOf(android, desktop, ios)
-    list.forEach { item -> item.from.copyTo(item.to, true) }
+    list.forEach { item ->
+        try {
+            item.from.copyTo(item.to, true)
+        } catch (e: Exception) {
+            print("ERROR: $e")
+        }
+    }
 }
 // -- Licensee --

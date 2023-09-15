@@ -6,12 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.text.intl.Locale
-import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.ProvideStrings
 import cafe.adriel.lyricist.Strings
-import cafe.adriel.lyricist.rememberStrings
 import cafe.adriel.voyager.navigator.Navigator
 import jp.albites.btree.model.domain.Language
 import jp.albites.btree.model.domain.Theme
@@ -22,6 +19,9 @@ import jp.albites.btree.view.resources.DarkColors
 import jp.albites.btree.view.resources.LightColors
 import jp.albites.btree.view.screen.home.HomeScreen
 import kotlinx.coroutines.flow.Flow
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.Resource
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 import org.koin.core.module.Module
