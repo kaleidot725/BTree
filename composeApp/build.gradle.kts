@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.licensee)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -89,6 +90,11 @@ kotlin {
     }
 }
 
+licensee {
+    allow("Apache-2.0")
+    allow("MIT")
+}
+
 ktlint {
     version.set("0.49.1")
     verbose.set(true)
@@ -122,7 +128,7 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources/")
 
     packaging {
         resources.excludes.add("META-INF/**")
@@ -146,7 +152,7 @@ compose.desktop {
     }
 }
 
-// Lyricist Workaround
+// -- Lyricist Workaround --
 dependencies {
     add("kspCommonMainMetadata", libs.lyricist.processor)
 }
@@ -154,9 +160,48 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
+    } else {
+        mustRunAfter("runKtlintCheckOverCommonMainSourceSet")
     }
 }
 
 kotlin.sourceSets.commonMain {
     kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
 }
+
+// -- Lyricist Workaround --
+
+// -- Licensee --
+tasks.check {
+    dependsOn("composeApp:build")
+    mustRunAfter("composeApp:build")
+}
+
+task("updateLicences") {
+    dependsOn(tasks.check)
+    mustRunAfter(tasks.check)
+
+    data class FromTo(val from: File, val to: File)
+
+    val android = FromTo(
+        from = File("composeApp/build/reports/licensee/androidRelease/artifacts.json"),
+        to = File("composeApp/src/commonMain/resources/licensee/android/artifacts.json"),
+    )
+    val desktop = FromTo(
+        from = File("composeApp/build/reports/licensee/desktop/artifacts.json"),
+        to = File("composeApp/src/commonMain/resources/licensee/desktop/artifacts.json"),
+    )
+    val ios = FromTo(
+        from = File("composeApp/build/reports/licensee/iosArm64/artifacts.json"),
+        to = File("composeApp/src/commonMain/resources/licensee/ios/artifacts.json"),
+    )
+    val list = listOf(android, desktop, ios)
+    list.forEach { item ->
+        try {
+            item.from.copyTo(item.to, true)
+        } catch (e: Exception) {
+            print("ERROR: $e")
+        }
+    }
+}
+// -- Licensee --

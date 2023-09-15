@@ -13,9 +13,10 @@ class LanguageRepository(
 ) {
     @OptIn(ExperimentalSettingsApi::class)
     private val languageText = settings.getStringFlow(LANGUAGE_KEY, Language.ENGLISH.text)
-    val languageFlow get() = languageText.map { text ->
-        Language.values().firstOrNull { it.text == text } ?: Language.ENGLISH
-    }
+    val languageFlow
+        get() = languageText.map { text ->
+            Language.values().firstOrNull { it.text == text } ?: Language.ENGLISH
+        }
 
     fun update(language: Language) {
         settings[LANGUAGE_KEY] = language.text

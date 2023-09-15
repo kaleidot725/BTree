@@ -6,6 +6,7 @@ import jp.albites.btree.view.screen.home.delete.DeleteDialogModel
 import jp.albites.btree.view.screen.home.dicretory.DirectoryDialogModel
 import jp.albites.btree.view.screen.home.edit.EditDialogModel
 import jp.albites.btree.view.screen.theme.LanguageScreenModel
+import jp.albites.btree.view.screen.theme.LicenseScreenModel
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -37,5 +38,9 @@ val appModule: Module = module {
 
     factory { (fileId: String) ->
         EditDialogModel(fileId, get())
+    }
+
+    factory {
+        LicenseScreenModel(get())
     }
 }

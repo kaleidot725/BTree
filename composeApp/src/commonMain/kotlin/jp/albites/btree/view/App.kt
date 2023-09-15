@@ -6,12 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.text.intl.Locale
-import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.ProvideStrings
 import cafe.adriel.lyricist.Strings
-import cafe.adriel.lyricist.rememberStrings
 import cafe.adriel.voyager.navigator.Navigator
 import jp.albites.btree.model.domain.Language
 import jp.albites.btree.model.domain.Theme

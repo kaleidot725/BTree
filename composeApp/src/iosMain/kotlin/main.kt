@@ -27,7 +27,8 @@ fun MainViewController(): UIViewController {
 
 private const val UIStatusBarStyleDark = 1L
 private const val UIStatusBarStyleLight = 3L
-private fun getStyle(isDarkMode: Boolean) = if (isDarkMode) UIStatusBarStyleDark else UIStatusBarStyleLight
+private fun getStyle(isDarkMode: Boolean) =
+    if (isDarkMode) UIStatusBarStyleDark else UIStatusBarStyleLight
 
 private class MainUIViewController : UIViewController {
     @OverrideInit

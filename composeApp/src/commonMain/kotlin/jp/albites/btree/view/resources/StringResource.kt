@@ -53,6 +53,8 @@ data class Strings(
 
     val settingThemeSync: String = "Sync System",
 
+    val settingLicenseTitle: String = "License",
+
     val close: String = "Close",
 
     val apply: String = "Apply",
@@ -103,6 +105,8 @@ val EnStrings = Strings(
     settingThemeDark = "Dark",
 
     settingThemeSync = "Sync System",
+
+    settingLicenseTitle = "License",
 
     close = "Close",
 
@@ -155,6 +159,8 @@ val JaStrings = Strings(
     settingThemeDark = "暗い",
 
     settingThemeSync = "システム同期",
+
+    settingLicenseTitle = "ライセンス情報",
 
     close = "閉じる",
 

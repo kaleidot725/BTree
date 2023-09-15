@@ -21,19 +21,20 @@ class HomeScreenModel(
     )
     private val selectedFile: MutableStateFlow<File> = MutableStateFlow(fileTree.value)
     private val expandedDirs: MutableStateFlow<List<Directory>> = MutableStateFlow(emptyList())
-    val state = combine(fileTree, selectedFile, expandedDirs) { fileTree, selectedFile, expandedDirs ->
-        val directory = fileTree.asDirectory ?: Directory.ROOT
-        val latestFile = fileRepository.getLeaf(selectedFile.id) ?: Directory.ROOT
-        State(
-            fileTree = directory,
-            selectedFile = latestFile,
-            expandedDirs = expandedDirs,
-            canEdit = latestFile.id != Directory.ROOT.id,
-            canDelete = latestFile.id != Directory.ROOT.id,
-            canAddBookmark = latestFile.isDirectory,
-            canCreateNewFolder = latestFile.isDirectory,
-        )
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
+    val state =
+        combine(fileTree, selectedFile, expandedDirs) { fileTree, selectedFile, expandedDirs ->
+            val directory = fileTree.asDirectory ?: Directory.ROOT
+            val latestFile = fileRepository.getLeaf(selectedFile.id) ?: Directory.ROOT
+            State(
+                fileTree = directory,
+                selectedFile = latestFile,
+                expandedDirs = expandedDirs,
+                canEdit = latestFile.id != Directory.ROOT.id,
+                canDelete = latestFile.id != Directory.ROOT.id,
+                canAddBookmark = latestFile.isDirectory,
+                canCreateNewFolder = latestFile.isDirectory,
+            )
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), State())
 
     fun onClickArrow(directory: Directory) {
         val current = expandedDirs.value

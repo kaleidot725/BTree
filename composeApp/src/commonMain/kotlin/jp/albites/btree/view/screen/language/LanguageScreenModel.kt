@@ -16,6 +16,7 @@ class LanguageScreenModel(
         SharingStarted.WhileSubscribed(),
         null,
     )
+
     fun selectLanguage(language: Language) {
 
         languageRepository.update(language)
