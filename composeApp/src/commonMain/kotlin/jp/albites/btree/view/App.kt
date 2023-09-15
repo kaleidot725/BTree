@@ -19,9 +19,6 @@ import jp.albites.btree.view.resources.DarkColors
 import jp.albites.btree.view.resources.LightColors
 import jp.albites.btree.view.screen.home.HomeScreen
 import kotlinx.coroutines.flow.Flow
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.Resource
-import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 import org.koin.core.module.Module

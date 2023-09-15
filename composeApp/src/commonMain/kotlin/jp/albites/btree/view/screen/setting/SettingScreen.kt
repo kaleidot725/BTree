@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CardMembership
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.LocalPolice
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -32,7 +33,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import jp.albites.btree.view.screen.setting.component.SettingItem
 import jp.albites.btree.view.screen.theme.LanguageScreen
-import jp.albites.btree.view.screen.theme.LanguageScreenModel
+import jp.albites.btree.view.screen.theme.LicenseScreen
 import jp.albites.btree.view.screen.theme.ThemeScreen
 
 class SettingScreen : Screen {
@@ -83,6 +84,7 @@ class SettingScreen : Screen {
                 )
 
                 Divider()
+
                 SettingItem(
                     title = strings.settingVersion,
                     icon = Icons.Default.CardMembership,
@@ -91,6 +93,19 @@ class SettingScreen : Screen {
                         .fillMaxWidth()
                         .height(64.dp)
                         .clickable(onClick = {})
+                        .padding(12.dp),
+                )
+
+                Divider()
+
+                SettingItem(
+                    title = strings.settingLicenseTitle,
+                    icon = Icons.Default.LocalPolice,
+                    iconDescription = "Version",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp)
+                        .clickable(onClick = { navigator.push(LicenseScreen()) })
                         .padding(12.dp),
                 )
             }

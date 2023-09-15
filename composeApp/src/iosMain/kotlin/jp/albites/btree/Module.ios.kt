@@ -10,7 +10,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import platform.Foundation.NSFileHandle
 import platform.Foundation.NSUserDefaults
 
 @OptIn(ExperimentalResourceApi::class)
@@ -32,7 +31,7 @@ val osModule: Module = module {
     }
 
     factory {
-        val text = resource("ios/artifacts.json")
+        val text = resource("licensee/ios/artifacts.json")
         LicenseRepository(text)
     }
 }

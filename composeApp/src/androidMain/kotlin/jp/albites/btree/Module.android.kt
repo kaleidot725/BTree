@@ -11,7 +11,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import java.io.File
 
 private const val THEME_PREFERENCES = "THEME_PREFERENCES"
 private const val FILE_PREFERENCES = "FILE_PREFERENCES"
@@ -38,7 +37,7 @@ fun osModule(context: Context): Module = module {
     }
 
     factory {
-        val resource = resource("android/artifacts.json")
+        val resource = resource("licensee/android/artifacts.json")
         LicenseRepository(resource)
     }
 }

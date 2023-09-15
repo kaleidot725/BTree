@@ -128,7 +128,7 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources/")
 
     packaging {
         resources.excludes.add("META-INF/**")
@@ -151,7 +151,6 @@ compose.desktop {
         }
     }
 }
-
 
 // -- Lyricist Workaround --
 dependencies {
@@ -183,17 +182,18 @@ task("updateLicences") {
     mustRunAfter(tasks.check)
 
     data class FromTo(val from: File, val to: File)
+
     val android = FromTo(
         from = File("composeApp/build/reports/licensee/androidRelease/artifacts.json"),
-        to = File("composeApp/src/commonMain/resources/licensee/android/artifacts.json")
+        to = File("composeApp/src/commonMain/resources/licensee/android/artifacts.json"),
     )
     val desktop = FromTo(
         from = File("composeApp/build/reports/licensee/desktop/artifacts.json"),
-        to = File("composeApp/src/commonMain/resources/licensee/desktop/artifacts.json")
+        to = File("composeApp/src/commonMain/resources/licensee/desktop/artifacts.json"),
     )
     val ios = FromTo(
         from = File("composeApp/build/reports/licensee/iosArm64/artifacts.json"),
-        to = File("composeApp/src/commonMain/resources/licensee/ios/artifacts.json")
+        to = File("composeApp/src/commonMain/resources/licensee/ios/artifacts.json"),
     )
     val list = listOf(android, desktop, ios)
     list.forEach { item ->

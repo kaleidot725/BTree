@@ -33,7 +33,7 @@ val osModule: Module = module {
     }
 
     factory {
-        val resource = resource("desktop/artifacts.json")
+        val resource = resource("licensee/desktop/artifacts.json")
         LicenseRepository(resource)
     }
 }

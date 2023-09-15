@@ -9,8 +9,8 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.Resource
 
 @OptIn(ExperimentalResourceApi::class)
-class LicenseRepository(val resource: Resource) {
-    suspend fun get() : List<License> {
+class LicenseRepository(private val resource: Resource) {
+    suspend fun get(): List<License> {
         return withContext(Dispatchers.IO) {
             val text = resource.readBytes().decodeToString()
             Json.decodeFromString<List<License>>(text)

@@ -1,5 +1,8 @@
 package jp.albites.btree.model.domain.license
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class License(
     val artifactId: String,
     val groupId: String,
