@@ -1,10 +1,10 @@
 [versions]
 
-insetsx = "0.1.0-alpha10"
 kotlin = "1.9.0"
 agp = "8.1.1"
 compose = "1.5.0"
 androidx-appcompat = "1.6.1"
+lyricist = "1.4.2"
 multiplatformSettings = "1.0.0"
 voyager = "1.0.0-rc06"
 androidx-activityCompose = "1.7.2"
@@ -15,13 +15,16 @@ koin = "3.4.3"
 koin-compose = "1.0.4"
 kotlinx-serialization = "1.5.1"
 ktlint="11.5.1"
+ksp="1.9.0-1.0.11"
+licensee="1.7.0"
 
 [libraries]
 
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
-insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
+lyricist = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
+lyricist-processor = { module = "cafe.adriel.lyricist:lyricist-processor", version.ref = "lyricist" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatform-settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
@@ -43,3 +46,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+licensee = { id = "app.cash.licensee", version.ref = "licensee"}

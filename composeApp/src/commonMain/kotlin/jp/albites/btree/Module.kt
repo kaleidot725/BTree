@@ -5,11 +5,11 @@ import jp.albites.btree.view.screen.home.bookmark.BookmarkDialogModel
 import jp.albites.btree.view.screen.home.delete.DeleteDialogModel
 import jp.albites.btree.view.screen.home.dicretory.DirectoryDialogModel
 import jp.albites.btree.view.screen.home.edit.EditDialogModel
+import jp.albites.btree.view.screen.theme.LanguageScreenModel
+import jp.albites.btree.view.screen.theme.LicenseScreenModel
 import jp.albites.btree.view.screen.theme.ThemeScreenModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
-
-expect val osModule: Module
 
 val appModule: Module = module {
     factory {
@@ -18,6 +18,10 @@ val appModule: Module = module {
 
     factory {
         HomeScreenModel(get())
+    }
+
+    factory {
+        LanguageScreenModel(get())
     }
 
     factory { (dirId: String) ->
@@ -35,6 +39,8 @@ val appModule: Module = module {
     factory { (fileId: String) ->
         EditDialogModel(fileId, get())
     }
-}
 
-val allModule get() = listOf(appModule, osModule)
+    factory {
+        LicenseScreenModel(get())
+    }
+}

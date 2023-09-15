@@ -13,9 +13,10 @@ class ThemeRepository(
 ) {
     @OptIn(ExperimentalSettingsApi::class)
     private val themeText = settings.getStringFlow(THEME_KEY, Theme.SYSTEM.text)
-    val themeFlow get() = themeText.map { themeText ->
-        Theme.values().firstOrNull { it.text == themeText } ?: Theme.SYSTEM
-    }
+    val themeFlow
+        get() = themeText.map { themeText ->
+            Theme.values().firstOrNull { it.text == themeText } ?: Theme.SYSTEM
+        }
 
     fun update(theme: Theme) {
         settings[THEME_KEY] = theme.text

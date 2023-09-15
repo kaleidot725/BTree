@@ -6,10 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.ProvideStrings
+import cafe.adriel.lyricist.Strings
 import cafe.adriel.voyager.navigator.Navigator
-import com.moriatsushi.insetsx.rememberWindowInsetsController
-import jp.albites.btree.allModule
+import jp.albites.btree.model.domain.Language
 import jp.albites.btree.model.domain.Theme
+import jp.albites.btree.model.repository.LanguageRepository
 import jp.albites.btree.model.repository.ThemeRepository
 import jp.albites.btree.view.resources.AppTheme
 import jp.albites.btree.view.resources.DarkColors
@@ -21,20 +24,26 @@ import org.koin.compose.koinInject
 import org.koin.core.module.Module
 
 @Composable
-internal fun App(openUrl: (String) -> Unit, appendModules: List<Module> = emptyList()) {
-    KoinApplication(application = { modules(allModule + appendModules) }) {
+internal fun App(
+    openUrl: (String) -> Unit,
+    onChangedDarkMode: (Boolean) -> Unit = {},
+    modules: List<Module> = emptyList(),
+) {
+    KoinApplication(application = { modules(modules) }) {
         val theme by getThemeFlow().collectAsState(Theme.SYSTEM)
+        val language by getLanguageFlow().collectAsState(Language.ENGLISH)
         val isDarkMode = isDarkMode(theme)
         val colorScheme = getColorScheme(theme)
-        val windowInsetsController = rememberWindowInsetsController()
+        val lyricist = Lyricist(language.text, Strings)
 
         LaunchedEffect(isDarkMode) {
-            windowInsetsController?.setStatusBarContentColor(dark = !isDarkMode)
-            windowInsetsController?.setNavigationBarsContentColor(dark = !isDarkMode)
+            onChangedDarkMode(isDarkMode)
         }
 
-        AppTheme(colorScheme) {
-            Navigator(screen = HomeScreen(openUrl = openUrl))
+        ProvideStrings(lyricist) {
+            AppTheme(colorScheme) {
+                Navigator(screen = HomeScreen(openUrl = openUrl))
+            }
         }
     }
 }
@@ -60,4 +69,9 @@ fun isDarkMode(theme: Theme): Boolean {
         Theme.LIGHT -> false
         Theme.SYSTEM -> isSystemInDarkTheme()
     }
+}
+
+@Composable
+private fun getLanguageFlow(): Flow<Language> {
+    return koinInject<LanguageRepository>().languageFlow
 }

@@ -1,160 +1,168 @@
 package jp.albites.btree.view.resources
 
-import androidx.compose.runtime.Composable
+import cafe.adriel.lyricist.LyricistStrings
+import jp.albites.btree.model.domain.ENGLISH_TEXT
+import jp.albites.btree.model.domain.JAPANESE_TEXT
 
-object StringResource : StringList by StringListDefault
+data class Strings(
+    val homeTitle: String = "BTree",
 
-private object StringListDefault : StringList {
-    // Home
-    @Composable
-    override fun homeTitle(): String = "BTree"
+    val homeCreateFolder: String = "Create Folder",
 
-    @Composable
-    override fun homeCreateFolder(): String = "Create Folder"
+    val homeAddBookmark: String = "Add Bookmark",
 
-    @Composable
-    override fun homeAddBookmark(): String = "Add Bookmark"
+    val homeEdit: String = "Edit",
 
-    @Composable
-    override fun homeEdit(): String = "Edit"
+    val homeDelete: String = "Delete",
 
-    @Composable
-    override fun homeDelete(): String = "Delete"
+    val editTitle: String = "Edit",
 
-    // Edit
-    @Composable
-    override fun editTitle(name: String): String = "Edit $name"
+    val editNamePlaceHolder: String = "Name",
 
-    @Composable
-    override fun editNamePlaceHolder(): String = "Name"
+    val editUrlPlaceHolder: String = "URL",
 
-    @Composable
-    override fun editUrlPlaceHolder(): String = "URL"
+    val directoryTitle: String = "Create Folder",
 
-    // Directory
-    @Composable
-    override fun directoryTitle(): String = "Create Folder"
+    val directoryNamePlaceHolder: String = "Name",
 
-    @Composable
-    override fun directoryNamePlaceHolder(): String = "Name"
+    val deleteTitle: String = "Delete",
 
-    @Composable
-    override fun deleteTitle(name: String): String = "Delete $name"
+    val deleteMessage: (name: String) -> String = { "Do you delete $it?" },
 
-    @Composable
-    override fun deleteMessage(name: String): String = "Do you delete $name?"
+    val bookmarkTitle: String = "Create Link",
 
-    // Bookmark
-    @Composable
-    override fun bookmarkTitle(): String = "Create Link"
+    val bookmarkNamePlaceHolder: String = "Name",
 
-    @Composable
-    override fun bookmarkNamePlaceHolder(): String = "Name"
+    val bookmarkUrlPlaceHolder: String = "URL",
 
-    @Composable
-    override fun bookmarkUrlPlaceHolder(): String = "URL"
+    val settingTitle: String = "Setting",
 
-    // Setting
-    @Composable
-    override fun settingTitle(): String = "Setting"
+    val settingThemeTitle: String = "Theme",
 
-    @Composable
-    override fun settingThemeTitle(): String = "Theme"
+    val settingLanguageTitle: String = "Language",
 
-    @Composable
-    override fun settingVersion(): String = "Version: v0.1.0"
+    val settingLanguageEnglish: String = "English",
 
-    @Composable
-    override fun settingThemeLight(): String = "Light"
+    val settingLanguageJapanese: String = "日本語",
 
-    @Composable
-    override fun settingThemeDark(): String = "Dark"
+    val settingVersion: String = "Version: v0.1.0",
 
-    @Composable
-    override fun settingThemeSync(): String = "Sync System"
+    val settingThemeLight: String = "Light",
 
-    // Common
-    @Composable
-    override fun close(): String = "Close"
+    val settingThemeDark: String = "Dark",
 
-    @Composable
-    override fun apply(): String = "Apply"
-}
+    val settingThemeSync: String = "Sync System",
 
-private interface StringList {
-    // Home
-    @Composable
-    fun homeTitle(): String
+    val settingLicenseTitle: String = "License",
 
-    @Composable
-    fun homeCreateFolder(): String
+    val close: String = "Close",
 
-    @Composable
-    fun homeAddBookmark(): String
+    val apply: String = "Apply",
+)
 
-    @Composable
-    fun homeEdit(): String
+@LyricistStrings(languageTag = ENGLISH_TEXT, default = true)
+val EnStrings = Strings(
+    homeTitle = "BTree",
 
-    @Composable
-    fun homeDelete(): String
+    homeCreateFolder = "Create Folder",
 
-    // Edit
-    @Composable
-    fun editTitle(name: String): String
+    homeAddBookmark = "Add Bookmark",
 
-    @Composable
-    fun editNamePlaceHolder(): String
+    homeEdit = "Edit",
 
-    @Composable
-    fun editUrlPlaceHolder(): String
+    homeDelete = "Delete",
 
-    // Directory
-    @Composable
-    fun directoryTitle(): String
+    editTitle = "Edit",
 
-    @Composable
-    fun directoryNamePlaceHolder(): String
+    editNamePlaceHolder = "Name",
 
-    // Delete
-    @Composable
-    fun deleteTitle(name: String): String
+    editUrlPlaceHolder = "URL",
 
-    @Composable
-    fun deleteMessage(name: String): String
+    directoryTitle = "Create Folder",
 
-    // Bookmark
-    @Composable
-    fun bookmarkTitle(): String
+    directoryNamePlaceHolder = "Name",
 
-    @Composable
-    fun bookmarkNamePlaceHolder(): String
+    deleteTitle = "Delete",
 
-    @Composable
-    fun bookmarkUrlPlaceHolder(): String
+    deleteMessage = { "Do you delete $it?" },
 
-    // Setting
-    @Composable
-    fun settingTitle(): String
+    bookmarkTitle = "Create Link",
 
-    @Composable
-    fun settingThemeTitle(): String
+    bookmarkNamePlaceHolder = "Name",
 
-    @Composable
-    fun settingThemeLight(): String
+    bookmarkUrlPlaceHolder = "URL",
 
-    @Composable
-    fun settingThemeDark(): String
+    settingTitle = "Setting",
 
-    @Composable
-    fun settingThemeSync(): String
+    settingThemeTitle = "Theme",
 
-    @Composable
-    fun settingVersion(): String
+    settingLanguageTitle = "Language",
 
-    // Common
-    @Composable
-    fun close(): String
+    settingVersion = "Version: v0.1.0",
 
-    @Composable
-    fun apply(): String
-}
+    settingThemeLight = "Light",
+
+    settingThemeDark = "Dark",
+
+    settingThemeSync = "Sync System",
+
+    settingLicenseTitle = "License",
+
+    close = "Close",
+
+    apply = "Apply",
+)
+
+
+@LyricistStrings(languageTag = JAPANESE_TEXT, default = false)
+val JaStrings = Strings(
+    homeTitle = "BTree",
+
+    homeCreateFolder = "フォルダを作成する",
+
+    homeAddBookmark = "ブックマークを作成する",
+
+    homeEdit = "編集",
+
+    homeDelete = "削除",
+
+    editTitle = "編集",
+
+    editNamePlaceHolder = "名前",
+
+    editUrlPlaceHolder = "URL",
+
+    directoryTitle = "フォルダ作成",
+
+    directoryNamePlaceHolder = "名前",
+
+    deleteTitle = "削除",
+
+    deleteMessage = { "${it}を削除しますか?" },
+
+    bookmarkTitle = "ブックマーク作成",
+
+    bookmarkNamePlaceHolder = "名前",
+
+    bookmarkUrlPlaceHolder = "URL",
+
+    settingTitle = "設定",
+
+    settingThemeTitle = "テーマ",
+
+    settingLanguageTitle = "言語",
+
+    settingVersion = "バージョン: v0.1.0",
+
+    settingThemeLight = "明るい",
+
+    settingThemeDark = "暗い",
+
+    settingThemeSync = "システム同期",
+
+    settingLicenseTitle = "ライセンス情報",
+
+    close = "閉じる",
+
+    apply = "適用する",
+)

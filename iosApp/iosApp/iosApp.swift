@@ -1,6 +1,6 @@
-import UIKit
-import SwiftUI
 import ComposeApp
+import SwiftUI
+import UIKit
 
 @main
 struct iosApp: App {
@@ -12,8 +12,10 @@ struct iosApp: App {
 }
 
 struct ContentView: View {
+    @State var isDarkMode: Bool = false
+
     var body: some View {
-        ComposeView().edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        ComposeView().edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/)
     }
 }
 

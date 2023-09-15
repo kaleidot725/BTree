@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.File
 import jp.albites.btree.util.getDialogModel
-import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -36,6 +36,7 @@ fun Screen.DeleteDialog(
         (parametersOf(targetFile.id))
     }
     val state by screenModel.state.collectAsState()
+    val strings = LocalStrings.current
 
     Dialog(
         onDismissRequest = { },
@@ -52,12 +53,12 @@ fun Screen.DeleteDialog(
             ) {
                 Column {
                     Text(
-                        text = StringResource.deleteTitle(state.file.name),
+                        text = strings.deleteTitle,
                         style = MaterialTheme.typography.titleMedium,
                     )
 
                     Text(
-                        text = StringResource.deleteMessage(state.file.name),
+                        text = strings.deleteMessage(state.file.name),
                         style = MaterialTheme.typography.titleSmall,
                     )
                 }
@@ -69,7 +70,7 @@ fun Screen.DeleteDialog(
                     Button(
                         onClick = { onClose() },
                     ) {
-                        Text(StringResource.close())
+                        Text(strings.close)
                     }
 
                     Button(
@@ -78,7 +79,7 @@ fun Screen.DeleteDialog(
                             onApply()
                         },
                     ) {
-                        Text(StringResource.apply())
+                        Text(strings.apply)
                     }
                 }
             }

@@ -24,10 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.voyager.core.screen.Screen
 import jp.albites.btree.model.domain.Directory
 import jp.albites.btree.util.getDialogModel
-import jp.albites.btree.view.resources.StringResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -42,6 +42,7 @@ fun Screen.BookmarkDialog(
     val state by screenModel.state.collectAsState()
     var name by remember { mutableStateOf("") }
     var url by remember { mutableStateOf("") }
+    val strings = LocalStrings.current
 
     Dialog(
         onDismissRequest = { },
@@ -57,7 +58,7 @@ fun Screen.BookmarkDialog(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp),
             ) {
                 Text(
-                    text = StringResource.bookmarkTitle(),
+                    text = strings.bookmarkTitle,
                     style = MaterialTheme.typography.titleMedium,
                 )
 
@@ -67,7 +68,7 @@ fun Screen.BookmarkDialog(
                         screenModel.updateName(it)
                         name = it
                     },
-                    placeholder = { Text(StringResource.bookmarkNamePlaceHolder()) },
+                    placeholder = { Text(strings.bookmarkNamePlaceHolder) },
                 )
 
                 OutlinedTextField(
@@ -76,7 +77,7 @@ fun Screen.BookmarkDialog(
                         screenModel.updateUrl(it)
                         url = it
                     },
-                    placeholder = { Text(StringResource.bookmarkUrlPlaceHolder()) },
+                    placeholder = { Text(strings.bookmarkUrlPlaceHolder) },
                 )
 
                 Row(
@@ -86,7 +87,7 @@ fun Screen.BookmarkDialog(
                     Button(
                         onClick = { onClose() },
                     ) {
-                        Text(StringResource.close())
+                        Text(strings.close)
                     }
 
                     Button(
@@ -96,7 +97,7 @@ fun Screen.BookmarkDialog(
                             onApply()
                         },
                     ) {
-                        Text(StringResource.apply())
+                        Text(strings.apply)
                     }
                 }
             }

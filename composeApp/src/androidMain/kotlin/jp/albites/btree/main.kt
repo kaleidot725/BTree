@@ -1,7 +1,6 @@
 package jp.albites.btree
 
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,10 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import jp.albites.btree.util.openUrl
 import jp.albites.btree.view.App
-import org.koin.dsl.module
 
-@Suppress("")
 class AndroidApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        INSTANCE = this
+    }
+
     companion object {
         lateinit var INSTANCE: AndroidApp
     }
@@ -29,17 +31,13 @@ class AppActivity : ComponentActivity() {
         window.navigationBarColor = android.graphics.Color.TRANSPARENT
 
         setContent {
-            Box(
-                modifier = Modifier.navigationBarsPadding()) {
+            Box(modifier = Modifier.navigationBarsPadding()) {
                 App(
                     openUrl = { openUrl(it) },
-                    appendModules = listOf(
-                        module {
-                            single<Context> {
-                                applicationContext
-                            }
-                        }
-                    )
+                    modules = listOf(
+                        appModule,
+                        osModule(applicationContext),
+                    ),
                 )
             }
         }
