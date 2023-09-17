@@ -21,13 +21,13 @@ import jp.albites.btree.util.openUrl
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LicenseCard(
-    license: License
+    license: License,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
     ) {
         Column(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         ) {
             Text(text = license.name, style = MaterialTheme.typography.titleMedium)
             Text(text = license.artifactId, style = MaterialTheme.typography.titleSmall)
@@ -40,16 +40,16 @@ fun LicenseCard(
                             addStyle(
                                 style = SpanStyle(
                                     color = MaterialTheme.colorScheme.primary,
-                                    textDecoration = TextDecoration.Underline
+                                    textDecoration = TextDecoration.Underline,
                                 ),
                                 start = 0,
-                                end = spdxLicense.name.length
+                                end = spdxLicense.name.length,
                             )
                             addStringAnnotation(
                                 tag = spdxLicense.name,
                                 annotation = spdxLicense.url,
                                 start = 0,
-                                end = spdxLicense.name.length
+                                end = spdxLicense.name.length,
                             )
                         },
                         onClick = {

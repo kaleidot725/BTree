@@ -113,7 +113,6 @@ val EnStrings = Strings(
     apply = "Apply",
 )
 
-
 @LyricistStrings(languageTag = JAPANESE_TEXT, default = false)
 val JaStrings = Strings(
     homeTitle = "BTree",

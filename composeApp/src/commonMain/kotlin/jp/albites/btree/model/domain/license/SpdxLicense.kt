@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class SpdxLicense(
     val identifier: String,
     val name: String,
-    val url: String
+    val url: String,
 )

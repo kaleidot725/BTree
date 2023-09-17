@@ -19,7 +19,7 @@ fun MainViewController(): UIViewController {
             App(
                 openUrl = { openUrl(it) },
                 onChangedDarkMode = { setDarkMode(it) },
-                modules = listOf(appModule, osModule)
+                modules = listOf(appModule, osModule),
             )
         }
     }
@@ -63,7 +63,7 @@ private class MainUIViewController : UIViewController {
         addChildViewController(composeViewController)
         rootView.addSubview(composeViewController.view)
         composeViewController.view.setAutoresizingMask(
-            UIViewAutoresizingFlexibleWidth or UIViewAutoresizingFlexibleHeight
+            UIViewAutoresizingFlexibleWidth or UIViewAutoresizingFlexibleHeight,
         )
         view = rootView
         composeViewController.didMoveToParentViewController(this)

@@ -19,7 +19,7 @@ fun main() {
                 modules = listOf(
                     appModule,
                     osModule,
-                )
+                ),
             )
         }
     }
