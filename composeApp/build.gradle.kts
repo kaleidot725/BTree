@@ -1,5 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -90,11 +91,6 @@ kotlin {
     }
 }
 
-licensee {
-    allow("Apache-2.0")
-    allow("MIT")
-}
-
 ktlint {
     version.set("0.49.1")
     verbose.set(true)
@@ -108,6 +104,7 @@ ktlint {
         include(fileTree("scripts/"))
     }
     filter {
+        exclude("build/generated/ksp/metadata/commonMain/kotlin")
         exclude("**/generated/**")
         include("**/kotlin/**")
     }
@@ -152,37 +149,15 @@ compose.desktop {
     }
 }
 
-// -- Lyricist Workaround --
-dependencies {
-    add("kspCommonMainMetadata", libs.lyricist.processor)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    } else {
-        mustRunAfter("runKtlintCheckOverCommonMainSourceSet")
-    }
-}
-
-kotlin.sourceSets.commonMain {
-    kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
-}
-
-// -- Lyricist Workaround --
-
 // -- Licensee --
-tasks.check {
-    dependsOn("composeApp:build")
-    mustRunAfter("composeApp:build")
+licensee {
+    allow("Apache-2.0")
+    allow("MIT")
 }
 
-task("updateLicences") {
-    dependsOn(tasks.check)
+tasks.register("updateLicences") {
     mustRunAfter(tasks.check)
-
     data class FromTo(val from: File, val to: File)
-
     val android = FromTo(
         from = File("composeApp/build/reports/licensee/androidRelease/artifacts.json"),
         to = File("composeApp/src/commonMain/resources/licensee/android/artifacts.json"),
@@ -195,13 +170,30 @@ task("updateLicences") {
         from = File("composeApp/build/reports/licensee/iosArm64/artifacts.json"),
         to = File("composeApp/src/commonMain/resources/licensee/ios/artifacts.json"),
     )
-    val list = listOf(android, desktop, ios)
-    list.forEach { item ->
-        try {
-            item.from.copyTo(item.to, true)
-        } catch (e: Exception) {
-            print("ERROR: $e")
-        }
+    listOf(android, desktop, ios).forEach { item ->
+        item.from.copyTo(item.to, true)
     }
 }
 // -- Licensee --
+
+// -- Lyricist Workaround --
+dependencies {
+    add("kspCommonMainMetadata", libs.lyricist.processor)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+tasks.withType<BaseKtLintCheckTask>().all {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+kotlin.sourceSets.commonMain {
+    kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+}
+// -- Lyricist Workaround --

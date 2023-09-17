@@ -259,3 +259,4 @@ obj/
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,androidstudio,intellij
+composeApp/src/commonMain/resources/licensee/.DS_Store

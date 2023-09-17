@@ -18,7 +18,6 @@ class LanguageScreenModel(
     )
 
     fun selectLanguage(language: Language) {
-
         languageRepository.update(language)
     }
 }

@@ -136,7 +136,7 @@ fun AppTheme(
     colorScheme: ColorScheme,
     content:
     @Composable()
-        () -> Unit,
+    () -> Unit,
 ) {
     MaterialTheme(
         colorScheme = colorScheme,

@@ -9,5 +9,5 @@ data class License(
     val name: String,
     val scm: Scm,
     val spdxLicenses: List<SpdxLicense>,
-    val version: String
+    val version: String,
 )

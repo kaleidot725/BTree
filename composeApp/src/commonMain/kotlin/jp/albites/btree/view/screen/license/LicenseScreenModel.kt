@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LicenseScreenModel(
-    private val licenseRepository: LicenseRepository
+    private val licenseRepository: LicenseRepository,
 ) : ScreenModel {
     private val _state: MutableStateFlow<State> = MutableStateFlow(State())
     val state: StateFlow<State> = _state.asStateFlow()
@@ -24,6 +24,6 @@ class LicenseScreenModel(
 
     data class State(
         val isLoading: Boolean = true,
-        val licenses: List<License> = emptyList()
+        val licenses: List<License> = emptyList(),
     )
 }

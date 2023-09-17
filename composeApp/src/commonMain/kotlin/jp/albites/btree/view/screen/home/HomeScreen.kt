@@ -193,7 +193,6 @@ class HomeScreen(val openUrl: (String) -> Unit) : Screen {
                         targetDirectory = it,
                         onApply = {
                             showDirectoryDialog = false
-
                         },
                         onClose = {
                             showDirectoryDialog = false

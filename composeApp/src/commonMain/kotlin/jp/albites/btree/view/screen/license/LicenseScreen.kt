@@ -3,7 +3,6 @@ package jp.albites.btree.view.screen.theme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
@@ -54,16 +53,16 @@ class LicenseScreen : Screen {
             content = {
                 if (state.isLoading) {
                     Box(
-                        modifier = Modifier.fillMaxSize().padding(it)
+                        modifier = Modifier.fillMaxSize().padding(it),
                     ) {
                         CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.Center)
+                            modifier = Modifier.align(Alignment.Center),
                         )
                     }
                 } else {
                     LazyColumn(
-                        modifier = Modifier.fillMaxSize().padding(it)
-                    ){
+                        modifier = Modifier.fillMaxSize().padding(it),
+                    ) {
                         state.licenses.forEach { license ->
                             item { LicenseCard(license) }
                         }
