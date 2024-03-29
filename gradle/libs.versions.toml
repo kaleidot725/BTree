@@ -1,33 +1,41 @@
 [versions]
 
+kamelImage = "0.7.3"
 kotlin = "1.9.0"
-agp = "8.1.1"
-compose = "1.5.0"
+agp = "8.1.2"
+compose = "1.5.10"
 androidx-appcompat = "1.6.1"
+ktorClientCore = "2.3.5"
 lyricist = "1.4.2"
-multiplatformSettings = "1.0.0"
-voyager = "1.0.0-rc06"
-androidx-activityCompose = "1.7.2"
-compose-uitooling = "1.5.0"
+multiplatformSettings = "1.1.0"
+voyager = "1.0.0-rc08"
+androidx-activityCompose = "1.8.0"
+compose-uitooling = "1.5.3"
 napier = "2.6.1"
 kotlinx-coroutines = "1.7.3"
 koin = "3.4.3"
 koin-compose = "1.0.4"
-kotlinx-serialization = "1.5.1"
-ktlint="11.5.1"
-ksp="1.9.0-1.0.11"
-licensee="1.7.0"
+kotlinx-serialization = "1.6.0"
+ktlint = "11.5.1"
+ksp = "1.9.0-1.0.11"
+licensee = "1.7.0"
 
 [libraries]
 
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientCore" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientCore" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 lyricist = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
 lyricist-processor = { module = "cafe.adriel.lyricist:lyricist-processor", version.ref = "lyricist" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatform-settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
@@ -45,6 +53,6 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint"}
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
-licensee = { id = "app.cash.licensee", version.ref = "licensee"}
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+licensee = { id = "app.cash.licensee", version.ref = "licensee" }
